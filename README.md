@@ -126,5 +126,5 @@ When nesting subspaces, the `root` node will reflect the top most root state. Na
 
 ## Caveats
 
-* You cannot use `root` as a field in your state. It will be replaces with the root of the state tree.  Sorry.
+* You cannot use `root` as a field in your state. It will be replaced with the root of the state tree.  Sorry.
 * We assume you are using redux-thunk if you dispatch a function as an action.  If you're not, please submit a pull request adding compatibility with your middleware of choice, without breaking thunk for us.
