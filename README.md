@@ -20,7 +20,7 @@ Subspace works with global actions by specifying `global: true` in the action. G
 ### In parent component/app
 
 ```
-npm i --save @ioof/redux-subspace
+npm i --save redux-subspace
 ```
 
 Combine component's reducer
@@ -37,7 +37,7 @@ const reducer = combineReducers({ subComponent })
 Wrap sub-component with provider
 
 ```
-import { SubspaceProvider } from '@ioof/redux-subspace'
+import { SubspaceProvider } from 'redux-subspace'
 import { SubComponent } from 'some-dependency'
 
 ...
@@ -84,7 +84,7 @@ To namespace the sub-component both the provider and the reducer need to be name
 #### Provider
 
 ```
-import { SubspaceProvider } from '@ioof/redux-subspace'
+import { SubspaceProvider } from 'redux-subspace'
 import { SubComponent } from 'some-dependency'
 
 ...
@@ -98,7 +98,7 @@ import { SubComponent } from 'some-dependency'
 
 ```
 import { combineReducers } from 'redux'
-import { namespaced } from '@ioof/redux-subspace'
+import { namespaced } from 'redux-subspace'
 import { reducer as subComponent } from 'some-dependency'
 
 ...
