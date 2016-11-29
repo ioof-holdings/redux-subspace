@@ -124,6 +124,10 @@ Any actions dispatched by your thunks are wrapped with the same subspace and nam
 
 When nesting subspaces, the `root` node will reflect the top most root state. Namespaced actions and reducers will be prepended with the parent's namespace, if provided.
 
+## Examples
+
+Example can be found [here](./examples).
+
 ## Caveats
 
 * You cannot use `root` as a field in your state. It will be replaced with the root of the state tree.  Sorry.
