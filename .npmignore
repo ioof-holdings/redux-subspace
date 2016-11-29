@@ -1,4 +1,4 @@
 .git/
 npm-debug.log
 node_modules/
-demo/
+examples/
