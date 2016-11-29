@@ -5,7 +5,7 @@ Redux Subspace Examples
 
 The examples require that the library distribution to already exist.  To create this run the following commands in the root directory:
 
-``
+```
 npm run distribution
 ```
 
