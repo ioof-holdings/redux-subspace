@@ -75,5 +75,13 @@ describe('subState Tests', () => {
             expect(subState).to.deep.equal(['expected'])
             expect(subState.root).to.be.undefined
         })
+
+        it('should raise error if mapState returns undefined', () => {
+            let state = {
+                "key": "wrong"
+            }
+
+            expect(() => getSubState(() => state, state => state.missing)()).to.throw('mapState must not return undefined.')
+        })
     })
 })
