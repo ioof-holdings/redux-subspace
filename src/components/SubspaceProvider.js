@@ -7,7 +7,8 @@
  */
 
 import { Component, PropTypes, Children } from 'react'
-import { getSubState, subStateDispatch, namespacedDispatch } from './subspaceWrappers'
+import { getSubState } from '../utils/subState'
+import { subStateDispatch, namespacedDispatch } from '../utils/dispatch'
 
 export default class SubspaceProvider extends Component {
 
@@ -20,8 +21,7 @@ export default class SubspaceProvider extends Component {
     }
 
     render() {
-        const { children } = this.props
-        return Children.only(children)
+        return Children.only(this.props.children)
     }
 }
 

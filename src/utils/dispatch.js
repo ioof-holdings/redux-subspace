@@ -6,17 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export const getSubState = (getState, mapState) => () => {
-    let rootState = getState();
-    let subState = mapState(rootState)
-
-    if (subState && typeof subState === 'object' && !Array.isArray(subState)) {
-        return { ...mapState(rootState), root: rootState.root || rootState }
-    } else {
-        return subState
-    }
-}
-
 export const subStateDispatch = (dispatch, getState) => {
 
     const wrapDispatch = (localDispatch) => {
@@ -60,19 +49,4 @@ export const namespacedDispatch = (dispatch, getState, namespace) => {
     }
 
     return wrapDispatch(dispatch, getState, namespace)
-}
-
-export const namespacedReducer = (reducer, namespace) => {
-    return (state, action) => {
-        if (typeof state === 'undefined' || action.globalAction) {
-            return reducer(state, action)
-        }
-
-        if (action && action.type && action.type.indexOf(`${namespace}/`) === 0) {
-            let theAction = {...action, type: action.type.substring(namespace.length + 1)}
-            return reducer(state, theAction)
-        }
-
-        return state
-    }
 }

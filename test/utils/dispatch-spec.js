@@ -6,78 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { getSubState, subStateDispatch, namespacedDispatch, namespacedReducer } from '../subspaceWrappers'
+import { subStateDispatch, namespacedDispatch } from '../../src/utils/dispatch'
 
-describe('subspaceWrappers Tests', () => {
-    describe('getSubState Tests', () => {
-        it('should create sub-state', () => {
-            let state = {
-                state1: {
-                    key: 'expected'
-                },
-                state2: {
-                    key: 'wrong'
-                }
-            }
-
-            let subState = getSubState(() => state, state => state.state1)()
-
-            expect(subState.key).to.equal('expected')
-            expect(subState.root).to.equal(state)
-        })
-
-        it('should use existing root node', () => {
-            let state = {
-                state1: {
-                    key: 'expected'
-                },
-                state2: {
-                    key: 'wrong'
-                },
-                root: {
-                    states: {
-                        state1: {
-                            key: 'expected'
-                        },
-                        state2: {
-                            key: 'wrong'
-                        }
-                    }
-                }
-            }
-
-            let subState = getSubState(() => state, state => state.state1)()
-
-            expect(subState.key).to.equal('expected')
-            expect(subState.root).to.equal(state.root)
-        })
-
-        it('should not modify sub-state if primitive value', () => {
-            let state = {
-                state1: 'expected',
-                state2: 'wrong'
-            }
-
-            let subState = getSubState(() => state, state => state.state1)()
-
-            expect(subState).to.equal('expected')
-            expect(subState.root).to.be.undefined
-        })
-
-        it('should not modify sub-state if array value', () => {
-            let state = {
-                state1: ['expected'],
-                state2: ['wrong']
-            }
-
-            let subState = getSubState(() => state, state => state.state1)()
-
-            expect(subState).to.deep.equal(['expected'])
-            expect(subState.root).to.be.undefined
-        })
-    })
-
-    describe('subStateDispatch Tests', () => {
+describe('dispatch Tests', () => {
+    describe('subStateDispatch', () => {
         it('should forward standard action to dispatch', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
@@ -218,7 +150,7 @@ describe('subspaceWrappers Tests', () => {
         })
     })
 
-    describe('namespacedDispatch Tests', () => {
+    describe('namespacedDispatch', () => {
         it('should not wrap dispatch in namespace is not provided', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
@@ -362,44 +294,6 @@ describe('subspaceWrappers Tests', () => {
             namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
 
             expect(dispatch).to.have.been.calledWith(action)
-        })
-    })
-
-    describe('namespacedReducer Tests', () => {
-
-        const initialState = "initial state"
-        const testReducer = (state = initialState, action) => {
-            switch (action.type) {
-                case "CHANGE_STATE":
-                    return action.newValue
-                default:
-                    return state
-            }
-        }
-        const wrappedReducer = namespacedReducer(testReducer, "testing")
-
-        it('should get initial state from wrapped reducer', () => {
-            let action = { type: "INIT" }
-            let newState = wrappedReducer(undefined, action)
-            expect(newState).to.equal('initial state')
-        })
-
-        it('should ignore action without provided namespace', () => {
-            let action = { type: "CHANGE_STATE", newValue: "new state" }
-            let newState = wrappedReducer(initialState, action)
-            expect(newState).to.equal('initial state')
-        })
-
-        it('should forward action with provided namespace', () => {
-            let action = { type: "testing/CHANGE_STATE", newValue: "new state" }
-            let newState = wrappedReducer(initialState, action)
-            expect(newState).to.equal('new state')
-        })
-
-        it('should forward global actions', () => {
-            let action = { type: "CHANGE_STATE", newValue: "new state", globalAction: true }
-            let newState = wrappedReducer(initialState, action)
-            expect(newState).to.equal('new state')
         })
     })
 })

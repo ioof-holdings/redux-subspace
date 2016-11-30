@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { namespacedReducer as namespaced } from './subspaceWrappers'
-import SubspaceProvider from './SubspaceProvider'
+import namespaced from './reducers/namespaced'
+import SubspaceProvider from './components/SubspaceProvider'
 
 export {
     namespaced,
