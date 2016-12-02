@@ -10,9 +10,9 @@
   "license": "BSD",
   "main": "lib/index.js",
   "scripts": {
-    "start": "webpack-dev-server --config demo/webpack.config.js --content-base demo/ --progress --profile --colors --port 8080",
-    "dist": "babel src --out-dir lib --ignore __tests__",
-    "test": "mocha mocha.setup $(find src -path '*-spec.js')"
+    "dist": "babel src --out-dir lib",
+    "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",

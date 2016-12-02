@@ -126,7 +126,7 @@ When nesting subspaces, the `root` node will reflect the top most root state. Na
 
 ## Examples
 
-Example can be found [here](./examples).
+Examples can be found [here](./examples).
 
 ## Caveats
 
