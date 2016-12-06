@@ -3,6 +3,8 @@ Redux Subspace Library
 
 This is a library to create subspaces for Redux connected React components. It's designed to work with Provider from the [react-redux](https://github.com/reactjs/react-redux) bindings.
 
+The MelbJS presentation that launched this library - [Scaling React and Redux at IOOF](http://www.slideshare.net/VivianFarrell/scaling-react-and-redux-at-ioof).
+
 ## What it does
 For a Redux connected React component, SubspaceProvider allows you to present a sub-view of the state to the component, allowing it to be ignorant of parent state structure. This means you can reuse these components in multiple parts of your app, or even multiple applications that have different store structures.
 
