@@ -19,11 +19,11 @@ These are just guidelines, not rules. Use your best judgment, and feel free to p
 
 ### Intention
 
-The intention of redux-subspace is assist in the integration of (micro-frontends)[https://www.thoughtworks.com/radar/techniques/micro-frontends] into larger web applications.
+The intention of redux-subspace is assist in the integration of [micro-frontends](https://www.thoughtworks.com/radar/techniques/micro-frontends) into larger web applications.
 
 ### Terminology
 
-* **Micro-Frontend** - A small piece of functionality embedded into a larger application.
+* **Micro-Frontend** - A small piece of encapsulated functionality embedded into a larger application.
 * **Subspace** - The isolated section of the state tree associated with a micro-frontend.
 * **Parent** - The root application or component integrating the micro-frontend.
 * **Child Component** - An integrated micro-frontend.
@@ -46,7 +46,7 @@ Similarly to the above, the parent is responsible for defining the namespace for
 
 ### Reporting Bugs
 
-Bugs are tracked as [GitHub issues](/issues).  Please check to see if your issue has already been raised before submitting your bug report.
+Bugs are tracked as [GitHub issues](https://github.com/ioof-holdings/redux-subspace/issues).  Please check to see if your issue has already been raised before submitting your bug report.
 
 When submitting a bug report, please include as much information as possible to help contributors to identify the cause of the problem.  The ideal bug report would include:
 
@@ -65,7 +65,7 @@ When submitting a bug report, please include as much information as possible to 
 
 ### Suggesting Enhancements
 
-Enhancements are tracked as [GitHub issues](/issues).  Please check to see if your suggestion has already been made before submitting your suggestion.
+Enhancements are tracked as [GitHub issues](https://github.com/ioof-holdings/redux-subspace/issues).  Please check to see if your suggestion has already been made before submitting your suggestion.
 
 When submitting an enhancement submission, please include as much information as possible to help contributors to understand an implement your idea.  The ideal enhancement suggestion would include:
 
@@ -79,6 +79,6 @@ When submitting an enhancement submission, please include as much information as
 
 ### Pull Requests
 
-If you want to get your hands dirty, please take a look at the [open issues](/issues?q=is%3Aissue%20is%3Aopen) and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in commit message.
+If you want to get your hands dirty, please take a look at the [open issues](https://github.com/ioof-holdings/redux-subspace/issues?q=is%3Aissue%20is%3Aopen) and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in commit message.
 
 Please keep our [key concepts](#key-concepts) in mind when implementing your changes.
