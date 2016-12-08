@@ -19,11 +19,11 @@ These are just guidelines, not rules. Use your best judgment, and feel free to p
 
 ### Intention
 
-The intention of redux-subspace is assist in the integration of [micro-frontends](https://www.thoughtworks.com/radar/techniques/micro-frontends) into larger web applications.
+The intention of redux-subspace is to extend [react-redux Provider](https://github.com/reactjs/react-redux/blob/master/src/components/Provider.js) to support a [micro-frontend](https://www.thoughtworks.com/radar/techniques/micro-frontends) architecture.
 
 ### Terminology
 
-* **Micro-Frontend** - A small piece of encapsulated functionality embedded into a larger application.
+* **Micro-Frontend** - A small piece of a UI, generally an encapsulated piece of business functionality, embedded with a larger single page app.
 * **Subspace** - The isolated section of the state tree associated with a micro-frontend.
 * **Parent** - The root application or component integrating the micro-frontend.
 * **Child Component** - An integrated micro-frontend.
@@ -60,7 +60,7 @@ When submitting a bug report, please include as much information as possible to 
 * **Environment details** such as:
   * Browser(s) you have seen the problem in.
   * Version of redux-subspace you are using.
-  * Which Redux middleware (including version numbers) are being used. 
+  * Which Redux middleware (including version numbers) are being used.
   * What other packages (including version numbers) are being used.
 
 ### Suggesting Enhancements
