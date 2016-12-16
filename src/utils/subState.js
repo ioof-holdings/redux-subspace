@@ -7,7 +7,7 @@
  */
 
 export const getSubState = (getState, mapState) => () => {
-    let rootState = getState();
+    let rootState = getState()
     let subState = mapState(rootState)
 
     if (process.env.NODE_ENV !== 'production') {
@@ -15,7 +15,7 @@ export const getSubState = (getState, mapState) => () => {
     }
 
     if (typeof subState === 'object' && !Array.isArray(subState)) {
-        return { ...mapState(rootState), root: rootState.root || rootState }
+        return { ...subState, root: rootState.root || rootState }
     } else {
         return subState
     }
