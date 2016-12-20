@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Micro library to create redux stores for sub components",
   "author": "Michael Peyper",
   "contributors": [
