@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { subStateDispatch, namespacedDispatch } from '../../src/utils/dispatch'
+import { subStateDispatch } from '../../src/utils/dispatch'
 
 describe('dispatch Tests', () => {
     describe('subStateDispatch', () => {
@@ -151,17 +151,11 @@ describe('dispatch Tests', () => {
     })
 
     describe('namespacedDispatch', () => {
-        it('should not wrap dispatch in namespace is not provided', () => {
-            let dispatch = sinon.spy()
-            let state = { value: "test" }
-            expect(namespacedDispatch(dispatch, () => state, undefined)).to.be.undefined
-        })
-
         it('should wrap dispatch in namespace', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
             let action = { type: "testAction" }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             expect(dispatch).to.have.been.calledWithMatch({ type: "customNamespace/testAction" })
         })
@@ -174,7 +168,7 @@ describe('dispatch Tests', () => {
                 let innerAction = { type: "testAction" }
                 thunkDispatch(innerAction)
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk = dispatch.getCall(0).args[0]
 
@@ -193,7 +187,7 @@ describe('dispatch Tests', () => {
                 }
                 thunk1Dispatch(innerAction)
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk1 = dispatch.getCall(0).args[0]
 
@@ -214,7 +208,7 @@ describe('dispatch Tests', () => {
                 let innerAction = { type: "testAction", value: thunkGetState().value }
                 thunkDispatch(innerAction)
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk = dispatch.getCall(0).args[0]
 
@@ -233,7 +227,7 @@ describe('dispatch Tests', () => {
                 }
                 thunk1Dispatch(innerAction)
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk1 = dispatch.getCall(0).args[0]
 
@@ -254,7 +248,7 @@ describe('dispatch Tests', () => {
             let action = (thunkDispatch, thunkGetState, arg) => {
                 additionalParameter = arg
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk = dispatch.getCall(0).args[0]
 
@@ -274,7 +268,7 @@ describe('dispatch Tests', () => {
                 }
                 thunk1Dispatch(innerAction)
             }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             let thunk1 = dispatch.getCall(0).args[0]
 
@@ -291,7 +285,7 @@ describe('dispatch Tests', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
             let action = { value: "I have no type!" }
-            namespacedDispatch(dispatch, () => state, 'customNamespace')(action)
+            subStateDispatch(dispatch, () => state, 'customNamespace')(action)
 
             expect(dispatch).to.have.been.calledWith(action)
         })

@@ -6,47 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export const subStateDispatch = (dispatch, getState) => {
-
-    const wrapDispatch = (localDispatch) => {
-        return action => {
-            if (typeof action === 'function') {
-                // assumes thunk
-                let thunk = (rootDispatch, rootGetState, ...args) => {
-                    let wrappedDispatch = wrapDispatch(localDispatch, getState)
-                    return action(wrappedDispatch, getState, ...args)
-                }
-                return localDispatch(thunk)
-            } else {
-                return localDispatch(action)
+export const subStateDispatch = (dispatch, getState, namespace) => {
+    return action => {
+        if (namespace && action.type && !action.globalAction) {
+            action = { ...action, type: `${namespace}/${action.type}` }
+        } else if (typeof action === 'function') {
+            let thunk = action // assumes thunk
+            action = (rootDispatch, rootGetState, ...args) => {
+                let wrappedDispatch = subStateDispatch(dispatch, getState, namespace)
+                return thunk(wrappedDispatch, getState, ...args)
             }
         }
+
+        return dispatch(action)
     }
-
-    return wrapDispatch(dispatch, getState)
-}
-
-export const namespacedDispatch = (dispatch, getState, namespace) => {
-    if (!namespace)
-        return;
-
-    const wrapDispatch = (localDispatch) => {
-        return action => {
-            if (action.type && !action.globalAction) {
-                let namespacedAction = { ...action, type: `${namespace}/${action.type}` }
-                return localDispatch(namespacedAction)
-            } else if (typeof action === 'function') {
-                // assumes thunk
-                let thunk = (rootDispatch, rootGetState, ...args) => {
-                    let wrappedDispatch = wrapDispatch(localDispatch, getState, namespace)
-                    return action(wrappedDispatch, getState, ...args)
-                }
-                return localDispatch(thunk)
-            } else {
-                return localDispatch(action)
-            }
-        }
-    }
-
-    return wrapDispatch(dispatch, getState, namespace)
 }
