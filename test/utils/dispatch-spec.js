@@ -9,7 +9,7 @@
 import { subStateDispatch } from '../../src/utils/dispatch'
 
 describe('dispatch Tests', () => {
-    describe('subStateDispatch', () => {
+    describe('subStateDispatch no namespace', () => {
         it('should forward standard action to dispatch', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
@@ -150,7 +150,7 @@ describe('dispatch Tests', () => {
         })
     })
 
-    describe('namespacedDispatch', () => {
+    describe('subStateDispatch with namespaced', () => {
         it('should wrap dispatch in namespace', () => {
             let dispatch = sinon.spy()
             let state = { value: "test" }
