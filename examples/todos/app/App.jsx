@@ -2,7 +2,7 @@ import React from 'react'
 import { SubspaceProvider } from '../../../lib'
 import { TodoApp } from '../todoApp'
 
-export default props => {
+const App = () => {
     return (
         <div>
             <h2>To-Do List</h2>
@@ -16,3 +16,5 @@ export default props => {
         </div>
     )
 }
+
+export default App

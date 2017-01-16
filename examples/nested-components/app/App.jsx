@@ -2,7 +2,7 @@ import React from 'react'
 import { SubspaceProvider } from '../../../lib'
 import { Component } from '../component1'
 
-export default props => {
+const App = () => {
     return (
         <div>
             <h2>Nested Components</h2>
@@ -12,3 +12,5 @@ export default props => {
         </div>
     )
 }
+
+export default App

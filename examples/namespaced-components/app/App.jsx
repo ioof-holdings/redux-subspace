@@ -2,7 +2,7 @@ import React from 'react'
 import { SubspaceProvider } from '../../../lib'
 import { Component } from '../component'
 
-export default props => {
+const App = () => {
     return (
         <div>
             <h2>Namespaced Components</h2>
@@ -15,3 +15,5 @@ export default props => {
         </div>
     )
 }
+
+export default App

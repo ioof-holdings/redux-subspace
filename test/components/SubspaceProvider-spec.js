@@ -35,6 +35,6 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>");
+        expect(testComponent.html()).to.equal("<p>expected</p>")
     })
 })
