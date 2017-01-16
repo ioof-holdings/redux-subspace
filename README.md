@@ -77,6 +77,17 @@ const mapStateToProps = state => {
 
 An additional `root` node is added to the state which will reflect the root state.
 
+#### Higher-Order Component
+
+The `subspaced` HOC can be used to wrap components you do not want to directly wrap in `jsx`.  An [example](./examples/react-router/index.jsx) of when this might be useful is when setting `Route` components for `react-router`.
+
+```
+import { subspaced } from 'redux-subspace'
+import { SubComponent } from 'some-dependency'
+
+const SubspacedSubComponent = subspaced(state => state.subComponent)(SubComponent)
+```
+
 ### Namespacing
 
 Namespacing sub-components allows multiple instances of the component to exist on the same page, without the actions affecting each other's state.
@@ -116,6 +127,17 @@ Occasionally you may have actions that need to go beyond your small view of the 
 const globalActionCreator = globalValue => {
     return { type = "GLOBAL_ACTION", globalValue, globalAction: true }
 }
+```
+
+#### Higher-Order Component
+
+The `subspaced` HOC also supports namespacing.
+
+```
+import { subspaced } from 'redux-subspace'
+import { SubComponent } from 'some-dependency'
+
+const SubspacedSubComponent = subspaced(state => state.subComponent, 'myComponent')(SubComponent)
 ```
 
 ### Thunks
