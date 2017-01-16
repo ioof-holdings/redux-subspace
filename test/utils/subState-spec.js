@@ -84,5 +84,23 @@ describe('subState Tests', () => {
             expect(() => getSubState(() => state, state => state.missing)())
                 .to.throw('mapState must not return undefined.')
         })
+
+        it('should not raise error if mapState returns undefined in production', () => {
+            let nodeEnv = process.env.NODE_ENV
+
+            try {
+                process.env.NODE_ENV = 'production'
+
+                let state = {
+                    "key": "wrong"
+                }
+
+                let subState = getSubState(() => state, state => state.missing)()
+
+                expect(subState).to.be.undefined
+            } finally {
+                process.env.NODE_ENV = nodeEnv
+            }
+        })
     })
 })
