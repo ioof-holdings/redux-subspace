@@ -80,7 +80,7 @@ describe('dispatch Tests', () => {
             let dispatch = sinon.spy()
             let rootState = { parent: { value: "test" }, value: "wrong" }
             let state = { value: "test" }
-            let action = (thunk1Dispatch, thunk1GetState) => {
+            let action = (thunk1Dispatch) => {
                 let innerAction = (thunk2Dispatch, thunk2GetState) => {
                     thunk2Dispatch({ type: "testAction", value: thunk2GetState().value })
                 }
@@ -121,7 +121,7 @@ describe('dispatch Tests', () => {
             let rootState = { parent: { value: "ignored" }, value: "ignored" }
             let state = { value: "ignored" }
             let additionalParameter
-            let action = (thunk1Dispatch, thunk1GetState, arg1) => {
+            let action = (thunk1Dispatch) => {
                 let innerAction = (thunk2Dispatch, thunk2GetState, arg2) => {
                     additionalParameter = arg2
                 }
@@ -221,7 +221,7 @@ describe('dispatch Tests', () => {
             let dispatch = sinon.spy()
             let rootState = { parent: { value: "test" }, value: "wrong" }
             let state = { value: "test" }
-            let action = (thunk1Dispatch, thunk1GetState) => {
+            let action = (thunk1Dispatch) => {
                 let innerAction = (thunk2Dispatch, thunk2GetState) => {
                     thunk2Dispatch({ type: "testAction", value: thunk2GetState().value })
                 }
@@ -262,7 +262,7 @@ describe('dispatch Tests', () => {
             let rootState = { parent: { value: "ignored" }, value: "ignored" }
             let state = { value: "ignored" }
             let additionalParameter
-            let action = (thunk1Dispatch, thunk1GetState, arg1) => {
+            let action = (thunk1Dispatch) => {
                 let innerAction = (thunk2Dispatch, thunk2GetState, arg2) => {
                     additionalParameter = arg2
                 }

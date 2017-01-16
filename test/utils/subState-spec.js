@@ -81,7 +81,8 @@ describe('subState Tests', () => {
                 "key": "wrong"
             }
 
-            expect(() => getSubState(() => state, state => state.missing)()).to.throw('mapState must not return undefined.')
+            expect(() => getSubState(() => state, state => state.missing)())
+                .to.throw('mapState must not return undefined.')
         })
     })
 })

@@ -3,7 +3,7 @@ import { SubspaceProvider } from '../../../lib'
 import { Component } from '../component'
 import { ResetButton } from '../resetButton'
 
-export default props => {
+const App = () => {
     return (
         <div>
             <h2>Global Actions</h2>
@@ -19,3 +19,5 @@ export default props => {
         </div>
     )
 }
+
+export default App
