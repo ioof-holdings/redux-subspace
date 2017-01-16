@@ -9,10 +9,14 @@
 import React from 'react'
 import SubspaceProvider from './SubspaceProvider'
 
-export default (mapState, namespace = undefined) => (component) => (props) => {
-    return (
-        <SubspaceProvider mapState={mapState} namespace={namespace}>
-            {React.createElement(component, props)}
-        </SubspaceProvider>
-    )
+export default (mapState, namespace = undefined) => (Component) => {
+    const SubspacedComponent = (props) => {
+        return (
+            <SubspaceProvider mapState={mapState} namespace={namespace}>
+                <Component {...props} />
+            </SubspaceProvider>
+        )
+    }
+
+    return SubspacedComponent
 }

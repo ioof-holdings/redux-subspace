@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js --progress --profile --colors --port 8080 --history-api-fallback"
+  },
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^3.0.1",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

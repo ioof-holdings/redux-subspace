@@ -16,7 +16,9 @@ import subspaced from '../../src/components/subspaced'
 describe('subspaced Tests', () => {
 
     it('should render subspaced component', () => {
-        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
+        const TestComponent = connect(state => { return { value: state.value } })(props => (
+            <p>{props.value}</p>
+        ))
         const SubspacedComponent = subspaced(state => state.subState)(TestComponent)
 
         let state = {
@@ -34,11 +36,13 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>");
+        expect(testComponent.html()).to.equal("<p>expected</p>")
     })
 
     it('should render subspaced component with props', () => {
-        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value} - {props.otherValue}</p>)
+        const TestComponent = connect(state => { return { value: state.value } })(props => (
+            <p>{props.value} - {props.otherValue}</p>
+        ))
         const SubspacedComponent = subspaced(state => state.subState, "test")(TestComponent)
 
         let state = {
@@ -56,6 +60,6 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected - something else</p>");
+        expect(testComponent.html()).to.equal("<p>expected - something else</p>")
     })
 })
