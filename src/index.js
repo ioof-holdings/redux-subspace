@@ -6,11 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { asGlobal, GlobalActions } from './actions/GlobalActions'
 import namespaced from './reducers/namespaced'
 import subspaced from './components/subspaced'
 import SubspaceProvider from './components/SubspaceProvider'
 
 export {
+    asGlobal,
+    GlobalActions,
     namespaced,
     subspaced,
     SubspaceProvider

@@ -121,13 +121,33 @@ const reducer = combineReducers({ subComponent: namespaced(subComponent, 'myComp
 
 #### Global Actions
 
-Occasionally you may have actions that need to go beyond your small view of the world.  Adding `globalAction: true` to your action will tell the `SubspaceProvider` to not prepend the namespace and `namespaced` to not exclude it from the reducer.
+Occasionally you may have actions that need to go beyond your small view of the world.  
+
+If you have control over the action creator, passing your action to the `asGlobal` function before it is dispatched will ensure your action does not get namespaced.
 
 ```
+import { asGlobal } from 'redux-subspace'
+
 const globalActionCreator = globalValue => {
-    return { type = "GLOBAL_ACTION", globalValue, globalAction: true }
+    return asGlobal({ type = "GLOBAL_ACTION", globalValue})
 }
 ```
+
+This method gives you more control over if and when an action should be treated as global.
+
+To exclude all instances of an action type from namespacing, the `GlobalActions.register` function can be used.
+
+```
+import { GlobalActions } from 'redux-subspace'
+
+GlobalActions.register("GLOBAL_ACTION")
+
+const globalActionCreator = globalValue => {
+    return { type = "GLOBAL_ACTION", globalValue}
+}
+```
+
+This is particularly useful when using actionsCreators of dependencies that are unaware that they are being dispatched within a namespaced subspace, such as the navigation actions from [react-router-redux](https://github.com/reactjs/react-router-redux) (see our [example](./examples/react-router-redux/index.jsx) for more details).
 
 #### Higher-Order Component
 
