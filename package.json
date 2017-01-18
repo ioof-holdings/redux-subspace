@@ -14,7 +14,8 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "nyc --reporter=text --reporter=lcov mocha --compilers js:babel-register --recursive --require ./test/setup.js",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run dist"
   },
   "repository": {
     "type": "git",
