@@ -6,9 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { GlobalActions } from '../actions/GlobalActions'
+
 export default (reducer, namespace) => {
     return (state, action) => {
-        if (typeof state === 'undefined' || action.globalAction) {
+        if (typeof state === 'undefined' || GlobalActions.isGlobal(action)) {
             return reducer(state, action)
         }
 

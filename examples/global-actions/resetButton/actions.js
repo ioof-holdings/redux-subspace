@@ -1,3 +1,5 @@
+import { asGlobal } from '../../../lib'
+
 export const reset = () => {
-    return {type: "RESET", globalAction: true}
+    return asGlobal({type: "RESET"})
 }

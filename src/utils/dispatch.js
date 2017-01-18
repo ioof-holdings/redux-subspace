@@ -6,9 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { GlobalActions } from '../actions/GlobalActions'
+
 export const subStateDispatch = (dispatch, getState, namespace) => {
     return action => {
-        if (namespace && action.type && !action.globalAction) {
+        if (namespace && action.type && !GlobalActions.isGlobal(action)) {
             action = { ...action, type: `${namespace}/${action.type}` }
         } else if (typeof action === 'function') {
             let thunk = action // assumes thunk
