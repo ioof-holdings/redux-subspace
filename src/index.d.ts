@@ -9,7 +9,7 @@ interface GlobalActionsRegister {
     isGlobal(action: Redux.Action): boolean;
 }
 
-export function makeGlobal(action: Redux.Action): Redux.Action;
+export function asGlobal(action: Redux.Action): Redux.Action ;
 
 export const GlobalActions: GlobalActionsRegister
 
