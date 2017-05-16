@@ -52,6 +52,48 @@ describe('subState Tests', () => {
             expect(subState.root).to.equal(state.root)
         })
 
+        it('should provide parent state as root state when mapping', () => {
+            let state = {
+                state1: {
+                    key1: 1
+                },
+                state2: {
+                    key2: 2
+                }
+            }
+
+            let subState = getSubState(() => state, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
+
+            expect(subState.key1).to.equal(1)
+            expect(subState.key2).to.equal(2)
+            expect(subState.root).to.equal(state)
+        })
+
+        it('should provide root state as root state when mapping', () => {
+            let state = {
+                state1: {
+                    key1: 1
+                },
+                state2: {
+                    key2: 2
+                },
+                root: {
+                    state1: {
+                        key1: 3
+                    },
+                    state2: {
+                        key2: 4
+                    }
+                }
+            }
+
+            let subState = getSubState(() => state, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
+
+            expect(subState.key1).to.equal(1)
+            expect(subState.key2).to.equal(4)
+            expect(subState.root).to.equal(state.root)
+        })
+
         it('should not modify sub-state if primitive value', () => {
             let state = {
                 state1: 'expected',

@@ -10,8 +10,6 @@ For a Redux connected React component, SubspaceProvider allows you to present a 
 
 Actions dispatched from components can be automatically namespaced to prevent them from being picked up by unrelated reducers that inadvertently use the same action types. Actions dispatched inside thunks executed by Redux-thunk middleware will be automatically namespaced.
 
-Subspace works with global actions by specifying `global: true` in the action. Global actions will not be namespaced, allowing them to be picked up by other components' reducers.
-
 ## Use this library if...
   * You are using a single global Redux store, but would like to create decoupled and sharable Redux components.
   * You want actions dispatched from these components to not be picked up by reducers in other components (i.e. avoid action cross talk).
@@ -45,6 +43,14 @@ import { SubComponent } from 'some-dependency'
 ...
 
 <SubspaceProvider mapState={state => state.subComponent}>
+    <SubComponent />
+</SubspaceProvider>
+```
+
+The root state of the store is also provided as a second parameter to `mapState` as well.  This can be useful for accessing global in nested components (e.g. configuration).
+
+```
+<SubspaceProvider mapState={(state, rootState) => ({ ...state.subComponent, configuration: rootState.configuration })>
     <SubComponent />
 </SubspaceProvider>
 ```

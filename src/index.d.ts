@@ -23,7 +23,7 @@ export function namespaced<S>(state: Redux.Reducer<S>, namespace: string): Redux
  */
 
 interface MapState{
-    <TParentState>(state: TParentState): any;
+    <TParentState, TRootState>(state: TParentState, rootState: TRootState): any;
 }
 
 interface ComponentDecorator {

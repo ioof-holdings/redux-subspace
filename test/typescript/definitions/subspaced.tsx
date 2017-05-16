@@ -9,6 +9,10 @@ class ParentState {
     child: ChildState
 }
 
+class RootState {
+    parent: ParentState
+}
+
 class TestProps {
     value: string
 }
@@ -26,6 +30,11 @@ const NamespacedStandardComponent = subspaced((state: ParentState) => state.chil
 const SubspacedStatelessComponent = subspaced((state: ParentState) => state.child)(StatelessComponent)
 const NamespacedStatelessComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StatelessComponent)
 
+const SubspacedStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StandardComponent)
+const NamespacedStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StandardComponent)
+const SubspacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StatelessComponent)
+const NamespacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StatelessComponent)
+
 const Rendered: React.StatelessComponent<void> = () => {
     return (
         <div>
@@ -33,6 +42,10 @@ const Rendered: React.StatelessComponent<void> = () => {
             <NamespacedStandardComponent value="test" />
             <SubspacedStatelessComponent value="test" />
             <NamespacedStatelessComponent value="test" />
+            <SubspacedStandardComponentWithRoot value="test" />
+            <NamespacedStandardComponentWithRoot value="test" />
+            <SubspacedStatelessComponentWithRoot value="test" />
+            <NamespacedStatelessComponentWithRoot value="test" />
         </div>
     )
 }
