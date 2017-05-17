@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, PropTypes, Children } from 'react'
+import { Component, Children } from 'react'
+import PropTypes from 'prop-types'
 import { getSubState } from '../utils/subState'
 import { subStateDispatch } from '../utils/dispatch'
 
