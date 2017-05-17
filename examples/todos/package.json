@@ -3,6 +3,7 @@
     "start": "webpack-dev-server --config webpack.config.js --progress --profile --colors --port 8080"
   },
   "dependencies": {
+    "prop-types": "^15.5.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
