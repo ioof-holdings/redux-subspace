@@ -20,7 +20,9 @@ describe('subState Tests', () => {
                 }
             }
 
-            let subState = getSubState(() => state, state => state.state1)()
+            let rootState = state
+
+            let subState = getSubState(() => state, () => rootState, state => state.state1)()
 
             expect(subState.key).to.equal('expected')
             expect(subState.root).to.equal(state)
@@ -33,9 +35,11 @@ describe('subState Tests', () => {
                 },
                 state2: {
                     key: 'wrong'
-                },
-                root: {
-                    states: {
+                }
+            }
+
+            let rootState = {
+                states: {
                         state1: {
                             key: 'expected'
                         },
@@ -43,13 +47,12 @@ describe('subState Tests', () => {
                             key: 'wrong'
                         }
                     }
-                }
             }
 
-            let subState = getSubState(() => state, state => state.state1)()
+            let subState = getSubState(() => state, () => rootState, state => state.state1)()
 
             expect(subState.key).to.equal('expected')
-            expect(subState.root).to.equal(state.root)
+            expect(subState.root).to.equal(rootState)
         })
 
         it('should provide parent state as root state when mapping', () => {
@@ -62,7 +65,9 @@ describe('subState Tests', () => {
                 }
             }
 
-            let subState = getSubState(() => state, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
+            let rootState = state
+
+            let subState = getSubState(() => state, () => rootState, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
 
             expect(subState.key1).to.equal(1)
             expect(subState.key2).to.equal(2)
@@ -76,8 +81,10 @@ describe('subState Tests', () => {
                 },
                 state2: {
                     key2: 2
-                },
-                root: {
+                }
+            }
+
+            let rootState = {
                     state1: {
                         key1: 3
                     },
@@ -85,13 +92,12 @@ describe('subState Tests', () => {
                         key2: 4
                     }
                 }
-            }
 
-            let subState = getSubState(() => state, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
+            let subState = getSubState(() => state, () => rootState, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
 
             expect(subState.key1).to.equal(1)
             expect(subState.key2).to.equal(4)
-            expect(subState.root).to.equal(state.root)
+            expect(subState.root).to.equal(rootState)
         })
 
         it('should not modify sub-state if primitive value', () => {
@@ -100,7 +106,9 @@ describe('subState Tests', () => {
                 state2: 'wrong'
             }
 
-            let subState = getSubState(() => state, state => state.state1)()
+            let rootState = state
+
+            let subState = getSubState(() => state, () => rootState, state => state.state1)()
 
             expect(subState).to.equal('expected')
             expect(subState.root).to.be.undefined
@@ -112,7 +120,9 @@ describe('subState Tests', () => {
                 state2: ['wrong']
             }
 
-            let subState = getSubState(() => state, state => state.state1)()
+            let rootState = state
+
+            let subState = getSubState(() => state, () => rootState, state => state.state1)()
 
             expect(subState).to.deep.equal(['expected'])
             expect(subState.root).to.be.undefined
@@ -123,7 +133,9 @@ describe('subState Tests', () => {
                 "key": "wrong"
             }
 
-            expect(() => getSubState(() => state, state => state.missing)())
+            let rootState = state
+
+            expect(() => getSubState(() => state, () => rootState, state => state.missing)())
                 .to.throw('mapState must not return undefined.')
         })
 
@@ -137,7 +149,9 @@ describe('subState Tests', () => {
                     "key": "wrong"
                 }
 
-                let subState = getSubState(() => state, state => state.missing)()
+                let rootState = state
+
+                let subState = getSubState(() => state, () => rootState, state => state.missing)()
 
                 expect(subState).to.be.undefined
             } finally {
