@@ -85,7 +85,7 @@ describe('SubspaceProvider Tests', () => {
         expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
     })
 
-    it('should render child component with substate using root state', () => {
+    it('should render nested child component with substate using root state', () => {
         let state = {
             subState: {
                 subSubState: {
