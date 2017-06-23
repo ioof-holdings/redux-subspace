@@ -14,10 +14,10 @@ import { subStateDispatch } from '../utils/dispatch'
 export default class SubspaceProvider extends Component {
 
     getChildContext() {
-        let parentStore = this.context.store
-        let rootStore = parentStore.rootStore || parentStore
-        let getState = getSubState(parentStore.getState, rootStore.getState, this.props.mapState)
-        let dispatch = subStateDispatch(parentStore.dispatch, getState, this.props.namespace)
+        const parentStore = this.context.store
+        const rootStore = parentStore.rootStore || parentStore
+        const getState = getSubState(parentStore.getState, rootStore.getState, this.props.mapState)
+        const dispatch = subStateDispatch(parentStore.dispatch, getState, this.props.namespace)
 
         return { store: { ...parentStore, getState, dispatch, rootStore } }
     }
