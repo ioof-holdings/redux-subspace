@@ -37,4 +37,77 @@ describe('SubspaceProvider Tests', () => {
 
         expect(testComponent.html()).to.equal("<p>expected</p>")
     })
+
+    it('should render nested child component with substate', () => {
+        let state = {
+            subState: {
+                subSubState: {
+                    value: "expected"
+                },
+                value: "still wrong"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState={state => state.subState}>
+                    <SubspaceProvider mapState={state => state.subSubState}>
+                        <TestComponent />
+                    </SubspaceProvider>
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected</p>")
+    })
+
+    it('should render child component with substate using root state', () => {
+        let state = {
+            subState: {
+                value: "expected 1"
+            },
+            value: "expected 2"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState={(state, rootState) => ({ value: `${state.subState.value} - ${rootState.value}`})}>
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+    })
+
+    it('should render nested child component with substate using root state', () => {
+        let state = {
+            subState: {
+                subSubState: {
+                    value: "expected 1"
+                },
+                value: "wrong"
+            },
+            value: "expected 2"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState={(state) => state.subState}>
+                    <SubspaceProvider mapState={(state, rootState) => ({ value: `${state.subSubState.value} - ${rootState.value}`})}>
+                        <TestComponent />
+                    </SubspaceProvider>
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+    })
 })

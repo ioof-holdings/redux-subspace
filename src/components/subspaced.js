@@ -9,14 +9,21 @@
 import React from 'react'
 import SubspaceProvider from './SubspaceProvider'
 
-export default (mapState, namespace = undefined) => (Component) => {
-    const SubspacedComponent = (props) => {
-        return (
-            <SubspaceProvider mapState={mapState} namespace={namespace}>
-                <Component {...props} />
-            </SubspaceProvider>
-        )
-    }
+export default (mapState, namespace = undefined) => (WrappedComponent) => {
+
+    const wrappedComponentName = WrappedComponent.displayName
+        || WrappedComponent.name
+        || 'Component'
+
+    const displayName = `Subspaced(${wrappedComponentName})`
+
+    const SubspacedComponent = (props) => (
+        <SubspaceProvider mapState={mapState} namespace={namespace}>
+            <WrappedComponent {...props} />
+        </SubspaceProvider>
+    )
+
+    SubspacedComponent.displayName = displayName
 
     return SubspacedComponent
 }

@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export const getSubState = (getState, mapState) => () => {
+export const getSubState = (getState, getRootState, mapState) => () => {
     let parentState = getState()
-    let rootState = parentState.root || parentState
+    let rootState = getRootState()
     let subState = mapState(parentState, rootState)
 
     if (process.env.NODE_ENV !== 'production') {

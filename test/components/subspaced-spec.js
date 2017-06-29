@@ -62,4 +62,57 @@ describe('subspaced Tests', () => {
 
         expect(testComponent.html()).to.equal("<p>expected - something else</p>")
     })
+
+    it('should render subspaced component using root state', () => {
+        const TestComponent = connect(state => { return { value: state.value } })(props => (
+            <p>{props.value}</p>
+        ))
+        const SubspacedComponent = subspaced((state, rootState) => ({ value: `${state.subState.value} - ${rootState.value}`}))(TestComponent)
+
+        let state = {
+            subState: {
+                value: "expected 1"
+            },
+            value: "expected 2"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspacedComponent />
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+    })
+
+    it('should use component display name in display name', () => {
+        class TestComponent extends React.Component {
+            render() {
+                return null;
+            }
+        }
+
+        TestComponent.displayName = 'Connected(TestComponent)'
+
+        const SubspacedComponent = subspaced(state => state)(TestComponent)
+
+        expect(SubspacedComponent.displayName).to.equal("Subspaced(Connected(TestComponent))")
+    })
+
+    it('should use component name in display name', () => {
+        const TestComponent = () => null
+
+        const SubspacedComponent = subspaced(state => state)(TestComponent)
+
+        expect(SubspacedComponent.displayName).to.equal("Subspaced(TestComponent)")
+    })
+
+    it('should use fallback in display name', () => {
+
+        const SubspacedComponent = subspaced(state => state)('div')
+
+        expect(SubspacedComponent.displayName).to.equal("Subspaced(Component)")
+    })
 })
