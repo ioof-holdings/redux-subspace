@@ -17,7 +17,7 @@ class TestProps {
     value: string
 }
 
-class StandardComponent extends React.Component<TestProps, void> {
+class StandardComponent extends React.Component<TestProps> {
     render() {
         return <p>{this.props.value}</p>
     }

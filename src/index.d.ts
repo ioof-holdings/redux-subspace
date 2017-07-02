@@ -22,21 +22,20 @@ export function namespaced<S>(state: Redux.Reducer<S>, namespace: string): Redux
  * Components
  */
 
-interface MapState{
-    <TParentState, TRootState>(state: TParentState, rootState: TRootState): any;
+interface MapState<TParentState, TRootState>{
+    (state: TParentState, rootState?: TRootState): any;
 }
 
 interface ComponentDecorator {
     <TProps, TComponentConstruct extends (React.ComponentClass<TProps> | React.StatelessComponent<TProps>)>(component: TComponentConstruct): TComponentConstruct;
 }
 
-export function subspaced(mapState: MapState): ComponentDecorator;
-export function subspaced(mapState: MapState, namespace: string): ComponentDecorator;
+export function subspaced<TParentState, TRootState>(mapState: MapState<TParentState, TRootState>, namespace?: string): ComponentDecorator;
 
-export interface SubspaceProviderProps {
-    mapState: MapState;
+export interface SubspaceProviderProps<TParentState, TRootState> {
+    mapState: MapState<TParentState, TRootState>;
     namespace?: string;
     children?: React.ReactNode;
 }
 
-export class SubspaceProvider extends React.Component<SubspaceProviderProps, void> { }
+export class SubspaceProvider<TParentState, TRootState> extends React.Component<SubspaceProviderProps<TParentState, TRootState>> { }
