@@ -7,15 +7,11 @@ const logger = (state = {}, action) => {
     return state
 }
 
-function lastAction(state = {}, action) {
-  return action;
-}
-
 const reducer = combineReducers({ 
   logger,
   component1: namespaced(component, "component1"),
   component2: namespaced(component, "component2"),
-  lastAction
+  component3: component,
 })
 
 export { reducer }

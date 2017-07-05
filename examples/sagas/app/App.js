@@ -12,6 +12,9 @@ export default props => {
             <SubspaceProvider mapState={state => state.component2} namespace="component2">
                 <Component />
             </SubspaceProvider>
+            <SubspaceProvider mapState={state => state.component3}>
+                <Component />
+            </SubspaceProvider>
         </div>
     )
 }

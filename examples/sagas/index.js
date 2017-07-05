@@ -4,7 +4,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware, { runSaga } from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
+import { withStore } from '../../src'
 
 import { App, reducer, sagas } from './app'
 
@@ -15,15 +16,7 @@ const store = createStore(reducer, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   ))
 
-runSaga({
-  subscribe: (cb) => {
-    return store.subscribe(() => {
-      cb(store.getState().lastAction);
-    });
-  },
-  dispatch: store.dispatch,
-  getState: store.getState
-}, sagas);
+sagaMiddleware.run(withStore(sagas, store));
 
 render(
     <Provider store={store} >
