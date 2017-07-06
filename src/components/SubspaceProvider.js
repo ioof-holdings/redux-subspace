@@ -8,18 +8,12 @@
 
 import { Component, Children } from 'react'
 import PropTypes from 'prop-types'
-import { getSubState } from '../utils/subState'
-import { subStateDispatch } from '../utils/dispatch'
+import subspaceStore from '../utils/subspaceStore'
 
 export default class SubspaceProvider extends Component {
 
     getChildContext() {
-        const parentStore = this.context.store
-        const rootStore = parentStore.rootStore || parentStore
-        const getState = getSubState(parentStore.getState, rootStore.getState, this.props.mapState)
-        const dispatch = subStateDispatch(parentStore.dispatch, getState, this.props.namespace)
-
-        return { store: { ...parentStore, getState, dispatch, rootStore } }
+        return { store: subspaceStore(this.context.store, this.props.mapState, this.props.namespace) }
     }
 
     render() {
