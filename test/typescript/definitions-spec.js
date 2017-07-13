@@ -1,5 +1,7 @@
 import * as ts from 'typescript'
 import * as tt from 'typescript-definition-tester'
+import path from 'path'
+import fs from 'fs'
 
 describe('TypeScript definitions', function () {
 
@@ -11,13 +13,9 @@ describe('TypeScript definitions', function () {
     jsx: ts.JsxEmit.React
   }
 
-  it('should compile against index.d.ts', (done) => {
-
-    tt.compileDirectory(
-      __dirname + '/definitions',
-      fileName => fileName.match(/\.tsx?$/),
-      options,
-      () => done()
-    )
-  })
+  fs.readdirSync(path.join(__dirname, 'definitions')).forEach((filename) => {
+    it(`should compile ${path.basename(filename, path.extname(filename))} against index.d.ts`, (done) => {
+      tt.compile(path.join(__dirname, 'definitions', filename), options, done)
+    }).timeout(5000)
+  });
 })
