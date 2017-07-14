@@ -7,14 +7,16 @@
     "Jonathan Peyper",
     "Vivian Farrell"
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "dist": "lerna run --parallel dist",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "test:watch": "lerna run --parallell test:watch"
   },
   "repository": {
     "type": "git",
