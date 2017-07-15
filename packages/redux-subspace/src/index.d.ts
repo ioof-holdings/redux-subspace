@@ -16,16 +16,21 @@ export interface MapState<TParentState, TRootState, TSubState>{
     (state: TParentState, rootState?: TRootState): TSubState;
 }
 
-export interface StoreDecorator<TState, TSubState> {
-    (store: Redux.Store<TState>): Redux.Store<TSubState>;
+export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
+    rootStore: Redux.Store<TRootState>;
+    namespace: string;
+}
+
+export interface StoreDecorator<TParentState, TRootState, TSubState> {
+    (store: Redux.Store<TParentState>): Subspace<TSubState, TRootState>;
 }
 
 export interface SubspaceCreator {
-    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): StoreDecorator<TParentState, TSubState>;
-    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState>;
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TSubState>;
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState>;
-    (namespace: string): StoreDecorator<any, any>;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): StoreDecorator<TParentState, any, TSubState>;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, any, TSubState>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TRootState, TSubState>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TRootState, TSubState>;
+    (namespace: string): StoreDecorator<any, any, any>;
 }
 
 export const subspace: SubspaceCreator;

@@ -9,6 +9,16 @@
 import { getSubState } from './subState'
 import { subStateDispatch } from './dispatch'
 
+const resolveNamespace = (parentNamespace = '', namespace) => {
+    if (!namespace) {
+        return parentNamespace
+    } else if (parentNamespace) {
+        return `${parentNamespace}/${namespace}`
+    } else {
+        return namespace
+    }
+} 
+
 const subspace = (mapState, namespace) => {
 
     if (process.env.NODE_ENV !== 'production') {
@@ -24,8 +34,9 @@ const subspace = (mapState, namespace) => {
         const rootStore = store.rootStore || store
         const getState = getSubState(store.getState, rootStore.getState, mapState || ((state) => state[namespace]))
         const dispatch = subStateDispatch(store.dispatch, getState, namespace)
+        const storeNamespace = resolveNamespace(store.namespace, namespace)
 
-        return { ...store, getState, dispatch, rootStore } 
+        return { ...store, getState, dispatch, rootStore, namespace: storeNamespace } 
     }
 }
 

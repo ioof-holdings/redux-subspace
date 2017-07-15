@@ -59,6 +59,39 @@ describe('subspace Tests', () => {
         })
     })
 
+
+    it('should provide root store on subspace', () => {
+        const subspacedStore1 = subspace("child1")(store)
+        const subspacedStore2 = subspace("child2")(subspacedStore1)
+
+        expect(subspacedStore1.rootStore).to.equal(store)
+        expect(subspacedStore2.rootStore).to.equal(store)
+    })
+
+
+    it('should provide full namespace subspace', () => {
+        const subspacedStore1 = subspace("child1")(store)
+        const subspacedStore2 = subspace("child2")(subspacedStore1)
+
+        expect(subspacedStore1.namespace).to.equal('child1')
+        expect(subspacedStore2.namespace).to.equal('child1/child2')
+    })
+
+
+    it('should correctly apply namespace when not provided', () => {
+        const subspacedStore1 = subspace(() => {})(store)
+        const subspacedStore2 = subspace("child2")(subspacedStore1)
+        const subspacedStore3 = subspace(() => {})(subspacedStore2)
+        const subspacedStore4 = subspace("child4")(subspacedStore3)
+        const subspacedStore5 = subspace(() => {})(subspacedStore4)
+
+        expect(subspacedStore1.namespace).to.equal('')
+        expect(subspacedStore2.namespace).to.equal('child2')
+        expect(subspacedStore3.namespace).to.equal('child2')
+        expect(subspacedStore4.namespace).to.equal('child2/child4')
+        expect(subspacedStore5.namespace).to.equal('child2/child4')
+    })
+
     it('should raise error if neither mapState or namespace are provided', () => {
         expect(() => subspace()(store))
             .to.throw('mapState and/or namespace must be defined.')
