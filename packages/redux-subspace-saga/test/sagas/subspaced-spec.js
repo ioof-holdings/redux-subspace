@@ -29,7 +29,7 @@ describe('subspaced Tests', () => {
             yield put({ type: "SET_VALUE", value })
         }
 
-        const subspacedSaga = subspaced(saga, state => state.subState)
+        const subspacedSaga = subspaced(state => state.subState)(saga)
 
         const iterator = subspacedSaga()
 
@@ -56,7 +56,7 @@ describe('subspaced Tests', () => {
             yield put({ type: "SET_VALUE", value })
         }
 
-        const subspacedSaga = subspaced(saga, state => state.subState, "test")
+        const subspacedSaga = subspaced(state => state.subState, "test")(saga)
 
         const iterator = subspacedSaga()
 
@@ -83,7 +83,7 @@ describe('subspaced Tests', () => {
             yield put({ type: "SET_VALUE", value })
         }
 
-        const subspacedSaga = subspaced(saga, state => state.subState, "test")
+        const subspacedSaga = subspaced(state => state.subState, "test")(saga)
 
         const iterator = subspacedSaga()
 
@@ -110,7 +110,7 @@ describe('subspaced Tests', () => {
             yield put(asGlobal({ type: "SET_VALUE", value }))
         }
 
-        const subspacedSaga = subspaced(saga, state => state.subState, "test")
+        const subspacedSaga = subspaced(state => state.subState, "test")(saga)
 
         const iterator = subspacedSaga()
 

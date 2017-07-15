@@ -10,6 +10,7 @@ import { createStore, combineReducers, Reducer, Store } from 'redux'
 import { subspace } from '../../../src'
 
 interface ChildState {
+    value: string
 }
 
 interface ParentState {
@@ -17,6 +18,10 @@ interface ParentState {
 }
 
 interface RootState {
+    parent: ParentState
+}
+
+interface CustomState extends ChildState {
     parent: ParentState
 }
 
@@ -28,8 +33,11 @@ const rootReducer = combineReducers<RootState>({ parent: parentReducer })
 
 const store = createStore(rootReducer)
 
-const subspacedStore: Store<ChildState> = subspace(store, (state) => state.parent)
-const namespacedStore: Store<ChildState> = subspace(store, (state) => state.parent, "parent")
+const subspacedStore: Store<ParentState> = subspace<RootState, ParentState>(store, (state) => state.parent)
+const namespacedStore: Store<ParentState> = subspace<RootState, ParentState>(store, (state) => state.parent, "parent")
 
-const subspacedStoreWithRoot: Store<ParentState> = subspace<ChildState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent)
-const namespacedStoreWithRoot: Store<ParentState> = subspace<ChildState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent, "root")
+const subspacedStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent)
+const namespacedStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent, "root")
+
+const subspacedStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>(subspacedStore, (state, rootState) => ({ ...state.child, parent: rootState.parent }))
+const namespacedStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>(subspacedStore, (state, rootState) => ({ ...state.child, parent: rootState.parent }), "root")

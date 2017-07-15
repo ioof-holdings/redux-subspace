@@ -9,7 +9,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { take, put } from 'redux-saga/effects'
-import { withStore } from '../../../src'
+import { provideStore } from '../../../src'
 
 const reducer = (state = {}) => state
 
@@ -22,6 +22,6 @@ function* saga() {
   yield put({ type: "USE_TEST" })
 }
 
-const sagaWithStore = withStore(saga, store)
+const sagaWithStore = provideStore(store)(saga)
 
 sagaMiddleware.run(sagaWithStore)

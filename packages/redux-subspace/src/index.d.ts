@@ -16,6 +16,7 @@ export interface MapState<TParentState, TRootState, TSubState>{
 }
 
 export interface SubspaceCreator {
+    <TParentState, TSubState>(store: Redux.Store<TParentState>, mapState: MapState<TParentState, any, TSubState>,namespace?: string): Redux.Store<TSubState>;
     <TParentState, TRootState, TSubState>(store: Redux.Store<TParentState>, mapState: MapState<TParentState, TRootState, TSubState>,namespace?: string): Redux.Store<TSubState>;
 }
 

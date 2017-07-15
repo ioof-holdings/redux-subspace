@@ -9,14 +9,19 @@
 import * as Redux from 'redux';
 import { MapState } from 'redux-subspace'
 
-export interface WithStore {
-    <TSaga>(saga: TSaga, store: Redux.Store<any>): TSaga
+export interface SagaDecorator {
+    <TSaga>(saga: TSaga): TSaga;
 }
 
-export const withStore: WithStore
+export interface ProvideStore {
+    (store: Redux.Store<any>): SagaDecorator;
+}
+
+export const provideStore: ProvideStore;
 
 export interface Subspaced {
-    <TSaga, TParentState, TRootState, TSubState>(saga: TSaga, mapState: MapState<TParentState, TRootState, TSubState>, namespace?: string): TSaga;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace?: string): SagaDecorator;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace?: string): SagaDecorator;
 }
 
-export const subspaced: Subspaced
+export const subspaced: Subspaced;

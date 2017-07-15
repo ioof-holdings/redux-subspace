@@ -1,7 +1,15 @@
+/**
+ * Copyright 2016, IOOF Holdings Limited.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { runSaga } from 'redux-saga'
 import { getContext, takeEvery } from 'redux-saga/effects'
 import { subspace, GlobalActions } from 'redux-subspace'
-import withStore from './withStore'
+import provideStore from './provideStore'
 
 const remove = (array, item) => {
   const index = array.indexOf(item)
@@ -31,7 +39,7 @@ const emitter = () => {
     }
 }
 
-function subspaced(saga, mapState, namespace) {
+const subspaced = (mapState, namespace) => (saga) => {
     return function* wrappedSaga() {
         const parentStore = yield getContext('store')
 
@@ -42,7 +50,7 @@ function subspaced(saga, mapState, namespace) {
             subscribe: sagaEmitter.subscribe,
         }
 
-        runSaga(store, withStore(saga, store))
+        runSaga(store, provideStore(store)(saga))
 
         yield takeEvery('*', function* (action) {
             if (!namespace || GlobalActions.isGlobal(action)) {

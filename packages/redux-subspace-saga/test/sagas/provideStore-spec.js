@@ -7,9 +7,9 @@
  */
 
 import { take, put, setContext } from 'redux-saga/effects'
-import withStore from '../../src/sagas/withStore'
+import provideStore from '../../src/sagas/provideStore'
 
-describe('withStore Tests', () => {
+describe('provideStore Tests', () => {
     it('should provide store to saga', () => {
         const store = { getState: "getState", dispatch: "dispatch" }
 
@@ -18,7 +18,7 @@ describe('withStore Tests', () => {
             yield put({ type: "USE_TEST" })
         }
 
-        const sagaWithStore = withStore(saga, store)
+        const sagaWithStore = provideStore(store)(saga)
 
         const iterator = sagaWithStore()
 

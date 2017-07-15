@@ -6,5 +6,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export { default as withStore } from './sagas/withStore'
+export { default as provideStore } from './sagas/provideStore'
 export { default as subspaced } from './sagas/subspaced'
