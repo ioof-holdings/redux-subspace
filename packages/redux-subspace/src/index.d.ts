@@ -24,7 +24,15 @@ export const subspace: SubspaceCreator
 /**
  * Reducers
  */
-export function namespaced<S>(state: Redux.Reducer<S>, namespace: string): Redux.Reducer<S>;
+export interface ReducerDecorator {
+    <TState>(reducer: Redux.Reducer<TState>): Redux.Reducer<TState>;
+}
+
+export interface Namespaced {
+    (namespace: string): ReducerDecorator;
+}
+
+export const namespaced: Namespaced;
 
 /**
  * Actions
@@ -34,7 +42,11 @@ interface GlobalActionsRegister {
     isGlobal(action: Redux.Action): boolean;
 }
 
-export function asGlobal(action: Redux.Action): Redux.Action;
+export interface ActionDecorator {
+    <TAction extends Redux.Action>(action: TAction): TAction;
+}
+
+export const asGlobal: ActionDecorator;
 
 export const GlobalActions: GlobalActionsRegister;
 

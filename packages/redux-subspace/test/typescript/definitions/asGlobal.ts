@@ -11,4 +11,4 @@ import { asGlobal } from '../../../src'
 
 const action = { type: "TEST_ACTION" }
 
-const globalAction = asGlobal(action)
+const globalAction: Action = asGlobal(action)

@@ -19,7 +19,7 @@ describe('namespaced Tests', () => {
                 return state
         }
     }
-    const wrappedReducer = namespaced(testReducer, "testing")
+    const wrappedReducer = namespaced("testing")(testReducer)
 
     it('should get initial state from wrapped reducer', () => {
         let action = { type: "INIT" }

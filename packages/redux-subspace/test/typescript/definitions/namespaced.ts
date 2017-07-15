@@ -6,10 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { Reducer } from 'redux'
 import { namespaced } from '../../../src'
 
 const reducer = (state = "test") => {
     return state
 }
 
-const namespacedReducer = namespaced(reducer, "testNamespace");
+const namespacedReducer: Reducer<string> = namespaced("testNamespace")(reducer);

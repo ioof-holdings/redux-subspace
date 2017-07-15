@@ -8,7 +8,7 @@
 
 import { GlobalActions } from '../actions/GlobalActions'
 
-export default (reducer, namespace) => {
+export default (namespace) => reducer =>  {
     return (state, action) => {
         if (typeof state === 'undefined' || GlobalActions.isGlobal(action)) {
             return reducer(state, action)
