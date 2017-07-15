@@ -37,12 +37,14 @@ function* saga() {
   yield takeEvery("TEST", useTest)
 }
 
-const subspacedSaga = subspaced<ParentState, ChildState>((state) => state.child)(saga)
-const namespacedSaga = subspaced<ParentState, ChildState>((state) => state.child, 'test')(saga)
-const subspacedSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent)(saga)
-const namespacedSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent, "test")(saga)
+const subStateSaga = subspaced<ParentState, ChildState>((state) => state.child)(saga)
+const namespacedSaga = subspaced('test')(saga)
+const subspacedSaga = subspaced<ParentState, ChildState>((state) => state.child, 'test')(saga)
+const subStateSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent)(saga)
+const subspacedSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent, "test")(saga)
 
-sagaMiddleware.run(subspacedSaga)
+sagaMiddleware.run(subStateSaga)
 sagaMiddleware.run(namespacedSaga)
+sagaMiddleware.run(subspacedSaga)
+sagaMiddleware.run(subStateSagaWithRoot)
 sagaMiddleware.run(subspacedSagaWithRoot)
-sagaMiddleware.run(namespacedSagaWithRoot)

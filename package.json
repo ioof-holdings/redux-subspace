@@ -16,7 +16,7 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test",
-    "test:watch": "lerna run --parallell test:watch"
+    "test:watch": "lerna run --parallel test:watch"
   },
   "repository": {
     "type": "git",

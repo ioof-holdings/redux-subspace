@@ -67,6 +67,33 @@ describe('subspaced Tests', () => {
         expect(mockStore.getActions()).to.deep.equal([{ type: "test/SET_VALUE", value: "expected" }])
     })
     
+    it('should use namespace for substate for saga', () => {
+
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        function* saga() {
+            const value = yield select((state) => state.value)
+            yield put({ type: "SET_VALUE", value })
+        }
+
+        const subspacedSaga = subspaced("subState")(saga)
+
+        const iterator = subspacedSaga()
+
+        expect(iterator.next().value).to.deep.equal(getContext('store'))
+        iterator.next(mockStore)
+        expect(iterator.next({ type: "TEST" }).done).to.be.true
+
+        expect(mockStore.getActions()).to.deep.equal([{ type: "subState/SET_VALUE", value: "expected" }])
+    })
+    
     it('should accept global actions for saga', () => {
         
         let state = {

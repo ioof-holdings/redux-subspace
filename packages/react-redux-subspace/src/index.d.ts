@@ -15,15 +15,19 @@ interface ComponentDecorator {
 }
 
 export interface Subspaced {
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace?: string): ComponentDecorator;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): ComponentDecorator;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): ComponentDecorator;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): ComponentDecorator;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): ComponentDecorator;
+    (namespace: string): ComponentDecorator;
 }
 
-export const subspaced: Subspaced
+export const subspaced: Subspaced;
 
 export interface SubspaceProviderProps<TParentState, TRootState, TSubState> {
-    mapState: MapState<TParentState, TRootState, TSubState>;
+    children: React.ReactNode;
+    mapState?: MapState<TParentState, TRootState, TSubState>;
     namespace?: string;
-    children?: React.ReactNode;
 }
 
 export class SubspaceProvider<TParentState, TRootState, TSubState> extends React.Component<SubspaceProviderProps<TParentState, TRootState, TSubState>> { }

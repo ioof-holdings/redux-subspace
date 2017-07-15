@@ -39,6 +39,30 @@ describe('subspaced Tests', () => {
         expect(testComponent.html()).to.equal("<p>expected</p>")
     })
 
+    it('should render subspaced using namespace for substate', () => {
+        const TestComponent = connect(state => { return { value: state.value } })(props => (
+            <p>{props.value}</p>
+        ))
+        const SubspacedComponent = subspaced("subState")(TestComponent)
+
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspacedComponent />
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected</p>")
+    })
+
     it('should render subspaced component with props', () => {
         const TestComponent = connect(state => { return { value: state.value } })(props => (
             <p>{props.value} - {props.otherValue}</p>

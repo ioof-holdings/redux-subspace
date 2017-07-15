@@ -6,14 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, Children } from 'react'
+import React, { Children } from 'react'
 import PropTypes from 'prop-types'
 import { subspace }  from 'redux-subspace'
 
-export default class SubspaceProvider extends Component {
+class SubspaceProvider extends React.PureComponent {
 
     getChildContext() {
-        return { store: subspace(this.context.store, this.props.mapState, this.props.namespace) }
+        const makeSubspaceDecorator = (props) => props.subspaceDecorator || subspace(props.mapState, props.namespace)
+
+        return { 
+            store: makeSubspaceDecorator(this.props)(this.context.store) 
+        }
     }
 
     render() {
@@ -22,15 +26,18 @@ export default class SubspaceProvider extends Component {
 }
 
 SubspaceProvider.propTypes = {
-    mapState: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired,
-    namespace: PropTypes.string
+    mapState: PropTypes.func,
+    namespace: PropTypes.string,
+    subspaceDecorator: PropTypes.func,
 }
 
 SubspaceProvider.contextTypes = {
-    store: PropTypes.object
+    store: PropTypes.object.isRequired
 }
 
 SubspaceProvider.childContextTypes = {
     store: PropTypes.object
 }
+
+export default SubspaceProvider

@@ -7,23 +7,31 @@
  */
 
 import React from 'react'
+import { subspace } from 'redux-subspace'
 import SubspaceProvider from './SubspaceProvider'
 
-export default (mapState, namespace = undefined) => (WrappedComponent) => {
+const subspaced = (mapState, namespace) => {
 
-    const wrappedComponentName = WrappedComponent.displayName
-        || WrappedComponent.name
-        || 'Component'
+    const subspaceDecorator = subspace(mapState, namespace)
 
-    const displayName = `Subspaced(${wrappedComponentName})`
+    return (WrappedComponent) => {
 
-    const SubspacedComponent = (props) => (
-        <SubspaceProvider mapState={mapState} namespace={namespace}>
-            <WrappedComponent {...props} />
-        </SubspaceProvider>
-    )
+        const wrappedComponentName = WrappedComponent.displayName
+            || WrappedComponent.name
+            || 'Component'
 
-    SubspacedComponent.displayName = displayName
+        const displayName = `Subspaced(${wrappedComponentName})`
 
-    return SubspacedComponent
+        const SubspacedComponent = (props) => (
+            <SubspaceProvider subspaceDecorator={subspaceDecorator}>
+                <WrappedComponent {...props} />
+            </SubspaceProvider>
+        )
+
+        SubspacedComponent.displayName = displayName
+
+        return SubspacedComponent
+    }
 }
+
+export default subspaced

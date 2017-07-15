@@ -6,19 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { asGlobal, GlobalActions } from './actions/GlobalActions'
-import namespaced from './reducers/namespaced'
-import subspaced from './components/subspaced'
-import SubspaceProvider from './components/SubspaceProvider'
-import withStore from './sagas/withStore'
-import subspacedSagas from './sagas/subspacedSagas'
-
-export {
-    asGlobal,
-    GlobalActions,
-    namespaced,
-    subspaced,
-    SubspaceProvider,
-    withStore,
-    subspacedSagas
-}
+export { asGlobal, GlobalActions } from './actions/GlobalActions'
+export { default as namespaced } from './reducers/namespaced'
+export { default as subspaced } from './components/subspaced'
+export { default as SubspaceProvider } from './components/SubspaceProvider'
+export { default as withStore } from './sagas/withStore'
+export { default as subspacedSagas } from './sagas/subspacedSagas'

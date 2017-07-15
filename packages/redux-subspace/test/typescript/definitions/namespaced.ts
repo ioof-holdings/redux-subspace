@@ -13,4 +13,4 @@ const reducer = (state = "test") => {
     return state
 }
 
-const namespacedReducer: Reducer<string> = namespaced("testNamespace")(reducer);
+const namespacedReducer: Reducer<string> = namespaced("testNamespace")(reducer)

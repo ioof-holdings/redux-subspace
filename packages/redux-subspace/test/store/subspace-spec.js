@@ -16,21 +16,65 @@ describe('subspace Tests', () => {
     const dispatch = sinon.spy()
     store.dispatch = dispatch
 
-    it('should wrap store', () => {
-        const subspacedStore = subspace(store, (state) => state.child)
+    describe('getState Tests', () => {
 
-        subspacedStore.dispatch({ type: "TEST" })
+        it('should wrap store getState', () => {
+            const subspacedStore = subspace((state) => state.child)(store)
 
-        expect(subspacedStore.getState()).to.equal("expected")
-        expect(dispatch).to.have.been.calledWithMatch({ type: "TEST" })
+            expect(subspacedStore.getState()).to.equal("expected")
+        })
+
+        it('should use namespace if mapState not provided', () => {
+            const subspacedStore = subspace(undefined, "child")(store)
+
+            expect(subspacedStore.getState()).to.equal("expected")
+        })
     })
 
-    it('should wrap store with namespace', () => {
-        const subspacedStore = subspace(store, (state) => state.child, "test")
+    describe('dispatch Tests', () => {        
+       
+        it('should wrap store dispatch', () => {
+            const subspacedStore = subspace((state) => state.child)(store)
 
-        subspacedStore.dispatch({ type: "TEST" })
+            subspacedStore.dispatch({ type: "TEST" })
 
-        expect(subspacedStore.getState()).to.equal("expected")
-        expect(dispatch).to.have.been.calledWithMatch({ type: "test/TEST" })
+            expect(dispatch).to.have.been.calledWithMatch({ type: "TEST" })
+        })
+
+        it('should wrap store dispatch with namespace', () => {
+            const subspacedStore = subspace((state) => state.child, "test")(store)
+
+            subspacedStore.dispatch({ type: "TEST" })
+
+            expect(dispatch).to.have.been.calledWithMatch({ type: "test/TEST" })
+        })
+
+        it('should allow namespace to be be first parameter', () => {
+            const subspacedStore = subspace("child")(store)
+
+            subspacedStore.dispatch({ type: "TEST" })
+
+            expect(subspacedStore.getState()).to.equal("expected")
+            expect(dispatch).to.have.been.calledWithMatch({ type: "child/TEST" })
+        })
+    })
+
+    it('should raise error if neither mapState or namespace are provided', () => {
+        expect(() => subspace()(store))
+            .to.throw('mapState and/or namespace must be defined.')
+    })
+
+    it('should not raise error if neither mapState or namespace are provided in production', () => {
+        let nodeEnv = process.env.NODE_ENV
+
+        try {
+            process.env.NODE_ENV = 'production'
+
+            let subspacedStore = subspace()(store)
+
+            expect(subspacedStore).to.not.be.undefined
+        } finally {
+            process.env.NODE_ENV = nodeEnv
+        }
     })
 })

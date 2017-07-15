@@ -29,7 +29,15 @@ const TestComponent = () => {
     )
 }
 
-const TestNamepsacedComponent = () => {
+const TestNamespacedComponent = () => {
+    return (
+        <SubspaceProvider namespace="testNamespace">
+            <p>test</p>
+        </SubspaceProvider>
+    )
+}
+
+const TestSubspacedComponent = () => {
     return (
         <SubspaceProvider mapState={(state: ParentState) => state.child} namespace="testNamespace">
             <p>test</p>
@@ -45,7 +53,7 @@ const TestComponentWithRootState = () => {
     )
 }
 
-const TestNamepsacedComponentWithRootState = () => {
+const TestSubspacedComponentWithRootState = () => {
     return (
         <SubspaceProvider mapState={(state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent })} namespace="testNamespace">
             <p>test</p>

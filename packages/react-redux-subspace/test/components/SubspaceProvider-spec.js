@@ -38,6 +38,27 @@ describe('SubspaceProvider Tests', () => {
         expect(testComponent.html()).to.equal("<p>expected</p>")
     })
 
+    it('should render child component using namespace for substate', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider namespace="subState">
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.html()).to.equal("<p>expected</p>")
+    })
+
     it('should render nested child component with substate', () => {
         let state = {
             subState: {

@@ -20,8 +20,11 @@ export interface ProvideStore {
 export const provideStore: ProvideStore;
 
 export interface Subspaced {
-    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace?: string): SagaDecorator;
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace?: string): SagaDecorator;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): SagaDecorator;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): SagaDecorator;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): SagaDecorator;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): SagaDecorator;
+    (namespace: string): SagaDecorator;
 }
 
 export const subspaced: Subspaced;

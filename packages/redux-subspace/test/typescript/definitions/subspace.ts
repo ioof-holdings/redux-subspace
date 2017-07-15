@@ -33,11 +33,12 @@ const rootReducer = combineReducers<RootState>({ parent: parentReducer })
 
 const store = createStore(rootReducer)
 
-const subspacedStore: Store<ParentState> = subspace<RootState, ParentState>(store, (state) => state.parent)
-const namespacedStore: Store<ParentState> = subspace<RootState, ParentState>(store, (state) => state.parent, "parent")
+const subStore: Store<ParentState> = subspace<RootState, ParentState>((state) => state.parent)(store)
+const namespacedStore: Store<ParentState> = subspace("parent")(store)
+const subspacedStore: Store<ParentState> = subspace<RootState, ParentState>((state) => state.parent, "parent")(store)
 
-const subspacedStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent)
-const namespacedStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>(subspacedStore, (state, rootState) => rootState.parent, "root")
+const subStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>((state, rootState) => rootState.parent)(subspacedStore)
+const subspacedStoreWithRoot: Store<ParentState>  = subspace<ParentState, RootState, ParentState>((state, rootState) => rootState.parent, "parent")(subspacedStore)
 
-const subspacedStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>(subspacedStore, (state, rootState) => ({ ...state.child, parent: rootState.parent }))
-const namespacedStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>(subspacedStore, (state, rootState) => ({ ...state.child, parent: rootState.parent }), "root")
+const subStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>((state, rootState) => ({ ...state.child, parent: rootState.parent }))(subspacedStore)
+const subspacedStoreWithCombinedState: Store<CustomState>  = subspace<ParentState, RootState, CustomState>((state, rootState) => ({ ...state.child, parent: rootState.parent }), "custom")(subspacedStore)

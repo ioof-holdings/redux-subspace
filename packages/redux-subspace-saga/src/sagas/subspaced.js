@@ -39,27 +39,32 @@ const emitter = () => {
     }
 }
 
-const subspaced = (mapState, namespace) => (saga) => {
-    return function* wrappedSaga() {
-        const parentStore = yield getContext('store')
+const subspaced = (mapState, namespace) => {
 
-        const sagaEmitter = emitter()
-        
-        const store = {
-            ...subspace(parentStore, mapState, namespace),
-            subscribe: sagaEmitter.subscribe,
-        }
+    const subspaceDecorator = subspace(mapState, namespace)
 
-        runSaga(store, provideStore(store)(saga))
+    return (saga) => {
+        return function* wrappedSaga() {
+            const parentStore = yield getContext('store')
 
-        yield takeEvery('*', function* (action) {
-            if (!namespace || GlobalActions.isGlobal(action)) {
-                sagaEmitter.emit(action)
-            } else if (action.type && action.type.indexOf(`${namespace}/`) === 0) {
-                let theAction = {...action, type: action.type.substring(namespace.length + 1)}
-                sagaEmitter.emit(theAction)
+            const sagaEmitter = emitter()
+            
+            const store = {
+                ...subspaceDecorator(parentStore),
+                subscribe: sagaEmitter.subscribe,
             }
-        })
+
+            runSaga(store, provideStore(store)(saga))
+
+            yield takeEvery('*', function* (action) {
+                if (!namespace || GlobalActions.isGlobal(action)) {
+                    sagaEmitter.emit(action)
+                } else if (action.type && action.type.indexOf(`${namespace}/`) === 0) {
+                    let theAction = {...action, type: action.type.substring(namespace.length + 1)}
+                    sagaEmitter.emit(theAction)
+                }
+            })
+        }
     }
 }
 

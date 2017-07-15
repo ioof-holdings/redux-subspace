@@ -11,16 +11,24 @@ import * as Redux from 'redux';
 /**
  * Store
  */
+
 export interface MapState<TParentState, TRootState, TSubState>{
     (state: TParentState, rootState?: TRootState): TSubState;
 }
 
-export interface SubspaceCreator {
-    <TParentState, TSubState>(store: Redux.Store<TParentState>, mapState: MapState<TParentState, any, TSubState>,namespace?: string): Redux.Store<TSubState>;
-    <TParentState, TRootState, TSubState>(store: Redux.Store<TParentState>, mapState: MapState<TParentState, TRootState, TSubState>,namespace?: string): Redux.Store<TSubState>;
+export interface StoreDecorator<TState, TSubState> {
+    (store: Redux.Store<TState>): Redux.Store<TSubState>;
 }
 
-export const subspace: SubspaceCreator
+export interface SubspaceCreator {
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): StoreDecorator<TParentState, TSubState>;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TSubState>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState>;
+    (namespace: string): StoreDecorator<any, any>;
+}
+
+export const subspace: SubspaceCreator;
 
 /**
  * Reducers
@@ -50,4 +58,3 @@ export interface ActionDecorator {
 export const asGlobal: ActionDecorator;
 
 export const GlobalActions: GlobalActionsRegister;
-

@@ -33,15 +33,17 @@ class StandardComponent extends React.Component<TestProps> {
 
 const StatelessComponent: React.StatelessComponent<TestProps> = (props) => <p>props.value</p>
 
-const SubspacedStandardComponent = subspaced((state: ParentState) => state.child)(StandardComponent)
-const NamespacedStandardComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StandardComponent)
-const SubspacedStatelessComponent = subspaced((state: ParentState) => state.child)(StatelessComponent)
-const NamespacedStatelessComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StatelessComponent)
+const SubStatetandardComponent = subspaced((state: ParentState) => state.child)(StandardComponent)
+const NamespacedStandardComponent = subspaced("testNamespace")(StandardComponent)
+const SubspacedStandardComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StandardComponent)
+const SubStateStatelessComponent = subspaced((state: ParentState) => state.child)(StatelessComponent)
+const NamespacedStatelessComponent = subspaced("testNamespace")(StatelessComponent)
+const SubspacedStatelessComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StatelessComponent)
 
-const SubspacedStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StandardComponent)
-const NamespacedStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StandardComponent)
-const SubspacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StatelessComponent)
-const NamespacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StatelessComponent)
+const SubStateStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StandardComponent)
+const SubspacedStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StandardComponent)
+const SubStateStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StatelessComponent)
+const SubspacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StatelessComponent)
 
 const Rendered: React.StatelessComponent<void> = () => {
     return (
@@ -50,10 +52,10 @@ const Rendered: React.StatelessComponent<void> = () => {
             <NamespacedStandardComponent value="test" />
             <SubspacedStatelessComponent value="test" />
             <NamespacedStatelessComponent value="test" />
+            <SubStateStandardComponentWithRoot value="test" />
             <SubspacedStandardComponentWithRoot value="test" />
-            <NamespacedStandardComponentWithRoot value="test" />
+            <SubStateStatelessComponentWithRoot value="test" />
             <SubspacedStatelessComponentWithRoot value="test" />
-            <NamespacedStatelessComponentWithRoot value="test" />
         </div>
     )
 }
