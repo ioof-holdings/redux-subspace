@@ -15,9 +15,5 @@ export const getSubState = (getState, getRootState, mapState) => () => {
         console.assert(subState !== undefined, 'mapState must not return undefined.')
     }
 
-    if (typeof subState === 'object' && !Array.isArray(subState)) {
-        return { ...subState, root: rootState }
-    } else {
-        return subState
-    }
+    return subState
 }

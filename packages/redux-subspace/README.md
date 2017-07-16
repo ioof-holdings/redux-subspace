@@ -121,7 +121,3 @@ When nesting subspaces, the `root` node will reflect the top most root state. Na
 ## Examples
 
 Examples can be found [here](./examples).
-
-## Caveats
-
-* You cannot use `root` as a field in your state. It will be replaced with the root of the state tree.  Sorry.

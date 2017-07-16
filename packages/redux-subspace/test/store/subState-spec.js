@@ -19,39 +19,9 @@ describe('subState Tests', () => {
             }
         }
 
-        let rootState = state
-
-        let subState = getSubState(() => state, () => rootState, state => state.state1)()
+        let subState = getSubState(() => state, () => state, state => state.state1)()
 
         expect(subState.key).to.equal('expected')
-        expect(subState.root).to.equal(state)
-    })
-
-    it('should use existing root node', () => {
-        let state = {
-            state1: {
-                key: 'expected'
-            },
-            state2: {
-                key: 'wrong'
-            }
-        }
-
-        let rootState = {
-            states: {
-                    state1: {
-                        key: 'expected'
-                    },
-                    state2: {
-                        key: 'wrong'
-                    }
-                }
-        }
-
-        let subState = getSubState(() => state, () => rootState, state => state.state1)()
-
-        expect(subState.key).to.equal('expected')
-        expect(subState.root).to.equal(rootState)
     })
 
     it('should provide parent state as root state when mapping', () => {
@@ -64,13 +34,10 @@ describe('subState Tests', () => {
             }
         }
 
-        let rootState = state
-
-        let subState = getSubState(() => state, () => rootState, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
+        let subState = getSubState(() => state, () => state, (state, rootState) => ({ ...state.state1, ...rootState.state2 }))()
 
         expect(subState.key1).to.equal(1)
         expect(subState.key2).to.equal(2)
-        expect(subState.root).to.equal(state)
     })
 
     it('should provide root state as root state when mapping', () => {
@@ -96,35 +63,6 @@ describe('subState Tests', () => {
 
         expect(subState.key1).to.equal(1)
         expect(subState.key2).to.equal(4)
-        expect(subState.root).to.equal(rootState)
-    })
-
-    it('should not modify sub-state if primitive value', () => {
-        let state = {
-            state1: 'expected',
-            state2: 'wrong'
-        }
-
-        let rootState = state
-
-        let subState = getSubState(() => state, () => rootState, state => state.state1)()
-
-        expect(subState).to.equal('expected')
-        expect(subState.root).to.be.undefined
-    })
-
-    it('should not modify sub-state if array value', () => {
-        let state = {
-            state1: ['expected'],
-            state2: ['wrong']
-        }
-
-        let rootState = state
-
-        let subState = getSubState(() => state, () => rootState, state => state.state1)()
-
-        expect(subState).to.deep.equal(['expected'])
-        expect(subState.root).to.be.undefined
     })
 
     it('should raise error if mapState returns undefined', () => {
