@@ -70,25 +70,18 @@ export type GetState<TState> = () => TState
 
 export interface GetStateMiddleware {
     <TState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TState>
-    <TState, TRootState>(subspace: Subspace<TState, TRootState>): (next: GetState<TState>) => GetState<TState>
+    <TState, TNewState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TNewState>
 }
-
-export interface ApplyGetStateMiddleware {
-    (...middlewares: GetStateMiddleware[]): SubspaceEnhancer
-}
-
-export const applyGetStateMiddleware: ApplyGetStateMiddleware
 
 export interface DispatchMiddleware {
     <TState>(subspace: Subspace<TState, any>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>
-    <TState, TRootState>(subspace: Subspace<TState, TRootState>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>
 }
 
-export interface ApplyDispatchMiddleware {
-    (...middlewares: DispatchMiddleware[]): SubspaceEnhancer
+export interface ApplySubspaceMiddleware {
+    (middlewares: { getState?: GetStateMiddleware[], dispatch?: DispatchMiddleware[] }): SubspaceEnhancer
 }
 
-export const applyDispatchMiddleware: ApplyDispatchMiddleware
+export const applySubspaceMiddleware: ApplySubspaceMiddleware
 
 /**
  * Actions

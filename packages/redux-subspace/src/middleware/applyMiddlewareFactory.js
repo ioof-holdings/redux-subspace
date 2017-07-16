@@ -18,12 +18,4 @@ const applyMiddlewareFactory = (getComposable, applyComposable) => (...middlewar
     return applyComposable(subspacedStore, composable)
 }
 
-export const applyGetStateMiddleware = applyMiddlewareFactory(
-    (store) => store.getState,
-    (store, getState) => ({ ...store, getState })
-)
-
-export const applyDispatchMiddleware = applyMiddlewareFactory(
-    (store) => store.dispatch,
-    (store, dispatch) => ({ ...store, dispatch })
-)
+export default applyMiddlewareFactory
