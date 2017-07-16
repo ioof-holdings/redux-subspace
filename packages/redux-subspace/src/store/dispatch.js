@@ -12,12 +12,6 @@ export const subStateDispatch = (dispatch, getState, namespace) => {
     return action => {
         if (namespace && action.type && !GlobalActions.isGlobal(action)) {
             action = { ...action, type: `${namespace}/${action.type}` }
-        } else if (typeof action === 'function') {
-            let thunk = action // assumes thunk
-            action = (rootDispatch, rootGetState, ...args) => {
-                let wrappedDispatch = subStateDispatch(dispatch, getState, namespace)
-                return thunk(wrappedDispatch, getState, ...args)
-            }
         }
 
         return dispatch(action)

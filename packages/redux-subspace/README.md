@@ -1,9 +1,8 @@
 # redux-subspace
------------------------
 
 This is a library to create subspaces for Redux stores.
 
-## What it does:
+## What it does
 
 `subspace` allows you to present a sub-view of the state in the Redux store, allowing it to be ignorant of parent state structure. This means you can completely isolate sections of the state from others without having to know where the root if sub-state is in the global state of the app.
 
@@ -126,4 +125,3 @@ Examples can be found [here](./examples).
 ## Caveats
 
 * You cannot use `root` as a field in your state. It will be replaced with the root of the state tree.  Sorry.
-* We assume you are using redux-thunk if you dispatch a function as an action.  If you're not, please submit a pull request adding compatibility with your middleware of choice, without breaking thunk for us.
