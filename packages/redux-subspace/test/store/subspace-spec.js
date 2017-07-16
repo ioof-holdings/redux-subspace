@@ -59,6 +59,28 @@ describe('subspace Tests', () => {
         })
     })
 
+    it('should enhance subspace', () => {
+        const enhancer = (createSubspace) => (store, mapState, namespace) => {
+            return createSubspace(
+                store, 
+                (state) => `${mapState(state)} from enhancer`, 
+                `enhancer/${namespace}`
+            )
+        }
+
+        const storeWithMiddleware = createStore(parentReducer)
+        storeWithMiddleware.dispatch = dispatch
+        storeWithMiddleware.subspaceOptions = {
+            enhancer
+        }
+
+        const subspacedStore = subspace((state) => state.child, "test")(storeWithMiddleware)
+
+        subspacedStore.dispatch({ type: "TEST" })
+
+        expect(subspacedStore.getState()).to.equal("expected from enhancer")
+        expect(dispatch).to.have.been.calledWithMatch({ type: "enhancer/test/TEST" })
+    })
 
     it('should provide root store on subspace', () => {
         const subspacedStore1 = subspace("child1")(store)
@@ -68,7 +90,6 @@ describe('subspace Tests', () => {
         expect(subspacedStore2.rootStore).to.equal(store)
     })
 
-
     it('should provide full namespace subspace', () => {
         const subspacedStore1 = subspace("child1")(store)
         const subspacedStore2 = subspace("child2")(subspacedStore1)
@@ -76,7 +97,6 @@ describe('subspace Tests', () => {
         expect(subspacedStore1.namespace).to.equal('child1')
         expect(subspacedStore2.namespace).to.equal('child1/child2')
     })
-
 
     it('should correctly apply namespace when not provided', () => {
         const subspacedStore1 = subspace(() => {})(store)

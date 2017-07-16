@@ -7,5 +7,7 @@
  */
 
 export { default as subspace } from '../src/store/subspace'
+export { default as configureSubspaces } from '../src/store/configureSubspaces'
 export { default as namespaced } from '../src/reducers/namespaced'
+export { applyGetStateMiddleware, applyDispatchMiddleware } from '../src/middleware/applyMiddleware'
 export { asGlobal, GlobalActions } from '../src/actions/GlobalActions'

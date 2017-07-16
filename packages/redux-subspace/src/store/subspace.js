@@ -17,7 +17,27 @@ const resolveNamespace = (parentNamespace = '', namespace) => {
     } else {
         return namespace
     }
-} 
+}
+
+const createSubspace = (store, mapState, namespace, enhancer) => {
+
+    if (typeof enhancer !== 'undefined') {
+        return enhancer(createSubspace)(store, mapState, namespace)
+    }
+
+    const rootStore = store.rootStore || store
+    const getState = getSubState(store.getState, rootStore.getState, mapState || ((state) => state[namespace]))
+    const dispatch = subStateDispatch(store.dispatch, getState, namespace)
+    const storeNamespace = resolveNamespace(store.namespace, namespace)
+
+    return { 
+        ...store, 
+        getState, 
+        dispatch, 
+        rootStore, 
+        namespace: storeNamespace 
+    } 
+}
 
 const subspace = (mapState, namespace) => {
 
@@ -31,12 +51,13 @@ const subspace = (mapState, namespace) => {
     }
 
     return (store) => {
-        const rootStore = store.rootStore || store
-        const getState = getSubState(store.getState, rootStore.getState, mapState || ((state) => state[namespace]))
-        const dispatch = subStateDispatch(store.dispatch, getState, namespace)
-        const storeNamespace = resolveNamespace(store.namespace, namespace)
+        let enhancer
 
-        return { ...store, getState, dispatch, rootStore, namespace: storeNamespace } 
+        if (store.subspaceOptions) {
+            enhancer = store.subspaceOptions.enhancer
+        }
+
+        return createSubspace(store, mapState, namespace, enhancer)
     }
 }
 

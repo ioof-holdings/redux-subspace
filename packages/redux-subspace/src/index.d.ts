@@ -35,6 +35,20 @@ export interface SubspaceCreator {
 
 export const subspace: SubspaceCreator;
 
+export interface SubspaceEnhancerSubspaceCreator {
+    (store: Redux.Store<any>, mapState: MapState<any, any, any>, namespace, string): Subspace<any, any>
+}
+
+export interface SubspaceEnhancer {
+    (next: SubspaceEnhancerSubspaceCreator): SubspaceEnhancerSubspaceCreator;
+}
+
+export interface ConfigureSubspaces {
+    (...enhancers: SubspaceEnhancer[]): Redux.GenericStoreEnhancer;
+}
+
+export const configureSubspaces: ConfigureSubspaces
+
 /**
  * Reducers
  */
@@ -47,6 +61,34 @@ export interface Namespaced {
 }
 
 export const namespaced: Namespaced;
+
+/**
+ * Middleware
+ */
+
+export type GetState<TState> = () => TState
+
+export interface GetStateMiddleware {
+    <TState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TState>
+    <TState, TRootState>(subspace: Subspace<TState, TRootState>): (next: GetState<TState>) => GetState<TState>
+}
+
+export interface ApplyGetStateMiddleware {
+    (...middlewares: GetStateMiddleware[]): SubspaceEnhancer
+}
+
+export const applyGetStateMiddleware: ApplyGetStateMiddleware
+
+export interface DispatchMiddleware {
+    <TState>(subspace: Subspace<TState, any>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>
+    <TState, TRootState>(subspace: Subspace<TState, TRootState>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>
+}
+
+export interface ApplyDispatchMiddleware {
+    (...middlewares: DispatchMiddleware[]): SubspaceEnhancer
+}
+
+export const applyDispatchMiddleware: ApplyDispatchMiddleware
 
 /**
  * Actions
