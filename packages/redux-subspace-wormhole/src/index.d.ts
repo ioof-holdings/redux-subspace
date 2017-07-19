@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GetStateMiddleware } from 'redux-subspace';
+import { SubspaceMiddleware } from 'redux-subspace';
 
 interface MapState<TState, TWormholeState>{
     (state: TState): TWormholeState
 }
 
 interface Wormhole {
-    <TState, TWormholeState>(mapState: MapState<TState, TWormholeState>, key: string): GetStateMiddleware
+    <TState, TWormholeState>(mapState: MapState<TState, TWormholeState>, key: string): SubspaceMiddleware
 }
 
 declare let wormhole : Wormhole

@@ -18,7 +18,7 @@ describe('wormhole Tests', () => {
 
         const getState = () => ({ original: "test" })
 
-        const state = wormhole((state) => state.value, 'extra')(store)(getState)()
+        const state = wormhole((state) => state.value, 'extra')(store).getState(getState)()
 
         expect(state).to.deep.equal({ original: "test", extra: "expected" })
     })
@@ -32,7 +32,7 @@ describe('wormhole Tests', () => {
 
         const getState = () => [ "expected" ]
 
-        const state = wormhole((state) => state.value, 'extra')(store)(getState)()
+        const state = wormhole((state) => state.value, 'extra')(store).getState(getState)()
 
         expect(state).to.deep.equal([ "expected" ])
     })
@@ -46,7 +46,7 @@ describe('wormhole Tests', () => {
 
         const getState = () => "expected"
 
-        const state = wormhole((state) => state.value, 'extra')(store)(getState)()
+        const state = wormhole((state) => state.value, 'extra')(store).getState(getState)()
 
         expect(state).to.deep.equal("expected")
     })
@@ -60,7 +60,7 @@ describe('wormhole Tests', () => {
 
         const getState = () => undefined
 
-        const state = wormhole((state) => state.value, 'extra')(store)(getState)()
+        const state = wormhole((state) => state.value, 'extra')(store).getState(getState)()
 
         expect(state).to.be.undefined
     })

@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { applySubspaceMiddleware } from 'redux-subspace'
+import { applyMiddleware } from 'redux-subspace'
 import wormhole from '../../../src'
 
 interface TState {
     value: string
 }
 
-applySubspaceMiddleware({ getState: [wormhole((state: TState) => state.value, 'test')] })
+applyMiddleware(wormhole((state: TState) => state.value, 'test'))

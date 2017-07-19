@@ -8,7 +8,7 @@
 
 import { select, put, getContext } from 'redux-saga/effects'
 import configureStore from 'redux-mock-store'
-import { asGlobal } from 'redux-subspace'
+import { globalAction } from 'redux-subspace'
 import subspaced from '../../src/sagas/subspaced'
 
 describe('subspaced Tests', () => {
@@ -116,7 +116,7 @@ describe('subspaced Tests', () => {
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
         iterator.next(mockStore)
-        expect(iterator.next(asGlobal({ type: "TEST" })).done).to.be.true
+        expect(iterator.next(globalAction({ type: "TEST" })).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([{ type: "test/SET_VALUE", value: "expected" }])
     })
@@ -134,7 +134,7 @@ describe('subspaced Tests', () => {
 
         function* saga() {
             const value = yield select((state) => state.value)
-            yield put(asGlobal({ type: "SET_VALUE", value }))
+            yield put(globalAction({ type: "SET_VALUE", value }))
         }
 
         const subspacedSaga = subspaced(state => state.subState, "test")(saga)
@@ -145,6 +145,6 @@ describe('subspaced Tests', () => {
         iterator.next(mockStore)
         expect(iterator.next({ type: "test/TEST" }).done).to.be.true
 
-        expect(mockStore.getActions()).to.deep.equal([asGlobal({ type: "SET_VALUE", value: "expected" })])
+        expect(mockStore.getActions()).to.deep.equal([globalAction({ type: "SET_VALUE", value: "expected" })])
     })
 })
