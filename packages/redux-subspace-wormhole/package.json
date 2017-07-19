@@ -34,7 +34,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
-    "enzyme": "^2.8.0",
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.9.0",
     "mocha": "^2.2.5",
