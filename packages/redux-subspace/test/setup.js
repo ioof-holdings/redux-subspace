@@ -18,8 +18,8 @@ babelRegister(
 global.expect = require('chai').expect
 global.sinon = require('sinon')
 
-var chai = require("chai")
-var sinonChai = require("sinon-chai")
+var chai = require('chai')
+var sinonChai = require('sinon-chai')
 global.expect = chai.expect
 global.assert = chai.assert
 chai.use(sinonChai)

@@ -9,8 +9,8 @@
 import { Reducer } from 'redux'
 import { namespaced } from '../../../src'
 
-const reducer = (state = "test") => {
+const reducer = (state = 'test') => {
     return state
 }
 
-const namespacedReducer: Reducer<string> = namespaced("testNamespace")(reducer)
+const namespacedReducer: Reducer<string> = namespaced('testNamespace')(reducer)

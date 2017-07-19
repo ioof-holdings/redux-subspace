@@ -7,7 +7,11 @@
  */
 
 export { default as subspace } from '../src/store/subspace'
+export { default as applyMiddleware } from '../src/store/applyMiddleware'
+
 export { default as namespaced } from '../src/reducers/namespaced'
-export { default as configureSubspaces } from '../src/store/configureSubspaces'
-export { default as applySubspaceMiddleware } from '../src/middleware/applySubspaceMiddleware'
-export { asGlobal, GlobalActions } from '../src/actions/GlobalActions'
+
+export { default as namespacedAction } from '../src/actions/namespacedAction'
+export { default as globalAction } from '../src/actions/globalAction'
+
+export { default as globalActions } from '../src/middleware/globalActions'

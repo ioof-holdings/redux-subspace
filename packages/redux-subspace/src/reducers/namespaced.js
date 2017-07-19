@@ -6,15 +6,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GlobalActions } from '../actions/GlobalActions'
+import isGlobal from '../actions/isGlobal'
+import hasNamespace from '../actions/hasNamespace'
 
 export default (namespace) => (reducer) =>  {
     return (state, action) => {
-        if (typeof state === 'undefined' || GlobalActions.isGlobal(action)) {
+        if (typeof state === 'undefined' || isGlobal(action)) {
             return reducer(state, action)
         }
 
-        if (action && action.type && action.type.indexOf(`${namespace}/`) === 0) {
+        if (hasNamespace(action, namespace)) {
             let theAction = {...action, type: action.type.substring(namespace.length + 1)}
             return reducer(state, theAction)
         }

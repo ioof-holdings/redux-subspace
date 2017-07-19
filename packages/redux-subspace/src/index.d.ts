@@ -11,7 +11,6 @@ import * as Redux from 'redux';
 /**
  * Store
  */
-
 export interface MapState<TParentState, TRootState, TSubState>{
     (state: TParentState, rootState?: TRootState): TSubState;
 }
@@ -21,33 +20,19 @@ export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
     namespace: string;
 }
 
-export interface StoreDecorator<TParentState, TRootState, TSubState> {
-    (store: Redux.Store<TParentState>): Subspace<TSubState, TRootState>;
+export interface StoreDecorator<TParentState, TState, TStore extends Redux.Store<TState>> {
+    (store: Redux.Store<TParentState>): TStore;
 }
 
 export interface SubspaceCreator {
-    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): StoreDecorator<TParentState, any, TSubState>;
-    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, any, TSubState>;
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TRootState, TSubState>;
-    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TRootState, TSubState>;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): StoreDecorator<TParentState, TSubState, Substate<TParentState, any, TSubState>>;
+    <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState, Substate<TParentState, any, TSubState>>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TSubState, Substate<TParentState, TRootState, TSubState>>;
+    <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState, Substate<TParentState, TRootState, TSubState>>;;
     (namespace: string): StoreDecorator<any, any, any>;
 }
 
 export const subspace: SubspaceCreator;
-
-export interface SubspaceEnhancerSubspaceCreator {
-    (store: Redux.Store<any>, mapState: MapState<any, any, any>, namespace, string): Subspace<any, any>
-}
-
-export interface SubspaceEnhancer {
-    (next: SubspaceEnhancerSubspaceCreator): SubspaceEnhancerSubspaceCreator;
-}
-
-export interface ConfigureSubspaces {
-    (...enhancers: SubspaceEnhancer[]): Redux.GenericStoreEnhancer;
-}
-
-export const configureSubspaces: ConfigureSubspaces
 
 /**
  * Reducers
@@ -60,41 +45,38 @@ export interface Namespaced {
     (namespace: string): ReducerDecorator;
 }
 
-export const namespaced: Namespaced;
+export const namespaced: (namespace: string) => ReducerDecorator;
 
 /**
  * Middleware
  */
-
-export type GetState<TState> = () => TState
+export type GetState<TState> = () => TState;
 
 export interface GetStateMiddleware {
-    <TState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TState>
-    <TState, TNewState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TNewState>
+    <TState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TState>;
+    <TState, TNewState>(subspace: Subspace<TState, any>): (next: GetState<TState>) => GetState<TNewState>;
 }
 
 export interface DispatchMiddleware {
-    <TState>(subspace: Subspace<TState, any>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>
+    <TState>(subspace: Subspace<TState, any>): (next: Redux.Dispatch<TState>) => Redux.Dispatch<TState>;
 }
 
-export interface ApplySubspaceMiddleware {
-    (middlewares: { getState?: GetStateMiddleware[], dispatch?: DispatchMiddleware[] }): SubspaceEnhancer
+export interface SubspaceMiddleware {
+    getState?: GetStateMiddleware[];
+    dispatch?: DispatchMiddleware[];
 }
 
-export const applySubspaceMiddleware: ApplySubspaceMiddleware
+export const applyMiddleware = (...middlewares: (SubspaceMiddleware | DispatchMiddleware)[]) => Redux.GenericStoreEnhancer;
+
+export const globalActions: (...actionTypes: string[]) => SubspaceMiddleware;
 
 /**
  * Actions
  */
-interface GlobalActionsRegister {
-    register(type: string): GlobalActionsRegister;
-    isGlobal(action: Redux.Action): boolean;
-}
-
 export interface ActionDecorator {
     <TAction extends Redux.Action>(action: TAction): TAction;
 }
 
-export const asGlobal: ActionDecorator;
+export const globalAction: ActionDecorator;
 
-export const GlobalActions: GlobalActionsRegister;
+export const namespacedAction: (namespace: string) => ActionDecorator;

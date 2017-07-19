@@ -6,7 +6,7 @@
  */
 
 import { createStore, combineReducers } from 'redux'
-import subspace from '../../src/store/subspace'
+import subspace, { subspaceEnhanced } from '../../src/store/subspace'
 
 describe('subspace Tests', () => {
 
@@ -16,59 +16,78 @@ describe('subspace Tests', () => {
     const dispatch = sinon.spy()
     store.dispatch = dispatch
 
-    describe('getState Tests', () => {
+    it('should enhance store getState', () => {
+        const subspacedStore = subspace((state) => state.child)(store)
 
-        it('should wrap store getState', () => {
-            const subspacedStore = subspace((state) => state.child)(store)
-
-            expect(subspacedStore.getState()).to.equal("expected")
-        })
-
-        it('should use namespace if mapState not provided', () => {
-            const subspacedStore = subspace(undefined, "child")(store)
-
-            expect(subspacedStore.getState()).to.equal("expected")
-        })
+        expect(subspacedStore.getState()).to.equal("expected")
     })
 
-    describe('dispatch Tests', () => {        
-       
-        it('should wrap store dispatch', () => {
-            const subspacedStore = subspace((state) => state.child)(store)
+    it('should use namespace if mapState not provided', () => {
+        const subspacedStore = subspace(undefined, "child")(store)
 
-            subspacedStore.dispatch({ type: "TEST" })
-
-            expect(dispatch).to.have.been.calledWithMatch({ type: "TEST" })
-        })
-
-        it('should wrap store dispatch with namespace', () => {
-            const subspacedStore = subspace((state) => state.child, "test")(store)
-
-            subspacedStore.dispatch({ type: "TEST" })
-
-            expect(dispatch).to.have.been.calledWithMatch({ type: "test/TEST" })
-        })
-
-        it('should allow namespace to be be first parameter', () => {
-            const subspacedStore = subspace("child")(store)
-
-            subspacedStore.dispatch({ type: "TEST" })
-
-            expect(subspacedStore.getState()).to.equal("expected")
-            expect(dispatch).to.have.been.calledWithMatch({ type: "child/TEST" })
-        })
+        expect(subspacedStore.getState()).to.equal("expected")
     })
 
-    it('should enhance subspace', () => {
-        const enhancer = (createSubspace) => (store, mapState, namespace) => {
-            return createSubspace(
-                store, 
-                (state) => `${mapState(state)} from enhancer`, 
-                `enhancer/${namespace}`
-            )
+    it('should not enhance store dispatch if no namespace provided', () => {
+        const subspacedStore = subspace((state) => state.child)(store)
+
+        subspacedStore.dispatch({ type: "TEST" })
+
+        expect(dispatch).to.have.been.calledWithMatch({ type: "TEST" })
+    })
+
+    it('should enhance store dispatch with namespace', () => {
+        const subspacedStore = subspace((state) => state.child, "test")(store)
+
+        subspacedStore.dispatch({ type: "TEST" })
+
+        expect(dispatch).to.have.been.calledWithMatch({ type: "test/TEST" })
+    })
+
+    it('should allow namespace to be be first parameter', () => {
+        const subspacedStore = subspace("child")(store)
+
+        subspacedStore.dispatch({ type: "TEST" })
+
+        expect(subspacedStore.getState()).to.equal("expected")
+        expect(dispatch).to.have.been.calledWithMatch({ type: "child/TEST" })
+    })
+
+    it('should enhance subspace with enhancer', () => {
+        const enhancer = (createSubspace) => (store) => {
+            return {
+                ...createSubspace(store),
+                fromEnhancer: true
+            }
         }
 
-        const storeWithMiddleware = createStore(parentReducer)
+        const subspacedStore = subspaceEnhanced((state) => state.child, "test", { enhancer })(store)
+
+        expect(subspacedStore.fromEnhancer).to.be.true
+    })
+
+    it('should allow enhancer to be second paramter', () => {
+        const enhancer = (createSubspace) => (store) => {
+            return {
+                ...createSubspace(store),
+                fromEnhancer: true
+            }
+        }
+
+        const subspacedStore = subspaceEnhanced("child", { enhancer })(store)
+
+        expect(subspacedStore.fromEnhancer).to.be.true
+    })
+
+    it('should enhance subspace from inherited enhancer', () => {
+        const enhancer = (createSubspace) => (store) => {
+            return {
+                ...createSubspace(store),
+                fromEnhancer: true
+            }
+        }
+
+        const storeWithMiddleware = { ...store }
         storeWithMiddleware.dispatch = dispatch
         storeWithMiddleware.subspaceOptions = {
             enhancer
@@ -76,10 +95,7 @@ describe('subspace Tests', () => {
 
         const subspacedStore = subspace((state) => state.child, "test")(storeWithMiddleware)
 
-        subspacedStore.dispatch({ type: "TEST" })
-
-        expect(subspacedStore.getState()).to.equal("expected from enhancer")
-        expect(dispatch).to.have.been.calledWithMatch({ type: "enhancer/test/TEST" })
+        expect(subspacedStore.fromEnhancer).to.be.true
     })
 
     it('should provide root store on subspace', () => {
@@ -113,8 +129,7 @@ describe('subspace Tests', () => {
     })
 
     it('should raise error if neither mapState or namespace are provided', () => {
-        expect(() => subspace()(store))
-            .to.throw('mapState and/or namespace must be defined.')
+        expect(() => subspace()(store)).to.throw('mapState and/or namespace must be defined.')
     })
 
     it('should not raise error if neither mapState or namespace are provided in production', () => {
@@ -124,6 +139,26 @@ describe('subspace Tests', () => {
             process.env.NODE_ENV = 'production'
 
             let subspacedStore = subspace()(store)
+
+            expect(subspacedStore).to.not.be.undefined
+        } finally {
+            process.env.NODE_ENV = nodeEnv
+        }
+    })
+
+    it('should raise error if enhancer is not a function', () => {
+
+        expect(() => subspaceEnhanced((state) => state.child, "child", { enhancer: "wrong" })(store))
+            .to.throw('enhancer must be a function.')
+    })
+
+    it('should not raise error if enhancer is not a functionin production', () => {
+        let nodeEnv = process.env.NODE_ENV
+
+        try {
+            process.env.NODE_ENV = 'production'
+
+            let subspacedStore = subspaceEnhanced((state) => state.child, "child", { enhancer: "wrong" })(store)
 
             expect(subspacedStore).to.not.be.undefined
         } finally {
