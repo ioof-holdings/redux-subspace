@@ -8,10 +8,6 @@
 
 import globalActions from '../../src/middleware/globalActions'
 
-// const globalActions = (...actionTypes) => () => (next) => (action) => action.type && actionTypes.find((type) => action.type.match(type)) 
-//     ? next(globalAction(action)) 
-//     : next(action)
-
 describe('globalActions tests', () => {
     it('should make action global', () => {
         const next = sinon.spy()
