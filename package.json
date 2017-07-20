@@ -12,10 +12,11 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "coverage": "istanbul report --root packages --reporter html --reporter text --reporter text-summary",
     "dist": "lerna run --parallel dist",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "lerna run test",
+    "test": "lerna run test && npm run coverage",
     "test:watch": "lerna run --parallel test:watch"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
     "eslint": "^3.13.1",
+    "istanbul": "^0.4.5",
     "lerna": "^2.0.0"
   }
 }

@@ -14,7 +14,7 @@
     "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "nyc --reporter=text --reporter=lcov mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test": "nyc mocha --compilers js:babel-register --recursive --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "prepublish": "npm run dist"
   },
@@ -48,5 +48,14 @@
     "sinon-chai": "^2.8.0",
     "typescript": "^2.1.5",
     "typescript-definition-tester": "0.0.5"
+  },
+  "nyc": {
+    "temp-directory": "coverage/.nyc_output",
+    "reporter": [
+      "html",
+      "text",
+      "text-summary",
+      "json"
+    ]
   }
 }
