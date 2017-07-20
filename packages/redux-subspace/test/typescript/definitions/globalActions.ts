@@ -6,11 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Reducer } from 'redux'
-import { namespaced } from '../../../src'
+import { applyMiddleware, globalActions } from '../../../src'
 
-const reducer = (state = 'test') => {
-    return state
-}
+applyMiddleware(globalActions('test'))
 
-const namespacedReducer = namespaced('testNamespace')(reducer)
+applyMiddleware(globalActions('test1', 'test2'))

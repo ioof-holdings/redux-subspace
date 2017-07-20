@@ -8,22 +8,17 @@
 
 import { runSaga } from 'redux-saga'
 import { getContext, takeEvery } from 'redux-saga/effects'
-import { subspace, GlobalActions } from 'redux-subspace'
+import { subspace } from 'redux-subspace'
 import provideStore from './provideStore'
-
-const remove = (array, item) => {
-  const index = array.indexOf(item)
-  if (index >= 0) {
-    array.splice(index, 1)
-  }
-}
 
 const emitter = () => {
     const subscribers = []
 
     function subscribe(sub) {
         subscribers.push(sub)
-        return () => remove(subscribers, sub)
+        return () => {
+            subscribers.splice(subscribers.indexOf(sub), 1)
+        }
     }
 
     function emit(item) {
@@ -57,12 +52,8 @@ const subspaced = (mapState, namespace) => {
             runSaga(store, provideStore(store)(saga))
 
             yield takeEvery('*', function* (action) {
-                if (!namespace || GlobalActions.isGlobal(action)) {
-                    sagaEmitter.emit(action)
-                } else if (action.type && action.type.indexOf(`${namespace}/`) === 0) {
-                    let theAction = {...action, type: action.type.substring(namespace.length + 1)}
-                    sagaEmitter.emit(theAction)
-                }
+                store.processAction(action, sagaEmitter.emit)
+                yield
             })
         }
     }

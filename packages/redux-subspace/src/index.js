@@ -15,3 +15,5 @@ export { default as namespacedAction } from '../src/actions/namespacedAction'
 export { default as globalAction } from '../src/actions/globalAction'
 
 export { default as globalActions } from '../src/middleware/globalActions'
+export { default as rootOnly } from '../src/middleware/rootOnly'
+export { default as namespaceRootOnly } from '../src/middleware/namespaceRootOnly'

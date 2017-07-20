@@ -10,6 +10,8 @@ import { compose } from 'redux'
 import subspaceEnhancer from '../enhancers/subspaceEnhancer'
 import namespaceEnhancer from '../enhancers/namespaceEnhancer'
 import rootStoreEnhancer from '../enhancers/rootStoreEnhancer'
+import subspaceTypeEnhancer from '../enhancers/subspaceTypeEnhancer'
+import processActionEnhancer from '../enhancers/processActionEnhancer'
 
 const createSubspace = (store, enhancer) => {
 
@@ -74,7 +76,9 @@ export const subspaceEnhanced = (mapState, namespace, { enhancer } = {}) => {
     const subspaceEnhancers = compose(
         subspaceEnhancer(mapState, namespace),
         namespaceEnhancer(namespace),
-        rootStoreEnhancer
+        subspaceTypeEnhancer(namespace),
+        processActionEnhancer(namespace),
+        rootStoreEnhancer,
     )
 
     return (store) => {

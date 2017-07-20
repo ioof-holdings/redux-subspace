@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
- import globalAction from '../actions/globalAction'
+import globalAction from '../actions/globalAction'
 
 const globalActions = (...actionTypes) => () => (next) => (action) => action.type && actionTypes.find((type) => action.type.match(type)) 
     ? next(globalAction(action)) 

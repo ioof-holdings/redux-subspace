@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, combineReducers, Reducer, Store } from 'redux'
+import { createStore, combineReducers, Reducer } from 'redux'
 import { subspace, Subspace } from '../../../src'
 
 interface ChildState {
@@ -25,7 +25,7 @@ interface CustomState extends ChildState {
     parent: ParentState
 }
 
-const childReducer = (state) => state
+const childReducer: Reducer<ChildState> = (state) => state
 
 const parentReducer = combineReducers<ParentState>({ child: childReducer })
 
@@ -42,3 +42,7 @@ const subspacedStoreWithRoot: Subspace<ParentState, RootState>  = subspace<Paren
 
 const subStoreWithCombinedState: Subspace<CustomState, RootState>  = subspace<ParentState, RootState, CustomState>((state, rootState) => ({ ...state.child, parent: rootState.parent }))(subspacedStore)
 const subspacedStoreWithCombinedState: Subspace<CustomState, RootState>  = subspace<ParentState, RootState, CustomState>((state, rootState) => ({ ...state.child, parent: rootState.parent }), 'custom')(subspacedStore)
+
+subStore.processAction({ type: 'EXAMPLE' }, (action) => { console.log(action) })
+const type1 = subStore.processAction({ type: 'EXAMPLE' }, (action) => action.type)
+const type2 = subStore.processAction({ type: 'EXAMPLE' }, (action) => action.type, 'default')

@@ -67,7 +67,7 @@ describe('integration tests', () => {
         })
     })
 
-    it('should work with namespaced sigle subspace', () => {
+    it('should work with namespaced single subspace', () => {
         const rootStore = createStore(rootReducer, applyMiddleware(wormhole((state) => state.parent, 'fromWormhole')))
 
         const parentStore = subspace((state) => state.parent, 'parentNamespace')(rootStore)
@@ -76,6 +76,23 @@ describe('integration tests', () => {
             child: {
                 value: 'expected'
             },
+            fromWormhole: {
+                child: { 
+                    value: 'expected' 
+                }
+            }
+        })
+    })
+
+    it('should work with namespaced nested subspaces', () => {
+        const rootStore = createStore(rootReducer, applyMiddleware(wormhole((state) => state.parent, 'fromWormhole')))
+
+        const parentStore = subspace((state) => state.parent, 'parentNamespace')(rootStore)
+
+        const childStore = subspace((state) => state.child, 'childNamespace')(parentStore)
+
+        expect(childStore.getState()).to.deep.equal({
+            value: 'expected',
             fromWormhole: {
                 child: { 
                     value: 'expected' 

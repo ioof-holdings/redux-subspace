@@ -6,11 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Reducer } from 'redux'
-import { namespaced } from '../../../src'
+import { Action } from 'redux'
+import { namespacedAction } from '../../../src'
 
-const reducer = (state = 'test') => {
-    return state
-}
-
-const namespacedReducer = namespaced('testNamespace')(reducer)
+const action = namespacedAction('test')({ type: 'TEST_ACTION' })

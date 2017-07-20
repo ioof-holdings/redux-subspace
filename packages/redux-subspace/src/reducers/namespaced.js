@@ -6,20 +6,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import isGlobal from '../actions/isGlobal'
-import hasNamespace from '../actions/hasNamespace'
+import processAction from '../actions/processAction'
 
-export default (namespace) => (reducer) =>  {
-    return (state, action) => {
-        if (typeof state === 'undefined' || isGlobal(action)) {
+export default (namespace) => {
+    const actionProcessor = processAction(namespace)
+    return (reducer) => (state, action) => {
+        if (typeof state === 'undefined') {
             return reducer(state, action)
         }
 
-        if (hasNamespace(action, namespace)) {
-            let theAction = {...action, type: action.type.substring(namespace.length + 1)}
-            return reducer(state, theAction)
-        }
-
-        return state
+        return actionProcessor(action, (transformedAction) => reducer(state, transformedAction), state)
     }
 }

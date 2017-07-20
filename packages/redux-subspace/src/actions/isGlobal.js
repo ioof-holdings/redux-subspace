@@ -6,6 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const isGlobal = (action) => !action.type || action.globalAction
+const isGlobal = (action) => !action.type || action.globalAction === true
 
 export default isGlobal

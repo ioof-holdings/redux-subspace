@@ -44,7 +44,7 @@ describe('middleware integration tests', () => {
             })
         })
 
-        it('should work with no namespace sigle subspace', () => {
+        it('should work with no namespace single subspace', () => {
             const rootStore = createStore(rootReducer, applyMiddleware(thunk))
 
             const parentStore = subspace((state) => state.parent1)(rootStore)
@@ -123,7 +123,7 @@ describe('middleware integration tests', () => {
             })
         })
 
-        it('should work with namespaced sigle subspace', () => {
+        it('should work with namespaced single subspace', () => {
             const rootStore = createStore(rootReducer, applyMiddleware(thunk))
 
             const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
