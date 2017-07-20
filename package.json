@@ -12,7 +12,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "coverage": "istanbul report --root packages --reporter html --reporter text --reporter text-summary",
+    "coverage": "istanbul report --root packages --reporter html --reporter text-summary",
     "dist": "lerna run --parallel dist",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",

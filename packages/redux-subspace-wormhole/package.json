@@ -50,7 +50,6 @@
     "reporter": [
       "html",
       "text",
-      "text-summary",
       "json"
     ]
   }
