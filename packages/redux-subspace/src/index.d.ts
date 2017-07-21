@@ -33,7 +33,7 @@ export interface ProcessAction {
 export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
     rootStore: Redux.Store<TRootState>;
     namespace: string;
-    subspaceType: SubspaceType;
+    subspaceTypes: SubspaceType[];
     processAction: ProcessAction
 }
 
@@ -84,11 +84,13 @@ export interface SubspaceMiddleware {
 
 export function applyMiddleware(...middlewares: (SubspaceMiddleware | Redux.Middleware)[]): Redux.GenericStoreEnhancer;
 
+export function applyToRoot(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
+
+export function applyToNamespaceRoots(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
+
+export function applyToChildren(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
+
 export function globalActions(...actionTypes: string[]): SubspaceMiddleware;
-
-export function rootOnly(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
-
-export function namespaceRootOnly(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
 
 /**
  * Actions

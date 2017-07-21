@@ -7,7 +7,7 @@
 
 import { createStore, combineReducers } from 'redux'
 import subspace, { subspaceEnhanced } from '../../src/store/subspace'
-import { ROOT, NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypeEnhancer'
+import { ROOT, NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypesEnhancer'
 
 describe('subspace Tests', () => {
 
@@ -115,14 +115,14 @@ describe('subspace Tests', () => {
         const subspacedStore7 = subspace('child3')(subspacedStore4)
         const subspacedStore8 = subspace(() => {})(subspacedStore4)
 
-        expect(subspacedStore1.subspaceType).to.equal(ROOT)
-        expect(subspacedStore2.subspaceType).to.equal(ROOT)
-        expect(subspacedStore3.subspaceType).to.equal(NAMESPACE_ROOT)
-        expect(subspacedStore4.subspaceType).to.equal(CHILD)
-        expect(subspacedStore5.subspaceType).to.equal(CHILD)
-        expect(subspacedStore6.subspaceType).to.equal(NAMESPACE_ROOT)
-        expect(subspacedStore7.subspaceType).to.equal(NAMESPACE_ROOT)
-        expect(subspacedStore8.subspaceType).to.equal(CHILD)
+        expect(subspacedStore1.subspaceTypes).to.deep.equal([ROOT, NAMESPACE_ROOT])
+        expect(subspacedStore2.subspaceTypes).to.deep.equal([ROOT, NAMESPACE_ROOT])
+        expect(subspacedStore3.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
+        expect(subspacedStore4.subspaceTypes).to.deep.equal([CHILD])
+        expect(subspacedStore5.subspaceTypes).to.deep.equal([CHILD])
+        expect(subspacedStore6.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
+        expect(subspacedStore7.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
+        expect(subspacedStore8.subspaceTypes).to.deep.equal([CHILD])
     })
 
     it('should provide root store on subspace', () => {

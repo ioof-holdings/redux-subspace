@@ -14,6 +14,8 @@ export { default as namespaced } from '../src/reducers/namespaced'
 export { default as namespacedAction } from '../src/actions/namespacedAction'
 export { default as globalAction } from '../src/actions/globalAction'
 
+export { default as applyToRoot } from '../src/middleware/applyToRoot'
+export { default as applyToNamespaceRoots } from '../src/middleware/applyToNamespaceRoots'
+export { default as applyToChildren } from '../src/middleware/applyToChildren'
+
 export { default as globalActions } from '../src/middleware/globalActions'
-export { default as rootOnly } from '../src/middleware/rootOnly'
-export { default as namespaceRootOnly } from '../src/middleware/namespaceRootOnly'

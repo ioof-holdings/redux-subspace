@@ -6,16 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const wormhole = (mapState, key) => (store) => ({
-    getState: (next) => () => {
-        const state = next()
+import { applyToChildren } from 'redux-subspace'
 
-        if (typeof state === 'object' && !Array.isArray(state)) {
-            return { [key]: mapState(store.rootStore.getState()), ...state }
-        } else {
-            return state
-        }
-    }
-})
+import wormhole from './wormhole'
 
-export default wormhole
+export default (mapState, key) => applyToChildren(wormhole(mapState, key))

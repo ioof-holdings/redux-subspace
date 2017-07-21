@@ -6,15 +6,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ROOT, NAMESPACE_ROOT } from '../enhancers/subspaceTypeEnhancer'
+import { NAMESPACE_ROOT } from '../enhancers/subspaceTypesEnhancer'
 
-const namespaceRootOnly = (middleware) => (store) => {
+const applyToNamespaceRoots = (middleware) => (store) => {
 
-    if (!store.subspaceType || store.subspaceType === ROOT || store.subspaceType === NAMESPACE_ROOT) {
+    if (!store.subspaceTypes || store.subspaceTypes.indexOf(NAMESPACE_ROOT) >= 0) {
         return middleware(store)
     }
     
     return {}
 }
 
-export default namespaceRootOnly
+export default applyToNamespaceRoots

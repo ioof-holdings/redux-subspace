@@ -6,15 +6,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ROOT } from '../enhancers/subspaceTypeEnhancer'
+import { ROOT } from '../enhancers/subspaceTypesEnhancer'
 
-const rootOnly = (middleware) => (store) => {
+const applyToRoot = (middleware) => (store) => {
 
-    if (!store.subspaceType || store.subspaceType === ROOT) {
+    if (!store.subspaceTypes || store.subspaceTypes.indexOf(ROOT) >= 0) {
         return middleware(store)
     }
     
     return {}
 }
 
-export default rootOnly
+export default applyToRoot

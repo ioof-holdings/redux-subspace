@@ -6,17 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import rootOnly from '../../src/middleware/rootOnly'
-import { ROOT, NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypeEnhancer'
+import applyToNamespaceRoots from '../../src/middleware/applyToNamespaceRoots'
+import { ROOT, NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypesEnhancer'
 
-describe('rootOnly tests', () => {
+describe('applyToNamespaceRoots tests', () => {
     it('should forward to middleware for root store', () => {
         const store = { unique: 'value' }
         const middlewareSpy = sinon.spy()
 
         const testMiddleware = (store) => (next) => (action) => next(store, action)
 
-        const middleware = rootOnly(testMiddleware)
+        const middleware = applyToNamespaceRoots(testMiddleware)
 
         middleware(store)(middlewareSpy)({ type: 'TEST', value: 'expected' })
 
@@ -24,12 +24,25 @@ describe('rootOnly tests', () => {
     })
 
     it('should forward to middleware for root subspace', () => {
-        const store = { subspaceType: ROOT }
+        const store = { subspaceTypes: [ROOT, NAMESPACE_ROOT] }
         const middlewareSpy = sinon.spy()
 
         const testMiddleware = (store) => (next) => (action) => next(store, action)
 
-        const middleware = rootOnly(testMiddleware)
+        const middleware = applyToNamespaceRoots(testMiddleware)
+
+        middleware(store)(middlewareSpy)({ type: 'TEST', value: 'expected' })
+
+        expect(middlewareSpy).to.be.calledWithMatch(store, { type: 'TEST', value: 'expected'})
+    })
+
+    it('should forward to middleware for namespaced subspace', () => {
+        const store = { subspaceTypes: [NAMESPACE_ROOT, CHILD] }
+        const middlewareSpy = sinon.spy()
+
+        const testMiddleware = (store) => (next) => (action) => next(store, action)
+
+        const middleware = applyToNamespaceRoots(testMiddleware)
 
         middleware(store)(middlewareSpy)({ type: 'TEST', value: 'expected' })
 
@@ -37,21 +50,11 @@ describe('rootOnly tests', () => {
     })
 
     it('should not forward to middleware for namespaced subspace', () => {
-        const store = { subspaceType: NAMESPACE_ROOT }
+        const store = { subspaceTypes: [CHILD] }
 
         const testMiddleware = (store) => (next) => (action) => next(store, action)
 
-        const middleware = rootOnly(testMiddleware)
-
-        expect(middleware(store)).to.deep.equal({})
-    })
-
-    it('should not forward to middleware for namespaced subspace', () => {
-        const store = { subspaceType: CHILD }
-
-        const testMiddleware = (store) => (next) => (action) => next(store, action)
-
-        const middleware = rootOnly(testMiddleware)
+        const middleware = applyToNamespaceRoots(testMiddleware)
 
         expect(middleware(store)).to.deep.equal({})
     })

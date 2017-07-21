@@ -7,7 +7,7 @@
  */
 
 import { Middleware } from 'redux'
-import { applyMiddleware, namespaceRootOnly, SubspaceMiddleware } from '../../../src'
+import { applyMiddleware, applyToNamespaceRoots, SubspaceMiddleware } from '../../../src'
 
 const reduxMiddleware: Middleware = (store) => (next) => (action) => next(action)
 
@@ -15,6 +15,6 @@ const subspaceMiddleware: SubspaceMiddleware = (subspace) => ({
     dispatch: (next) => (action) => next(action)
 })
 
-applyMiddleware(namespaceRootOnly(reduxMiddleware))
+applyMiddleware(applyToNamespaceRoots(reduxMiddleware))
 
-applyMiddleware(namespaceRootOnly(subspaceMiddleware))
+applyMiddleware(applyToNamespaceRoots(subspaceMiddleware))
