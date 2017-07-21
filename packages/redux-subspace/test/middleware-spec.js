@@ -16,7 +16,7 @@ describe('middleware integration tests', () => {
 
     const testAction = (value) => ({ type: TEST_ACTION, value })
 
-    const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION? action.value : state
+    const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.value : state
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
     const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
 

@@ -14,7 +14,7 @@
     "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "nyc mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test": "nyc mocha --compilers js:babel-register --recursive --require jsdom-global/register --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "prepublish": "npm run dist"
   },
@@ -43,6 +43,8 @@
     "enzyme": "^2.8.0",
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.9.0",
+    "jsdom": "^11.1.0",
+    "jsdom-global": "^3.0.2",
     "mocha": "^2.2.5",
     "nyc": "^10.0.0",
     "react": "^15.5.0",
