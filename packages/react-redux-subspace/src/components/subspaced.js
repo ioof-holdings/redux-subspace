@@ -7,6 +7,8 @@
  */
 
 import React from 'react'
+import hoistNonReactStatics from 'hoist-non-react-statics';
+import wrapDisplayName from 'recompose/wrapDisplayName'
 import { subspace } from 'redux-subspace'
 import SubspaceProvider from './SubspaceProvider'
 
@@ -15,20 +17,16 @@ const subspaced = (mapState, namespace) => {
     const subspaceDecorator = subspace(mapState, namespace)
 
     return (WrappedComponent) => {
-
-        const wrappedComponentName = WrappedComponent.displayName
-            || WrappedComponent.name
-            || 'Component'
-
-        const displayName = `Subspaced(${wrappedComponentName})`
-
+        
         const SubspacedComponent = (props) => (
             <SubspaceProvider subspaceDecorator={subspaceDecorator}>
                 <WrappedComponent {...props} />
             </SubspaceProvider>
         )
 
-        SubspacedComponent.displayName = displayName
+        hoistNonReactStatics(SubspacedComponent, WrappedComponent)
+
+        SubspacedComponent.displayName = wrapDisplayName(WrappedComponent, 'Subspaced')
 
         return SubspacedComponent
     }

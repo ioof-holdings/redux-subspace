@@ -23,7 +23,9 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^2.2.1",
     "prop-types": "^15.5.0",
+    "recompose": "^0.24.0",
     "redux-subspace": "^2.0.0"
   },
   "peerDependencies": {

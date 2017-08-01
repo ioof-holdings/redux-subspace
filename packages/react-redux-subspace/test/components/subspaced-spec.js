@@ -111,32 +111,11 @@ describe('subspaced Tests', () => {
         expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
     })
 
-    it('should use component display name in display name', () => {
-        class TestComponent extends React.Component {
-            render() {
-                return null;
-            }
-        }
-
-        TestComponent.displayName = 'Connected(TestComponent)'
-
-        const SubspacedComponent = subspaced(state => state)(TestComponent)
-
-        expect(SubspacedComponent.displayName).to.equal("Subspaced(Connected(TestComponent))")
-    })
-
     it('should use component name in display name', () => {
         const TestComponent = () => null
 
         const SubspacedComponent = subspaced(state => state)(TestComponent)
 
         expect(SubspacedComponent.displayName).to.equal("Subspaced(TestComponent)")
-    })
-
-    it('should use fallback in display name', () => {
-
-        const SubspacedComponent = subspaced(state => state)('div')
-
-        expect(SubspacedComponent.displayName).to.equal("Subspaced(Component)")
     })
 })
