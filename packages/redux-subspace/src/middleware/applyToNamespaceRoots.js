@@ -6,15 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import scopedMiddleware from './scopedMiddleware'
 import { NAMESPACE_ROOT } from '../enhancers/subspaceTypesEnhancer'
 
-const applyToNamespaceRoots = (middleware) => (store) => {
+const namespaceRootsOnly = (store) => !store.subspaceTypes || store.subspaceTypes.indexOf(NAMESPACE_ROOT) >= 0
 
-    if (!store.subspaceTypes || store.subspaceTypes.indexOf(NAMESPACE_ROOT) >= 0) {
-        return middleware(store)
-    }
-    
-    return {}
-}
+const applyToNamespaceRoots = (middleware) => scopedMiddleware(middleware, namespaceRootsOnly)
 
 export default applyToNamespaceRoots

@@ -7,6 +7,7 @@
  */
 
 import * as Redux from 'redux';
+import createSagaMiddleware from 'redux-saga'
 import { MapState } from 'redux-subspace'
 
 type Saga0 = () => Iterator<any>;
@@ -42,3 +43,5 @@ export interface Subspaced {
 }
 
 export const subspaced: Subspaced;
+
+export default createSagaMiddleware

@@ -6,15 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import scopedMiddleware from './scopedMiddleware'
 import { CHILD } from '../enhancers/subspaceTypesEnhancer'
 
-const applyToChildren = (middleware) => (store) => {
+const childrenOnly = (store) => store.subspaceTypes && store.subspaceTypes.indexOf(CHILD) >= 0
 
-    if (store.subspaceTypes && store.subspaceTypes.indexOf(CHILD) >= 0) {
-        return middleware(store)
-    }
-    
-    return {}
-}
+const applyToChildren = (middleware) => scopedMiddleware(middleware, childrenOnly)
 
 export default applyToChildren

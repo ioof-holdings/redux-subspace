@@ -7,10 +7,9 @@
  */
 
 import { createStore, combineReducers } from 'redux'
-import { subspace, applyMiddleware, namespaced, applyToRoot } from 'redux-subspace'
-import createSagaMiddleware from 'redux-saga'
+import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
 import { takeEvery, select, put, all } from 'redux-saga/effects'
-import { provideStore, subspaced } from '../src'
+import createSagaMiddleware, { provideStore, subspaced } from '../src'
 
 describe('integration tests', () => {
 
@@ -58,7 +57,7 @@ describe('integration tests', () => {
     it('should work with no namespace single subspace', () => {
         const sagaMiddleware = createSagaMiddleware()
 
-        const rootStore = createStore(rootReducer, applyMiddleware(applyToRoot(sagaMiddleware)))
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 
         sagaMiddleware.run(checkingSaga(rootStore))
 
@@ -94,7 +93,7 @@ describe('integration tests', () => {
     it('should work with no namespace nested subspaces', () => {
         const sagaMiddleware = createSagaMiddleware()
 
-        const rootStore = createStore(rootReducer, applyMiddleware(applyToRoot(sagaMiddleware)))
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 
         sagaMiddleware.run(checkingSaga(rootStore))
 
@@ -145,7 +144,7 @@ describe('integration tests', () => {
     it('should work with namespaced single subspace', () => {
         const sagaMiddleware = createSagaMiddleware()
 
-        const rootStore = createStore(rootReducer, applyMiddleware(applyToRoot(sagaMiddleware)))
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
@@ -188,7 +187,7 @@ describe('integration tests', () => {
     it('should work with namespaced nested subspace', () => {
         const sagaMiddleware = createSagaMiddleware()
 
-        const rootStore = createStore(rootReducer, applyMiddleware(applyToRoot(sagaMiddleware)))
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
