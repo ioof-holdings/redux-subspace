@@ -1,15 +1,18 @@
 # redux-subspace-wormhole
 
-This is a library to inject additional global state into a subspace
+[![npm version](https://img.shields.io/npm/v/redux-subspace-wormhole.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-wormhole)
+[![npm downloads](https://img.shields.io/npm/dm/redux-subspace-wormhole.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-wormhole)
+[![License: MIT](https://img.shields.io/npm/l/redux-subspace-wormhole.svg?style=flat-square)](LICENSE.md)
 
-## What it does
+This is a library to inject additional global state into subspaces.
 
-TODO: this
+## Installation
 
-## Use this library if:
+```sh
+npm install --save redux-subspace-wormhole
+```
 
-* You have some global state that you want all subspaces to receive
+## Documentation
 
-## How to use
-
-TODO: this
+* [Usage](/packages/redux-subspace-wormhole/docs/Usage.md)
+* [API Reference](/packages/redux-subspace-wormhole/docs/api/README.md)
