@@ -23,6 +23,34 @@ describe('wormhole Tests', () => {
         expect(state).to.deep.equal({ original: "test", extra: "expected" })
     })
 
+    it('should map additional state from root state using string', () => {
+        const store = {
+            rootStore: {
+                getState: () => ({ value: "expected" })
+            }
+        }
+
+        const getState = () => ({ original: "test" })
+
+        const state = wormhole('value', 'extra')(store).getState(getState)()
+
+        expect(state).to.deep.equal({ original: "test", extra: "expected" })
+    })
+
+    it('should map additional state from root state using string key', () => {
+        const store = {
+            rootStore: {
+                getState: () => ({ extra: "expected" })
+            }
+        }
+
+        const getState = () => ({ original: "test" })
+
+        const state = wormhole('extra')(store).getState(getState)()
+
+        expect(state).to.deep.equal({ original: "test", extra: "expected" })
+    })
+
     it('should handle array state', () => {
         const store = {
             rootStore: {

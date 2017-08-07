@@ -6,16 +6,28 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const wormhole = (mapState, key) => (store) => ({
-    getState: (next) => () => {
-        const state = next()
+const wormhole = (mapState, key) => {
 
-        if (typeof state === 'object' && !Array.isArray(state)) {
-            return { [key]: mapState(store.rootStore.getState()), ...state }
-        } else {
-            return state
+    if (typeof mapState === 'string') {
+        const mapStateKey = mapState
+        mapState = (state) => state[mapStateKey]
+
+        if (typeof key === 'undefined') {
+            key = mapStateKey
         }
     }
-})
+
+    return (store) => ({
+        getState: (next) => () => {
+            const state = next()
+
+            if (typeof state === 'object' && !Array.isArray(state)) {
+                return { [key]: mapState(store.rootStore.getState()), ...state }
+            } else {
+                return state
+            }
+        }
+    })
+}
 
 export default wormhole
