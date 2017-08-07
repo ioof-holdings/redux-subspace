@@ -9,7 +9,7 @@
 import { createStore, combineReducers } from 'redux'
 import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
 import { takeEvery, select, put, all } from 'redux-saga/effects'
-import createSagaMiddleware, { provideStore, subspaced } from '../src'
+import createSagaMiddleware, { subspaced } from '../src'
 
 describe('integration tests', () => {
 
@@ -155,7 +155,7 @@ describe('integration tests', () => {
             ])
         }
 
-        sagaMiddleware.run(provideStore(rootStore)(rootSaga))
+        sagaMiddleware.run(rootSaga)
 
         rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
@@ -207,7 +207,7 @@ describe('integration tests', () => {
             ])
         }
 
-        sagaMiddleware.run(provideStore(rootStore)(rootSaga))
+        sagaMiddleware.run(rootSaga)
 
         rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 

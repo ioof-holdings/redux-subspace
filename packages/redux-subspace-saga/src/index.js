@@ -7,9 +7,9 @@
  */
 
 import { applyToRoot } from 'redux-subspace'
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from './middleware/createSagaMiddleware'
 
 export { default as provideStore } from './sagas/provideStore'
 export { default as subspaced } from './sagas/subspaced'
 
-export default (...params) => applyToRoot(createSagaMiddleware(...params))
+export default (options) => applyToRoot(createSagaMiddleware(options))
