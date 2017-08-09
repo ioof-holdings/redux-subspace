@@ -46,7 +46,7 @@ const reducer = combineReducers({
 
 In version 1, `redux-thunk` was implicilty supported as a hard-coded behaviour.  With the introduction of a middleware pipeline to redux-subspace, `redux-thunk` must now be applied as middleware to the store.
 
-Assuming you already had `redux-thunk` installed and applies to your root store, you only need change it to apply the middleware to subspaces as well.
+Assuming you already had `redux-thunk` installed and applied to your root store, you only need change it to apply the middleware to subspaces as well.
 
 To apply the middleware to subspaces, an alternative `applyMiddleware` function is provided by `redux-subspace`:
 
