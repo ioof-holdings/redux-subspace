@@ -1,7 +1,7 @@
 # Table of Contents
 
 * [Read Me](/README.md)
-* [Introduction](/docs/introduction.md)
+* [Introduction](/docs/Introduction.md)
 * [Basics](/docs/basics/README.md)
   * [Getting Started](/docs/bascis/GettingStarted.md)
   * [Creating Subspaces](/docs/basics/CreatingSubspaces.md)
