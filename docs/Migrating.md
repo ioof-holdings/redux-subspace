@@ -42,7 +42,7 @@ const reducer = combineReducers({
 })
 ```
 
-## redux-thunk
+## `redux-thunk`
 
 In version 1, `redux-thunk` was implicilty supported as a hard-coded behaviour.  With the introduction of a middleware pipeline to redux-subspace, `redux-thunk` must now be applied as middleware to the store.
 
