@@ -1,9 +1,7 @@
 # Table of Contents
 
 * [Read Me](/README.md)
-* [Introduction](/docs/introduction/README.md)
-  * [Motivation](/docs/introduction/Motivation.md)
-  * [Core Concepts](/docs/introduction/CoreConcepts.md)
+* [Introduction](/docs/introduction.md)
 * [Basics](/docs/basics/README.md)
   * [Getting Started](/docs/bascis/GettingStarted.md)
   * [Creating Subspaces](/docs/basics/CreatingSubspaces.md)
