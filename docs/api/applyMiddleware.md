@@ -4,7 +4,7 @@ A replacement for [Redux's `applyMiddleware` store enhancer](http://redux.js.org
 
 ## Arguments
 
-1. `...middleware` (_arguments_): Functions that conform to the [Redux middleware API](http://redux.js.org/docs/api/applyMiddleware.html#arguments) or [Redux Subspaces middlware API]((/docs/advanced/middleware/CustomMiddleware.md).
+1. `...middleware` (_arguments_): Functions that conform to the [Redux middleware API](http://redux.js.org/docs/api/applyMiddleware.html#arguments) or [Redux Subspaces middleware API]((/docs/advanced/middleware/CustomMiddleware.md).
 
 ## Returns
 
@@ -15,7 +15,7 @@ A replacement for [Redux's `applyMiddleware` store enhancer](http://redux.js.org
 ```javascript
 import { createStore } from 'redux'
 import { applyMiddleware } from 'redux-subspace'
-import { reducer, middlware } from 'somewhere'
+import { reducer, middleware } from 'somewhere'
 
-const store = createStore(reducer, applyMiddleware(middlware))
+const store = createStore(reducer, applyMiddleware(middleware))
 ```
