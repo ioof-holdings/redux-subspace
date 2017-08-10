@@ -38,7 +38,7 @@ You can nest subspaces sagas by [composing them together](https://redux-saga.js.
 
 ### Accessing the store
 
-For `subspaced` to work, the the store needs to be present in the saga's context. The `createSagaMiddleware` provided my `redux-subpsace-saga` will automatically inject the store it is applied to into the context, but if you are not using it you can use the `provideStore` higher-order saga will handle this for you.
+For `subspaced` to work, the store needs to be present in the saga's context. The `createSagaMiddleware` provided by `redux-subpsace-saga` will automatically inject the store it is applied to into the context, but if you are not using it you can use the `provideStore` higher-order saga to handle this for you.
 
 ```javascript
 import { createStore } from 'redux'

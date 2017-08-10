@@ -9,7 +9,7 @@ This is a library to create subspaces for sagas. It's designed to work with [red
 ## Installation
 
 ```sh
-npm install --save redux-subspace-wormhole
+npm install --save redux-subspace-saga
 ```
 
 ## Documentation
