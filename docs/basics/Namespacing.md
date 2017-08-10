@@ -124,6 +124,6 @@ console.log('subApp2 state:', subApp2Store.getState()) // { "value": 2 }
 console.log('store state:', store.getState()) // { "subApp1": { value: 2 }, "subApp2": { value: 2 } }
 ```
 
-As you can now see, we namespacing gives us much better control over which subspaces interact with specific sections of the state.
+As you can now see, namespacing gives us much better control over which subspaces interact with specific sections of the state.
 
 We didn't need to use the exact same reducer for both sub-applications for this, but it does demonstrate how Redux Subspace can be used to create reusable redux applications.

@@ -58,7 +58,7 @@ In the above example, `subApp1Store` looks like a regular store, but the state r
 console.log('subApp1 state:', subApp1Store.getState()) // { "value": 1 }
 ```
 
-Calling `dispatch` on `subApp1Store` will delegated the action handling to the root store to pass to it's reducer:
+Calling `dispatch` on `subApp1Store` will delegate the action handling to the root store to pass to it's reducer:
 
 ```javascript
 subApp1Store.dispatch({ type: 'INCREMENT_APP_1' })
