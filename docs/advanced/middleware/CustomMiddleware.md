@@ -12,7 +12,7 @@ Although Redux Subspace works with standard Redux middleware, you can also write
 
 ### `dispatch` Middleware
 
-`dispatch` middlware can be written the same as standard Redux middleware:
+`dispatch` middleware can be written the same as standard Redux middleware:
 
 ```javascript
 const middleware = (subspace) => (next) => (action) => next(action)

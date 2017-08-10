@@ -1,6 +1,6 @@
 # redux-thunk
 
-The [`redux-thunk` middleware](https://github.com/gaearon/redux-thunk) works simple by using [Redux Subspaces `applyMiddleware` function](/docs/advanced/README.md).
+The [`redux-thunk` middleware](https://github.com/gaearon/redux-thunk) works simply by using [Redux Subspaces `applyMiddleware` function](/docs/advanced/README.md).
 
 ```javascript
 import { createStore } from 'redux'

@@ -1,6 +1,6 @@
 # Scoping Actions
 
-When [namespacing](/docs/basics/Namespacing.md), actions are automatically scoped to the the relative namespace of the subspace they are dispatched from. Sometimes, it is necessary to dispatch actions with specific scoping requirements.
+When [namespacing](/docs/basics/Namespacing.md), actions are automatically scoped to the relative namespace of the subspace they are dispatched from. Sometimes, it is necessary to dispatch actions with specific scoping requirements.
 
 ## Global Actions
 
