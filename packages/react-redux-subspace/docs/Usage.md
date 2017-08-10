@@ -8,7 +8,7 @@ React Redux Subspace provides React bindings to create subspaces for components.
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import SubApplication from 'some-dependency'
 
 class MyComponent extends React.Component {
@@ -22,7 +22,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-By wrapping `SubApplication` in a subspace, the state injected into [`mapStateToProps` of connected components](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) within the subspace will be the state mapped from the `mapState` prop.  The `namespace` prop will be used to [namespace](/docs/basics/Namespacing.md) and actions dispatched from [`mapDispatchToProps` of connected components](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) within the subspace.
+By wrapping `SubApplication` in a subspace, the state injected into [`mapStateToProps` of connected components](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) within the subspace will be the state mapped from the `mapState` prop.  The `namespace` prop will be used to [namespace](/docs/basics/Namespacing.md) the actions dispatched from [`mapDispatchToProps` of connected components](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) within the subspace.
 
 For example, if the application's state looked like:
 
@@ -93,7 +93,7 @@ class App extends React.Component {
 `react-redux-subspace` also provides a `subspaced` HOC that wraps a provided component in a `SubspaceProvider` which can be useful when you want to subspace a component, but don't want to do it in jsx, e.g. exporting the component or passing it as a prop:
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import SubApplication from 'some-dependency'
 
 export default subspaced((state) => state.subApp, 'subApp')(SubApplication)
