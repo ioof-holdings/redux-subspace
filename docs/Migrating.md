@@ -100,8 +100,8 @@ import { createStore } from 'redux'
 The `asGlobal` action wrapper has also been renamed to `globalAction` to be more consistent with the new action wrappers:
 
 ```diff
--import { asGlobal } from 'redux-subspace`
-+import { globalAction } from 'redux-subspace`
+-import { asGlobal } from 'redux-subspace'
++import { globalAction } from 'redux-subspace'
 
 -store.dispatch(asGlobal({ type: 'GLOBAL_ACTION' }))
 +store.dispatch(globalAction({ type: 'GLOBAL_ACTION' }))

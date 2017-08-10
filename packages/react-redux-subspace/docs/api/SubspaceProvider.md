@@ -14,7 +14,7 @@ If `mapState` is passed as a string and no `namespace` is provided, the provided
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 class MyComponent extends React.Component {
@@ -30,7 +30,7 @@ class MyComponent extends React.Component {
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 class MyComponent extends React.Component {
@@ -46,7 +46,7 @@ class MyComponent extends React.Component {
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 class MyComponent extends React.Component {
@@ -62,7 +62,7 @@ class MyComponent extends React.Component {
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 class MyComponent extends React.Component {
@@ -78,7 +78,7 @@ class MyComponent extends React.Component {
 
 ```javascript
 import React from `react`
-import { SubspaceProvider } from 'react-redux-subspace`
+import { SubspaceProvider } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 class MyComponent extends React.Component {
