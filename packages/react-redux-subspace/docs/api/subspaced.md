@@ -16,35 +16,35 @@ If `mapState` is passed as a string and no `namespace` is provided, the provided
 ## Examples
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 const SubspacedComponent =  subspaced((state) => state.subApp)(AComponent)
 ```
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 const SubspacedComponent = subspaced((state, rootState) => ({ ...state.subApp, root: rootState }))(AComponent)
 ```
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 const SubspacedComponent =  subspaced((state) => state.subApp, 'subApp')(AComponent)
 ```
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 const SubspacedComponent =  subspaced('subApp', 'subAppNamespace')(AComponent)
 ```
 
 ```javascript
-import { subspaced } from 'react-redux-subspace`
+import { subspaced } from 'react-redux-subspace'
 import AComponent from 'somewhere'
 
 const SubspacedComponent =  subspaced('subApp')(AComponent)
