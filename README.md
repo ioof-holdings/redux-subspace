@@ -19,6 +19,12 @@ npm install --save redux-subspace
 * [Advanced](/docs/advanced/README.md)
 * [API Reference](/docs/api/README.md)
 
+## Sub-Packages
+
+* [`react-redux-subspace`](/packages/react-redux-subspace): React bindings compatible with `react-redux`
+* [`redux-subspace-saga`](/packages/redux-subspace-saga): Utilities for integrating with `redux-saga`
+* [`redux-subspace-wormhole`](/packages/redux-subspace-wormhole): Middleware for exposing additional state to subspaces
+
 ## Upgrading From Version 1 to Version 2
 
 When upgrading to version 2 or Redux Subspace, refer to the [migration guide](/docs/Migrating.md) to work through all the breaking changes.
