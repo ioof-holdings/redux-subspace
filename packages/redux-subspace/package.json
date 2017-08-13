@@ -14,7 +14,7 @@
     "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "nyc mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test": "nyc mocha --compilers js:babel-register --require ./test/setup.js $(find test -name '*-spec.js')",
     "test:watch": "npm test -- --watch",
     "prepublish": "npm run dist"
   },
@@ -40,6 +40,7 @@
     "nyc": "^10.0.0",
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.1",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",

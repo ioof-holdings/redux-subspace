@@ -6,6 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import path from 'path'
+import fs from 'fs'
 import { createStore, combineReducers } from 'redux'
 import { 
     subspace,
@@ -1204,6 +1206,14 @@ describe('integration tests', () => {
 
             expect(dispatchSpy).to.have.been.calledWithMatch(subspaceMatcher, sinon.match.func, globalAction(testAction('global value')))
             expect(dispatchSpy).to.have.been.calledWithMatch(subspaceMatcher, sinon.match.func, globalAction(testGlobalAction('root value')))
+        })
+    })
+
+    describe('middleware', () => {
+        fs.readdirSync(path.join(__dirname, 'middleware', 'integration')).forEach((filename) => {
+            describe(`${path.basename(filename, path.extname(filename))}`, () => {
+                require(path.join(__dirname, 'middleware', 'integration', filename))
+            })
         })
     })
 })
