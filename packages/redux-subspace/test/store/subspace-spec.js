@@ -1,4 +1,5 @@
-/* Copyright 2016, IOOF Holdings Limited.
+/**
+ * Copyright 2017, IOOF Holdings Limited.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the

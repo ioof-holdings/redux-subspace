@@ -1,6 +1,6 @@
 BSD 3-Clause License
 
-Copyright (c) 2016, IOOF Holdings Limited
+Copyright (c) 2017, IOOF Holdings Limited
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
