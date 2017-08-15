@@ -7,7 +7,6 @@
  */
 
 import { applyToChildren } from 'redux-subspace'
-
 import wormhole from './wormhole'
 
 export default (mapState, key) => applyToChildren(wormhole(mapState, key))
