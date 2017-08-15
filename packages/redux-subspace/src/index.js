@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export { default as subspace } from '../src/store/subspace'
-export { default as applyMiddleware } from '../src/store/applyMiddleware'
+export { default as subspace } from './store/subspace'
+export { default as applyMiddleware } from './store/applyMiddleware'
 
-export { default as namespaced } from '../src/reducers/namespaced'
+export { default as namespaced } from './reducers/namespaced'
 
-export { default as namespacedAction } from '../src/actions/namespacedAction'
-export { default as globalAction } from '../src/actions/globalAction'
+export { default as namespacedAction } from './actions/namespacedAction'
+export { default as globalAction } from './actions/globalAction'
 
-export { default as applyToRoot } from '../src/middleware/applyToRoot'
-export { default as applyToNamespaceRoots } from '../src/middleware/applyToNamespaceRoots'
-export { default as applyToChildren } from '../src/middleware/applyToChildren'
+export { default as applyToRoot } from './middleware/applyToRoot'
+export { default as applyToNamespaceRoots } from './middleware/applyToNamespaceRoots'
+export { default as applyToChildren } from './middleware/applyToChildren'
 
-export { default as globalActions } from '../src/middleware/globalActions'
+export { default as globalActions } from './middleware/globalActions'
