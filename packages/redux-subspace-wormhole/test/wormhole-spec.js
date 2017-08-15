@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import wormhole from '../src/wormhole'
+import wormhole from './wormhole'
 
 describe('wormhole Tests', () => {
     it('should map additional state from root state', () => {
