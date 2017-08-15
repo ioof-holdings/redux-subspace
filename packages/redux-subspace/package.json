@@ -11,17 +11,19 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "coverage": "istanbul report --root packages --reporter html --reporter text-summary",
-    "dist": "lerna run --parallel dist",
+    "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "lerna run test && npm run coverage",
-    "test:watch": "lerna run --parallel test:watch"
+    "test": "nyc mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run dist"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
+  },
+  "peerDependencies": {
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -31,8 +33,25 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
     "eslint": "^3.13.1",
-    "istanbul": "^0.4.5",
-    "lerna": "^2.0.0"
+    "eslint-plugin-react": "^6.9.0",
+    "mocha": "^2.2.5",
+    "nyc": "^10.0.0",
+    "redux": "^3.6.0",
+    "redux-mock-store": "^1.2.1",
+    "redux-thunk": "^2.2.0",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "typescript": "^2.1.5",
+    "typescript-definition-tester": "0.0.5"
+  },
+  "nyc": {
+    "temp-directory": "coverage/.nyc_output",
+    "reporter": [
+      "html",
+      "text",
+      "json"
+    ]
   }
 }
