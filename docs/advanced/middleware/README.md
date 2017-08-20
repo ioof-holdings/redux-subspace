@@ -62,6 +62,7 @@ As previously stated, many Redux middlewares will just work with Redux Subspace,
 
 * [redux-thunk](/docs/advanced/middleware/redux-thunk.md)
 * [redux-saga](/docs/advanced/middleware/redux-saga.md)
+* [redux-promise](/docs/advanced/middleware/redux-promise.md)
 
 ## Writing Custom Middleware
 
