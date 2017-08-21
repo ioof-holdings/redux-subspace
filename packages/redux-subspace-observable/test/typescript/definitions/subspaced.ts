@@ -7,7 +7,7 @@
  */
 
 import { createStore, applyMiddleware, Action } from 'redux'
-import { createEpicMiddleware, combineEpics, Epic, ActionsObservable } from 'redux-observable'
+import { combineEpics, Epic, ActionsObservable } from 'redux-observable'
 import { takeEvery, put } from 'redux-saga/effects'
 import 'rxjs/add/operator/map'
 import { subspaced } from '../../../src'
@@ -43,7 +43,3 @@ const rootEpic = combineEpics(
     subStateEpicWithRoot,
     subspacedEpicWithRoot
 )
-
-const epicMiddleware = createEpicMiddleware(rootEpic)
-
-const store = createStore(reducer, applyMiddleware(epicMiddleware))
