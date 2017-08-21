@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Observable } from 'rxjs/Observable'
 import { empty } from 'rxjs/observable/empty'
 import { map } from 'rxjs/operator/map'
 import { filter } from 'rxjs/operator/filter'
