@@ -1,0 +1,9 @@
+.git/
+node_modules
+npm-debug.log
+docs/
+examples/
+.nyc_output
+coverage
+.vscode
+.idea
