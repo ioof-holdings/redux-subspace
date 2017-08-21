@@ -15,12 +15,14 @@ const identity = (x) => x
 
 const subspaced = (mapState, namespace) => {
     const subspaceDecorator = subspace(mapState, namespace)
-    return epic => (action$, store, ...rest) => {
+    return epic => (action$, store, dependencies) => {
         const subspacedStore = subspaceDecorator(store)
+
         const filteredAction$ = action$
             ::map((action) => subspacedStore.processAction(action, identity))
             ::filter(identity)
-        epic(filteredAction$, subspacedStore, ...rest).subscribe(subspacedStore.dispatch)
+
+        epic(filteredAction$, subspacedStore, dependencies).subscribe(subspacedStore.dispatch)
         return empty()
     }
 }

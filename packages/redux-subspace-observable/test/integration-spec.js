@@ -22,8 +22,7 @@ describe('integration tests', () => {
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
     const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
 
-    const checkingEpic = (action$) => action$
-        .ofType(TEST_ACTION_TRIGGER)
+    const checkingEpic = (action$) => action$.ofType(TEST_ACTION_TRIGGER)
         ::map(action => ({ type: TEST_ACTION, value: action.value }))
 
     it('should work with no subspaces', () => {
