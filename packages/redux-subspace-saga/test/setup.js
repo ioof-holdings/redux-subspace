@@ -8,14 +8,9 @@
 
 import babelRegister from 'babel-register'
 
-require('babel-polyfill');
+require('babel-polyfill')
 
-babelRegister(
-    {
-        babelrc: false,
-        presets: ['es2015', 'stage-0', 'react']
-    }
-)
+babelRegister()
 
 global.expect = require('chai').expect
 global.sinon = require('sinon')
