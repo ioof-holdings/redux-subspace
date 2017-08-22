@@ -1,3 +1,2 @@
-export { default as AddTodo } from './AddTodo'
-export { default as VisibleTodoList } from './VisibleTodoList'
-export { default as reducer } from './reducer'
+export { default as TodoApp } from './components/TodoApp'
+export { default as reducer } from './reducers'
