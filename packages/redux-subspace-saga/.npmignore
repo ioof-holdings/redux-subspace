@@ -1,6 +1,7 @@
 .git/
 node_modules
 npm-debug.log
+test/
 docs/
 examples/
 .nyc_output
