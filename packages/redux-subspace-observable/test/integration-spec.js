@@ -7,28 +7,28 @@
  */
 
 import { createStore, combineReducers } from 'redux'
-import thunk from 'redux-thunk'
-import { subspace, applyMiddleware, namespaced } from '../../../src'
+import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
+import { combineEpics } from 'redux-observable'
+import { map } from 'rxjs/operator/map'
+import { createEpicMiddleware, subspaced } from '../src'
 
-describe('redux-thunk', () => {
+describe('integration tests', () => {
+
+    const TEST_ACTION_TRIGGER = 'TEST_ACTION_TRIGGER'
 
     const TEST_ACTION = 'TEST_ACTION'
-
-    const testAction = (value) => ({ type: TEST_ACTION, value })
 
     const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.value : state
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
     const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
 
-    const checkingThunk = (store, action) => (dispatch, getState) => {
-        expect(getState()).to.deep.equal(store.getState())
-        dispatch(action)
-    }
+    const checkingEpic = (action$) => action$.ofType(TEST_ACTION_TRIGGER)
+        ::map(action => ({ type: TEST_ACTION, value: action.value }))
 
     it('should work with no subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
 
-        rootStore.dispatch(checkingThunk(rootStore, testAction('root value')))
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -43,11 +43,11 @@ describe('redux-thunk', () => {
     })
 
     it('should work with no namespace single subspace', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
 
         const parentStore = subspace((state) => state.parent1)(rootStore)
 
-        rootStore.dispatch(checkingThunk(rootStore, testAction('root value')))
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -60,7 +60,7 @@ describe('redux-thunk', () => {
             }
         })
 
-        parentStore.dispatch(checkingThunk(parentStore, testAction('parent value')))
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -75,13 +75,13 @@ describe('redux-thunk', () => {
     })
 
     it('should work with no namespace nested subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
 
         const parentStore = subspace((state) => state.parent1)(rootStore)
 
         const childStore = subspace((state) => state.child1)(parentStore)
 
-        rootStore.dispatch(checkingThunk(rootStore, testAction('root value')))
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -94,7 +94,7 @@ describe('redux-thunk', () => {
             }
         })
 
-        parentStore.dispatch(checkingThunk(parentStore, testAction('parent value')))
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -107,7 +107,7 @@ describe('redux-thunk', () => {
             }
         })
 
-        childStore.dispatch(checkingThunk(childStore, testAction('child value')))
+        childStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'child value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -122,11 +122,16 @@ describe('redux-thunk', () => {
     })
 
     it('should work with namespaced single subspace', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
+            combineEpics(
+                checkingEpic,
+                subspaced((state) => state.parent2, 'parentNamespace')(checkingEpic)
+            )
+        )))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
-        rootStore.dispatch(checkingThunk(rootStore, testAction('root value')))
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -139,8 +144,8 @@ describe('redux-thunk', () => {
             }
         })
 
-        parentStore.dispatch(checkingThunk(parentStore, testAction('parent value')))
-
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent value' })
+        
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
                 child1: 'root value',
@@ -154,13 +159,23 @@ describe('redux-thunk', () => {
     })
 
     it('should work with namespaced nested subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
+            combineEpics(
+                checkingEpic,
+                subspaced((state) => state.parent2, 'parentNamespace')(
+                    combineEpics(
+                        checkingEpic,
+                        subspaced((state) => state.child2, 'childNamespace')(checkingEpic)
+                    )
+                )
+            )
+        )))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
         const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
 
-        rootStore.dispatch(checkingThunk(rootStore, testAction('root value')))
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -173,7 +188,7 @@ describe('redux-thunk', () => {
             }
         })
 
-        parentStore.dispatch(checkingThunk(parentStore, testAction('parent value')))
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
@@ -186,7 +201,7 @@ describe('redux-thunk', () => {
             }
         })
 
-        childStore.dispatch(checkingThunk(childStore, testAction('child value')))
+        childStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'child value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {

@@ -10,66 +10,27 @@ import { createStore, combineReducers } from 'redux'
 import promiseMiddleware from 'redux-promise';
 import { subspace, applyMiddleware, namespaced } from '../../../src'
 
-const TEST_ACTION = 'TEST_ACTION'
+describe('redux-promise', () => {
 
-const testAction = (payload) => ({ type: TEST_ACTION, payload })
+    const TEST_ACTION = 'TEST_ACTION'
 
-const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.payload : state
-const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
-const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
+    const testAction = (payload) => ({ type: TEST_ACTION, payload })
 
-it('should work with no subspaces', (done) => {
-    const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
+    const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.payload : state
+    const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
+    const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
 
-    const rootPromise = Promise.resolve('root value')
+    it('should work with no subspaces', (done) => {
+        const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-    rootStore.dispatch(testAction(rootPromise))
-    
-    rootPromise.then(() => {
-        expect(rootStore.getState()).to.deep.equal({
-            parent1: {
-                child1: 'root value',
-                child2: 'initial value'
-            },
-            parent2: {
-                child1: 'initial value',
-                child2: 'initial value'
-            }
-        })
+        const rootPromise = Promise.resolve('root value')
 
-        done()
-    })
-})
-
-it('should work with no namespace single subspace', (done) => {
-    const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
-
-    const parentStore = subspace((state) => state.parent1)(rootStore)
-
-    const rootPromise = Promise.resolve('root value')
-    
-    rootStore.dispatch(testAction(rootPromise))
-    
-    rootPromise.then(() => {
-        expect(rootStore.getState()).to.deep.equal({
-            parent1: {
-                child1: 'root value',
-                child2: 'initial value'
-            },
-            parent2: {
-                child1: 'initial value',
-                child2: 'initial value'
-            }
-        })
-
-        const parentPromise = Promise.resolve('parent value')
+        rootStore.dispatch(testAction(rootPromise))
         
-        parentStore.dispatch(testAction(parentPromise))
-        
-        parentPromise.then(() => {
+        rootPromise.then(() => {
             expect(rootStore.getState()).to.deep.equal({
                 parent1: {
-                    child1: 'parent value',
+                    child1: 'root value',
                     child2: 'initial value'
                 },
                 parent2: {
@@ -81,39 +42,20 @@ it('should work with no namespace single subspace', (done) => {
             done()
         })
     })
-})
 
-it('should work with no namespace nested subspaces', (done) => {
-    const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
+    it('should work with no namespace single subspace', (done) => {
+        const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-    const parentStore = subspace((state) => state.parent1)(rootStore)
+        const parentStore = subspace((state) => state.parent1)(rootStore)
 
-    const childStore = subspace((state) => state.child1)(parentStore)
-
-    const rootPromise = Promise.resolve('root value')
-    
-    rootStore.dispatch(testAction(rootPromise))
-    
-    rootPromise.then(() => {
-        expect(rootStore.getState()).to.deep.equal({
-            parent1: {
-                child1: 'root value',
-                child2: 'initial value'
-            },
-            parent2: {
-                child1: 'initial value',
-                child2: 'initial value'
-            }
-        })
-
-        const parentPromise = Promise.resolve('parent value')
+        const rootPromise = Promise.resolve('root value')
         
-        parentStore.dispatch(testAction(parentPromise))
+        rootStore.dispatch(testAction(rootPromise))
         
-        parentPromise.then(() => {
+        rootPromise.then(() => {
             expect(rootStore.getState()).to.deep.equal({
                 parent1: {
-                    child1: 'parent value',
+                    child1: 'root value',
                     child2: 'initial value'
                 },
                 parent2: {
@@ -121,15 +63,15 @@ it('should work with no namespace nested subspaces', (done) => {
                     child2: 'initial value'
                 }
             })
+
+            const parentPromise = Promise.resolve('parent value')
             
-            const childPromise = Promise.resolve(testAction('child value'))
+            parentStore.dispatch(testAction(parentPromise))
             
-            childStore.dispatch(childPromise)
-            
-            childPromise.then(() => {
+            parentPromise.then(() => {
                 expect(rootStore.getState()).to.deep.equal({
                     parent1: {
-                        child1: 'child value',
+                        child1: 'parent value',
                         child2: 'initial value'
                     },
                     parent2: {
@@ -142,94 +84,94 @@ it('should work with no namespace nested subspaces', (done) => {
             })
         })
     })
-})
 
-it('should work with namespaced single subspace', (done) => {
-    const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
+    it('should work with no namespace nested subspaces', (done) => {
+        const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-    const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
+        const parentStore = subspace((state) => state.parent1)(rootStore)
 
-    const rootPromise = Promise.resolve('root value')
-    
-    rootStore.dispatch(testAction(rootPromise))
-    
-    rootPromise.then(() => {
-        expect(rootStore.getState()).to.deep.equal({
-            parent1: {
-                child1: 'root value',
-                child2: 'initial value'
-            },
-            parent2: {
-                child1: 'initial value',
-                child2: 'initial value'
-            }
-        })
+        const childStore = subspace((state) => state.child1)(parentStore)
 
-        const parentPromise = Promise.resolve('parent value')
+        const rootPromise = Promise.resolve('root value')
         
-        parentStore.dispatch(testAction(parentPromise))
+        rootStore.dispatch(testAction(rootPromise))
         
-        parentPromise.then(() => {
+        rootPromise.then(() => {
             expect(rootStore.getState()).to.deep.equal({
                 parent1: {
                     child1: 'root value',
                     child2: 'initial value'
                 },
                 parent2: {
-                    child1: 'parent value',
+                    child1: 'initial value',
                     child2: 'initial value'
                 }
             })
 
-            done()
+            const parentPromise = Promise.resolve('parent value')
+            
+            parentStore.dispatch(testAction(parentPromise))
+            
+            parentPromise.then(() => {
+                expect(rootStore.getState()).to.deep.equal({
+                    parent1: {
+                        child1: 'parent value',
+                        child2: 'initial value'
+                    },
+                    parent2: {
+                        child1: 'initial value',
+                        child2: 'initial value'
+                    }
+                })
+                
+                const childPromise = Promise.resolve(testAction('child value'))
+                
+                childStore.dispatch(childPromise)
+                
+                childPromise.then(() => {
+                    expect(rootStore.getState()).to.deep.equal({
+                        parent1: {
+                            child1: 'child value',
+                            child2: 'initial value'
+                        },
+                        parent2: {
+                            child1: 'initial value',
+                            child2: 'initial value'
+                        }
+                    })
+
+                    done()
+                })
+            })
         })
     })
-})
 
-it('should work with namespaced nested subspaces', (done) => {
-    const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
+    it('should work with namespaced single subspace', (done) => {
+        const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-    const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
+        const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
 
-    const childStore = subspace((state) => state.child1, 'childNamespace')(parentStore)
-
-    const rootPromise = Promise.resolve('root value')
-    
-    rootStore.dispatch(testAction(rootPromise))
-    
-    rootPromise.then(() => {
-        expect(rootStore.getState()).to.deep.equal({
-            parent1: {
-                child1: 'root value',
-                child2: 'initial value'
-            },
-            parent2: {
-                child1: 'initial value',
-                child2: 'initial value'
-            }
-        })
-
-        const parentPromise = Promise.resolve('parent value')
+        const rootPromise = Promise.resolve('root value')
         
-        parentStore.dispatch(testAction(parentPromise))
+        rootStore.dispatch(testAction(rootPromise))
         
-        parentPromise.then(() => {
+        rootPromise.then(() => {
             expect(rootStore.getState()).to.deep.equal({
                 parent1: {
                     child1: 'root value',
                     child2: 'initial value'
                 },
                 parent2: {
-                    child1: 'parent value',
+                    child1: 'initial value',
                     child2: 'initial value'
                 }
             })
+
+            const parentPromise = Promise.resolve('parent value')
             
-            const childPromise = Promise.resolve(testAction('child value'))
+            parentStore.dispatch(testAction(parentPromise))
             
-            childStore.dispatch(childPromise)
-            
-            childPromise.then(() => {
+            parentPromise.then(() => {
                 expect(rootStore.getState()).to.deep.equal({
                     parent1: {
                         child1: 'root value',
@@ -237,11 +179,72 @@ it('should work with namespaced nested subspaces', (done) => {
                     },
                     parent2: {
                         child1: 'parent value',
-                        child2: 'child value'
+                        child2: 'initial value'
                     }
                 })
 
                 done()
+            })
+        })
+    })
+
+    it('should work with namespaced nested subspaces', (done) => {
+        const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
+
+        const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
+
+        const childStore = subspace((state) => state.child1, 'childNamespace')(parentStore)
+
+        const rootPromise = Promise.resolve('root value')
+        
+        rootStore.dispatch(testAction(rootPromise))
+        
+        rootPromise.then(() => {
+            expect(rootStore.getState()).to.deep.equal({
+                parent1: {
+                    child1: 'root value',
+                    child2: 'initial value'
+                },
+                parent2: {
+                    child1: 'initial value',
+                    child2: 'initial value'
+                }
+            })
+
+            const parentPromise = Promise.resolve('parent value')
+            
+            parentStore.dispatch(testAction(parentPromise))
+            
+            parentPromise.then(() => {
+                expect(rootStore.getState()).to.deep.equal({
+                    parent1: {
+                        child1: 'root value',
+                        child2: 'initial value'
+                    },
+                    parent2: {
+                        child1: 'parent value',
+                        child2: 'initial value'
+                    }
+                })
+                
+                const childPromise = Promise.resolve(testAction('child value'))
+                
+                childStore.dispatch(childPromise)
+                
+                childPromise.then(() => {
+                    expect(rootStore.getState()).to.deep.equal({
+                        parent1: {
+                            child1: 'root value',
+                            child2: 'initial value'
+                        },
+                        parent2: {
+                            child1: 'parent value',
+                            child2: 'child value'
+                        }
+                    })
+
+                    done()
+                })
             })
         })
     })

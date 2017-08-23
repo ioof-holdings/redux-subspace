@@ -15,14 +15,14 @@ describe('subspaced Tests', () => {
     
     it('should get substate for saga', () => {
 
-        let state = {
+        const state = {
             subState: {
                 value: "expected"
             },
             value: "wrong"
         }
 
-        let mockStore = configureStore()(state)
+        const mockStore = configureStore()(state)
 
         function* saga() {
             const value = yield select((state) => state.value)
@@ -42,14 +42,14 @@ describe('subspaced Tests', () => {
     
     it('should namespace actions for saga', () => {
         
-        let state = {
+        const state = {
             subState: {
                 value: "expected"
             },
             value: "wrong"
         }
 
-        let mockStore = configureStore()(state)
+        const mockStore = configureStore()(state)
 
         function* saga() {
             const value = yield select((state) => state.value)
@@ -69,14 +69,14 @@ describe('subspaced Tests', () => {
     
     it('should use namespace for substate for saga', () => {
 
-        let state = {
+        const state = {
             subState: {
                 value: "expected"
             },
             value: "wrong"
         }
 
-        let mockStore = configureStore()(state)
+        const mockStore = configureStore()(state)
 
         function* saga() {
             const value = yield select((state) => state.value)
@@ -96,14 +96,14 @@ describe('subspaced Tests', () => {
     
     it('should accept global actions for saga', () => {
         
-        let state = {
+        const state = {
             subState: {
                 value: "expected"
             },
             value: "wrong"
         }
 
-        let mockStore = configureStore()(state)
+        const mockStore = configureStore()(state)
 
         function* saga() {
             const value = yield select((state) => state.value)
@@ -123,14 +123,14 @@ describe('subspaced Tests', () => {
     
     it('should not namespace global actions for saga', () => {
         
-        let state = {
+        const state = {
             subState: {
                 value: "expected"
             },
             value: "wrong"
         }
 
-        let mockStore = configureStore()(state)
+        const mockStore = configureStore()(state)
 
         function* saga() {
             const value = yield select((state) => state.value)

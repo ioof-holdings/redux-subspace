@@ -1211,9 +1211,7 @@ describe('integration tests', () => {
 
     describe('middleware', () => {
         fs.readdirSync(path.join(__dirname, 'middleware', 'integration')).forEach((filename) => {
-            describe(`${path.basename(filename, path.extname(filename))}`, () => {
-                require(path.join(__dirname, 'middleware', 'integration', filename))
-            })
+            require(path.join(__dirname, 'middleware', 'integration', filename))
         })
     })
 })

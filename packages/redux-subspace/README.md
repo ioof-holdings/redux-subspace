@@ -6,6 +6,12 @@
 
 This is a library to create subspaces for Redux stores. This is the core package of [Redux Subspace](/)
 
+## Installation
+
+```sh
+npm install --save redux-subspace
+```
+
 ## Documentation
 
 The documentation for Redux Subspace can be found [here](/docs/README.md).

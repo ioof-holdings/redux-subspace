@@ -16,7 +16,7 @@ describe('TypeScript definitions', function () {
   const options = {
     noEmitOnError: true,
     noImplicitAny: true,
-    target: ts.ScriptTarget.ES2015,
+    target: ts.ScriptTarget.ES5,
     module: ts.ModuleKind.CommonJS
   }
 

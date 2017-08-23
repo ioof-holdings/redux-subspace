@@ -1,6 +1,6 @@
 # `subspaced(mapState, [namespace])`
 
-A higher-order saga that injects the provided store into the saga's context.
+A higher-order saga that runs the saga in a subspace.
 
 ## Arguments
 

@@ -44,4 +44,4 @@ export interface Subspaced {
 
 export const subspaced: Subspaced;
 
-export default createSagaMiddleware
+export default createSagaMiddleware;

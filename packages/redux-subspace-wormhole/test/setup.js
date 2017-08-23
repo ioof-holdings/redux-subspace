@@ -8,12 +8,7 @@
 
 import babelRegister from 'babel-register'
 
-babelRegister(
-    {
-        babelrc: false,
-        presets: ['es2015', 'stage-0', 'react']
-    }
-)
+babelRegister()
 
 global.expect = require('chai').expect
 global.sinon = require('sinon')
