@@ -1,4 +1,4 @@
-# Counter
+# Counter Example
 
 This example extends [Redux's counter example](https://github.com/reactjs/redux/tree/master/examples/counter) to have multiple counters on the same page.
 
