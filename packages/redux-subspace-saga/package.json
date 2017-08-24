@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-saga",
-  "version": "2.0.1-alpha",
+  "version": "2.0.2-alpha",
   "description": "redux-subspace wrappers for redux-saga",
   "author": "Michael Peyper",
   "contributors": [
@@ -23,7 +23,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
-    "redux-subspace": "^2.0.1-alpha"
+    "redux-subspace": "^2.0.2-alpha"
   },
   "peerDependencies": {
     "redux-saga": "^0.15.4"
