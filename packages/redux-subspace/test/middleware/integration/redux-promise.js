@@ -149,7 +149,7 @@ describe('redux-promise', () => {
     it('should work with namespaced single subspace', (done) => {
         const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-        const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
         const rootPromise = Promise.resolve('root value')
         
@@ -191,9 +191,9 @@ describe('redux-promise', () => {
     it('should work with namespaced nested subspaces', (done) => {
         const rootStore = createStore(rootReducer, applyMiddleware(promiseMiddleware))
 
-        const parentStore = subspace((state) => state.parent1, 'parentNamespace')(rootStore)
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
-        const childStore = subspace((state) => state.child1, 'childNamespace')(parentStore)
+        const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
 
         const rootPromise = Promise.resolve('root value')
         

@@ -199,4 +199,28 @@ describe('redux-thunk', () => {
             }
         })
     })
+    
+    it('should work with nested thunks', () => {
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk))
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
+
+        const firstThunk = (dispatch) => dispatch(checkingThunk(childStore, testAction('child value')))
+
+        childStore.dispatch(firstThunk)
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'initial value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'child value'
+            }
+        })
+    })
 })
