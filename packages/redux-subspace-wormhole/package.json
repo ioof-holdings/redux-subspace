@@ -23,6 +23,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
+    "lodash.isplainobject": "^4.0.6",
     "redux-subspace": "^2.0.2-alpha"
   },
   "devDependencies": {
