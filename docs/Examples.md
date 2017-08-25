@@ -4,3 +4,4 @@ Redux Subspace is distributed with a few examples in its [source code](/examples
 
 * [Counter](/examples/counter)
 * [Todos](/examples/todos)
+* [Real World](/examples/real-world)
