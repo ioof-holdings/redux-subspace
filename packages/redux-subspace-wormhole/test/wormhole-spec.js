@@ -78,7 +78,21 @@ describe('wormhole Tests', () => {
 
         expect(state).to.deep.equal("expected")
     })
+    
+    it('should handle null state', () => {
+        const store = {
+            rootStore: {
+                getState: () => ({ value: "wrong" })
+            }
+        }
 
+        const getState = () => null
+
+        const state = wormhole((state) => state.value, 'extra')(store).getState(getState)()
+
+        expect(state).to.be.null
+    })
+        
     it('should handle undefined state', () => {
         const store = {
             rootStore: {

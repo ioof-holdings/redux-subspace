@@ -6,6 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import isPlainObject from 'lodash.isplainobject'
+
 const wormhole = (mapState, key) => {
 
     if (typeof mapState === 'string') {
@@ -21,7 +23,7 @@ const wormhole = (mapState, key) => {
         getState: (next) => () => {
             const state = next()
 
-            if (typeof state === 'object' && !Array.isArray(state)) {
+            if (isPlainObject(state)) {
                 return { [key]: mapState(store.rootStore.getState()), ...state }
             } else {
                 return state
