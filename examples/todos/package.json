@@ -1,6 +1,6 @@
 {
   "name": "todos",
-  "version": "0.0.1",
+  "version": "2.0.2-alpha",
   "private": true,
   "devDependencies": {
     "react-scripts": "^1.0.2"
@@ -10,9 +10,9 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
-    "react-redux-subspace": "^2.0.1-alpha",
+    "react-redux-subspace": "^2.0.2-alpha",
     "redux": "^3.7.2",
-    "redux-subspace": "^2.0.1-alpha"
+    "redux-subspace": "^2.0.2-alpha"
   },
   "scripts": {
     "start": "react-scripts start",

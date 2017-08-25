@@ -22,19 +22,19 @@ export enum SubspaceType {
 }
 
 export interface ProcessActionCallback<TReturn> {
-    (action: Redux.Action): TReturn
+    (action: Redux.Action): TReturn;
 }
 
 export interface ProcessAction {
-    (action: Redux.Action, callback: ProcessActionCallback<void>): undefined
-    <TReturn>(action: Redux.Action, callback: ProcessActionCallback<TReturn>, defaultValue: TReturn): TReturn
+    (action: Redux.Action, callback: ProcessActionCallback<void>): undefined;
+    <TReturn>(action: Redux.Action, callback: ProcessActionCallback<TReturn>, defaultValue: TReturn): TReturn;
 }
 
 export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
     rootStore: Redux.Store<TRootState>;
     namespace: string;
     subspaceTypes: SubspaceType[];
-    processAction: ProcessAction
+    processAction: ProcessAction;
 }
 
 export interface StoreDecorator<TParentState, TState, TStore extends Redux.Store<TState>> {
@@ -68,6 +68,7 @@ export function namespaced(namespace: string): ReducerDecorator;
 /**
  * Middleware
  */
+
 export type GetState<TState> = () => TState;
 
 export interface GetStateMiddleware<TState> {
@@ -78,8 +79,17 @@ export interface DispatchMiddleware<TState> {
     (next: Redux.Dispatch<TState>): Redux.Dispatch<TState>;
 }
 
+export interface SubspaceMiddlewareAPI<TState, TRootState> {
+    getState: GetState<TState>;
+    dispatch: Redux.Dispatch<TState>;
+    rootStore: Redux.Store<TRootState>;
+    namespace: string;
+    subspaceTypes: SubspaceType[];
+    processAction: ProcessAction;
+}
+
 export interface SubspaceMiddleware {
-    <TState>(subspace: Subspace<TState, any>): ({ getState?: GetStateMiddleware<TState>, dispatch?: DispatchMiddleware<TState> });
+    <TState>(subspace: SubspaceMiddlewareAPI<TState, any>): ({ getState?: GetStateMiddleware<TState>, dispatch?: DispatchMiddleware<TState> });
 }
 
 export function applyMiddleware(...middlewares: (SubspaceMiddleware | Redux.Middleware)[]): Redux.GenericStoreEnhancer;

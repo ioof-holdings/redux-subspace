@@ -15,7 +15,8 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
@@ -23,7 +24,7 @@ describe('applySubspaceMiddleware tests', () => {
         const middleware = (store) => ({
             getState: (next) => () => {
                 const state = next()
-                middlewareSpy(store, state)
+                middlewareSpy(store.namespace, state)
                 return state
             }
         })
@@ -33,7 +34,7 @@ describe('applySubspaceMiddleware tests', () => {
         const enhancedSubspace = applySubspaceMiddleware(middleware)(createSubspace)(store)
 
         expect(enhancedSubspace.getState()).to.deep.equal({ value: 'expected' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { value: 'expected' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { value: 'expected' })
     })
 
     it('should enhance getState with multiple middlewares', () => {
@@ -41,7 +42,8 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
@@ -49,7 +51,7 @@ describe('applySubspaceMiddleware tests', () => {
         const middleware1 = (store) => ({
             getState: (next) => () => {
                 const state = next()
-                middlewareSpy(store, state)
+                middlewareSpy(store.namespace, state)
                 return state
             }
         })
@@ -57,7 +59,7 @@ describe('applySubspaceMiddleware tests', () => {
         const middleware2 = (store) => ({
             getState: (next) => () => {
                 const state = next()
-                middlewareSpy(store, state)
+                middlewareSpy(store.namespace, state)
                 return { value: 'new value' }
             }
         })
@@ -67,8 +69,8 @@ describe('applySubspaceMiddleware tests', () => {
         const enhancedSubspace = applySubspaceMiddleware(middleware1, middleware2)(createSubspace)(store)
 
         expect(enhancedSubspace.getState()).to.deep.equal({ value: 'new value' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { value: 'expected' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { value: 'new value' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { value: 'expected' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { value: 'new value' })
     })
 
     it('should enhance dispatch with middleware', () => {
@@ -76,14 +78,15 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
 
         const middleware = (store) => ({
             dispatch: (next) => (action) => {
-                middlewareSpy(store, action)
+                middlewareSpy(store.namespace, action)
                 return next(action)
             }
         })
@@ -95,7 +98,7 @@ describe('applySubspaceMiddleware tests', () => {
         enhancedSubspace.dispatch({ type: 'TEST' })
 
         expect(subspace.dispatch).to.be.calledWithMatch({ type: 'TEST' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { type: 'TEST' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'TEST' })
     })
 
     it('should enhance dispatch with multiple middlewares', () => {
@@ -103,21 +106,22 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
 
         const middleware1 = (store) => ({
             dispatch: (next) => (action) => {
-                middlewareSpy(store, action)
+                middlewareSpy(store.namespace, action)
                 return next({ type: 'NEW_TYPE' })
             }
         })
 
         const middleware2 = (store) => ({
             dispatch: (next) => (action) => {
-                middlewareSpy(store, action)
+                middlewareSpy(store.namespace, action)
                 return next(action)
             }
         })
@@ -129,8 +133,8 @@ describe('applySubspaceMiddleware tests', () => {
         enhancedSubspace.dispatch({ type: 'TEST' })
 
         expect(subspace.dispatch).to.be.calledWithMatch({ type: 'NEW_TYPE' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { type: 'TEST' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { type: 'NEW_TYPE' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'TEST' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'NEW_TYPE' })
     })
 
     it('should treat redux style middleware as dispatch middleware', () => {
@@ -138,13 +142,14 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
 
         const middleware = (store) => (next) => (action) => {
-            middlewareSpy(store, action)
+            middlewareSpy(store.namespace, action)
             return next(action)
         }
     
@@ -155,7 +160,7 @@ describe('applySubspaceMiddleware tests', () => {
         enhancedSubspace.dispatch({ type: 'TEST' })
 
         expect(subspace.dispatch).to.be.calledWithMatch({ type: 'TEST' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { type: 'TEST' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'TEST' })
     })
 
     it('should enhance getState and dispatch with middleware', () => {
@@ -163,7 +168,8 @@ describe('applySubspaceMiddleware tests', () => {
 
         const subspace = {
             getState: sinon.stub().returns({ value: 'expected' }),
-            dispatch: sinon.spy()
+            dispatch: sinon.spy(),
+            namespace: 'test'
         }
 
         const middlewareSpy = sinon.spy()
@@ -171,11 +177,11 @@ describe('applySubspaceMiddleware tests', () => {
         const middleware = (store) => ({
             getState: (next) => () => {
                 const state = next()
-                middlewareSpy(store, state)
+                middlewareSpy(store.namespace, state)
                 return state
             },
             dispatch: (next) => (action) => {
-                middlewareSpy(store, action)
+                middlewareSpy(store.namespace, action)
                 return next(action)
             }
         })
@@ -187,7 +193,7 @@ describe('applySubspaceMiddleware tests', () => {
         enhancedSubspace.dispatch({ type: 'TEST' })
 
         expect(enhancedSubspace.getState()).to.deep.equal({ value: 'expected' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { value: 'expected' })
-        expect(middlewareSpy).to.be.calledWithMatch(subspace, { type: 'TEST' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { value: 'expected' })
+        expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'TEST' })
     })
 })

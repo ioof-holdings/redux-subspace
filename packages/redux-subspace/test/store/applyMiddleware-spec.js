@@ -8,21 +8,6 @@
 
 import applyMiddleware from '../../src/store/applyMiddleware'
 
-// const applyMiddleware = (...middlewares) => (createStore) => (reducer, preloadedState, enhancer) => {
-//     const store = createStore(reducer, preloadedState, enhancer)
-
-//     const subspaceOptions = {
-//         enhancer: compose(applySubspaceMiddleware(...middlewares))
-//     }
-
-//     const rootStore = subspaceEnhanced((state) => state, undefined, subspaceOptions)(store)
-
-//     return {
-//         ...rootStore,
-//         subspaceOptions
-//     }
-// }
-
 describe('applyMiddleware tests', () => {
 
     it('should maintain root store state', () => {
