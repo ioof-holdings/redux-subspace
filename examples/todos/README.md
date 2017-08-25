@@ -1,4 +1,4 @@
-# Todos
+# Todos Example
 
 This example extends [Redux's todos example](https://github.com/reactjs/redux/tree/master/examples/todos) to be broken up into multiple sub-apps.
 
