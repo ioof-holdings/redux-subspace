@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace-loop.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-loop)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace-loop.svg?style=flat-square)](LICENSE.md)
 
-This library provides necessary utilities for supporting redux-subspace in projects using [redux-loop](https://github.com/redux-loop/redux-loop).
+This library provides necessary utilities for supporting redux-subspace in projects using [redux-loop](https://github.com/redux-loop/redux-loop) >=v3.
 
 ## Installation
 
