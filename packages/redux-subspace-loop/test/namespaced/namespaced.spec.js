@@ -88,7 +88,7 @@ describe('namespaced', () => {
         expect(result).to.deep.equal(expected)
     })
 
-    it('should handle all redux-loop\'s RUN command type', () => {
+    it('should handle RUN command type', () => {
         const actionNamespacer = namespacedAction('test')
         const namespacedReducer = namespaced('test')(commandsReducer)
 
@@ -100,7 +100,7 @@ describe('namespaced', () => {
         expect(result.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
     })
 
-    it('should handle all redux-loop\'s ACTION command type', () => {
+    it('should handle ACTION command type', () => {
         const actionNamespacer = namespacedAction('test')
         const namespacedReducer = namespaced('test')(commandsReducer)
 
@@ -110,7 +110,7 @@ describe('namespaced', () => {
         expect(result.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
     })
 
-    it('should handle all redux-loop\'s BATCH command type', () => {
+    it('should handle BATCH command type', () => {
         const actionNamespacer = namespacedAction('test')
         const namespacedReducer = namespaced('test')(commandsReducer)
 
@@ -125,7 +125,7 @@ describe('namespaced', () => {
         expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
     })
 
-    it('should handle all redux-loop\'s SEQUENCE command type', () => {
+    it('should handle SEQUENCE command type', () => {
         const actionNamespacer = namespacedAction('test')
         const namespacedReducer = namespaced('test')(commandsReducer)
 
