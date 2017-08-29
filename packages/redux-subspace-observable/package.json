@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-observable",
-  "version": "2.0.3-alpha",
+  "version": "2.0.4-alpha",
   "description": "redux-subspace wrappers for redux-observable",
   "author": "Michael Peyper",
   "contributors": [
@@ -23,7 +23,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
-    "redux-subspace": "^2.0.3-alpha"
+    "redux-subspace": "^2.0.4-alpha"
   },
   "peerDependencies": {
     "redux-observable": "^0.15.0"
