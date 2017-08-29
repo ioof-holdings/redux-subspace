@@ -10,6 +10,16 @@ import { getEffect, Cmd, loop, getCmd } from 'redux-loop'
 import { namespacedAction } from 'redux-subspace'
 import { namespaced, createNamespacer } from '../../src'
 
+function suppressLoopWarnings() {
+    const consoleWarn = console.warn.bind(console)
+    before(() => {
+        global.console.warn = () => {}
+    })
+    after(() => {
+        global.console.warn = consoleWarn
+    })
+}
+
 describe('namespaced', () => {
 
     const TEST_ACTION_TRIGGER = 'TEST_ACTION_TRIGGER'
@@ -141,6 +151,7 @@ describe('namespaced', () => {
     })
 
     describe('redux-loop v2', () => {
+        suppressLoopWarnings()
 
         const TEST_ACTION = 'TEST_ACTION'
 
