@@ -1,6 +1,6 @@
 # Usage
 
-Using Redux Subspace with [`redux-loop`](https://github.com/redux-loop/redux-loop) is pretty straightforward and should require no additional enhancer or middleware configuration. The only difference is that you have to import the `namespaced` function from `redux-subspace-loop` instead using the default one redux-subspace package. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.
+Using Redux Subspace with [`redux-loop`](https://github.com/redux-loop/redux-loop) is pretty straightforward and should require no additional enhancer or middleware configuration. The only difference is that you have to import the `namespaced` function from `redux-subspace-loop` instead of using the default one from redux-subspace package. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.
 
 ```diff
 import { createStore, combineReducers } from 'redux'

@@ -1,6 +1,6 @@
 # `namespaced(namespace)`
 
-A higher-order reducer that filters out actions that do not match the provided namespace and namespace the commands returned by your reducer.
+A higher-order reducer that filters out actions that do not match the provided namespace and namespaces the commands returned by your reducer.
 
 ## Arguments
 
