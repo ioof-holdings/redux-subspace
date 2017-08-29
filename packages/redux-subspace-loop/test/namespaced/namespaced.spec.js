@@ -206,6 +206,16 @@ describe('namespaced', () => {
             expect(result[1].action).to.deep.equal(actionNamespacer({ type: TEST_ACTION }))
         })
 
+        it('should handle NONE command type', () => {
+            const namespacedReducer = v2Namespaced('test')(effectsReducer)
+
+            const result = getEffect(namespacedReducer(undefined, {
+                type: 'NONE'
+            }))
+
+            expect(result).to.deep.equal(Effects.none())
+        })
+
         it('should handle PROMISE command type', async () => {
             const actionNamespacer = namespacedAction('test')
             const namespacedReducer = v2Namespaced('test')(effectsReducer)
