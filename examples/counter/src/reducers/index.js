@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { namespaced } from 'redux-subspace';
+import { combineReducers } from 'redux'
+import { namespaced } from 'redux-subspace'
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -11,7 +11,6 @@ const counter = (state = 0, action) => {
       return state
   }
 }
-
 
 export default combineReducers({
   counter1: namespaced('counter1')(counter),

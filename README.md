@@ -24,8 +24,9 @@ npm install --save redux-subspace
 
 * [`redux-subspace`](/packages/redux-subspace): The core package for Redux Subspace
 * [`react-redux-subspace`](/packages/react-redux-subspace): React bindings compatible with `react-redux`
-* [`redux-subspace-saga`](/packages/redux-subspace-saga): Utilities for integrating with `redux-saga`
+* [`redux-subspace-loop`](/packages/redux-subspace-loop): Utilities for integrating with `redux-loop`
 * [`redux-subspace-observable`](/packages/redux-subspace-observable): Utilities for integrating with `redux-observable`
+* [`redux-subspace-saga`](/packages/redux-subspace-saga): Utilities for integrating with `redux-saga`
 * [`redux-subspace-wormhole`](/packages/redux-subspace-wormhole): Middleware for exposing additional state to subspaces
 
 ## Upgrading From Version 1 to Version 2

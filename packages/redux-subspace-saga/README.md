@@ -15,4 +15,5 @@ npm install --save redux-subspace-saga
 ## Documentation
 
 * [Usage](/packages/redux-subspace-saga/docs/Usage.md)
+* [Examples](/packages/redux-subspace-saga/docs/Examples.md)
 * [API Reference](/packages/redux-subspace-saga/docs/api/README.md)
