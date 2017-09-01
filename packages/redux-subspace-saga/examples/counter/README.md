@@ -12,4 +12,4 @@ npm install
 npm start
 ```
 
-Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/packages/redux-subspace-saga/examples/counter).
+Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-saga/examples/counter).
