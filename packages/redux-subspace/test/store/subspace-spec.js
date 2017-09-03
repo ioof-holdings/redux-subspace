@@ -167,8 +167,8 @@ describe('subspace Tests', () => {
     })
 
     it('should raise error if enhancer is not a function', () => {
-        expect(() => subspaceRoot(store, { enhancer: "wrong" })
-            .to.throw('enhancer must be a function.'))
+        expect(() => subspaceRoot(store, { enhancer: "wrong" }))
+            .to.throw('enhancer must be a function.')
     })
 
     it('should not raise error if enhancer is not a function in production', () => {
