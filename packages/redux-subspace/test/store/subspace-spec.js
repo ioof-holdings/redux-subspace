@@ -152,19 +152,19 @@ describe('subspace Tests', () => {
         expect(() => subspace()(store)).to.throw('mapState and/or namespace must be defined.')
     })
 
-    it('should not raise error if neither mapState or namespace are provided in production', () => { 
-        const nodeEnv = process.env.NODE_ENV 
+    it('should not raise error if neither mapState or namespace are provided in production', () => {
+        const nodeEnv = process.env.NODE_ENV
  
-        try { 
-            process.env.NODE_ENV = 'production' 
+        try {
+            process.env.NODE_ENV = 'production'
  
-            const subspacedStore = subspace()(store) 
+            const subspacedStore = subspace()(store)
  
-            expect(subspacedStore).to.not.be.undefined 
-        } finally { 
-            process.env.NODE_ENV = nodeEnv 
-        } 
-    }) 
+            expect(subspacedStore).to.not.be.undefined
+        } finally {
+            process.env.NODE_ENV = nodeEnv
+        }
+    })
 
     it('should raise error if enhancer is not a function', () => {
         const storeWithMiddleware = { ...store }
@@ -176,17 +176,17 @@ describe('subspace Tests', () => {
             .to.throw('enhancer must be a function.')
     })
     
-    it('should not raise error if enhancer is not a function in production', () => { 
-        const nodeEnv = process.env.NODE_ENV 
+    it('should not raise error if enhancer is not a function in production', () => {
+        const nodeEnv = process.env.NODE_ENV
 
-        try { 
-            process.env.NODE_ENV = 'production' 
+        try {
+            process.env.NODE_ENV = 'production'
 
-            const subspacedStore = subspaceRoot(store, { enhancer: "wrong" }) 
+            const subspacedStore = subspaceRoot(store, { enhancer: "wrong" })
 
-            expect(subspacedStore).to.not.be.undefined 
-        } finally { 
-            process.env.NODE_ENV = nodeEnv 
-        } 
-    }) 
+            expect(subspacedStore).to.not.be.undefined
+        } finally {
+            process.env.NODE_ENV = nodeEnv
+        }
+    })
 })
