@@ -13,6 +13,42 @@ import rootStoreEnhancer from '../enhancers/rootStoreEnhancer'
 import subspaceTypesEnhancer from '../enhancers/subspaceTypesEnhancer'
 import processActionEnhancer from '../enhancers/processActionEnhancer'
 
+const resolveParameters = (mapState, namespace) => {
+    if (process.env.NODE_ENV !== 'production') {
+        console.assert(mapState || namespace, 'mapState and/or namespace must be defined.')
+    }
+
+    const mapStateType = typeof mapState
+    const namespaceType = typeof namespace
+
+    if (mapStateType === 'string' && namespaceType !== 'null') {
+        namespace = mapState
+    }
+
+    if (mapStateType !== 'function') {
+        mapState = (state) => state[namespace]
+    }
+
+    return [mapState, namespace]
+}
+
+const DEFAULT_OPTIONS = {
+    enhancer: (subspace) => subspace
+}
+
+const resolveEnhancer = ({ enhancer = DEFAULT_OPTIONS.enhancer } = DEFAULT_OPTIONS) => {
+
+    const enhancerCheck = typeof enhancer === 'function'
+
+    if (process.env.NODE_ENV !== 'production') {
+        console.assert(enhancerCheck, 'enhancer must be a function.')
+    } else if (!enhancerCheck) {
+        return DEFAULT_OPTIONS.enhancer
+    }
+
+    return enhancer 
+}
+
 const createSubspace = (store, enhancer) => {
 
     if (typeof enhancer !== 'undefined') {
@@ -22,74 +58,20 @@ const createSubspace = (store, enhancer) => {
     return store
 }
 
-const resolveParameters = (mapState, namespace, enhancer) => {
-
-    const mapStateType = typeof mapState
-    const namespaceType = typeof namespace
-    const enhancerType = typeof enhancer
-
-    let params = {}
-
-    if (mapStateType === 'function') {
-        params.mapState = mapState
-    } else if (mapStateType === 'string') {
-        params.mapState = (state) => state[mapState]
-    } else if (!mapState && namespaceType === 'string') {
-        params.mapState = (state) => state[namespace]
-    }
-
-    if (namespaceType === 'string') {
-        params.namespace = namespace
-    } else if (mapStateType === 'string') {
-        params.namespace = mapState
-    }
-
-    if (namespaceType === 'object' && typeof namespace.enhancer === 'function') {
-        params.enhancer = namespace.enhancer
-    } else if (enhancerType === 'function') {
-        params.enhancer = enhancer
-    } else if (enhancerType === 'undefined') {
-        params.enhancer = (s) => s
-    } else {
-        if (process.env.NODE_ENV !== 'production') {
-            console.assert(enhancerType === 'function', 'enhancer must be a function.')
-        }
-
-        params.enhancer = (s) => s
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-        console.assert(params.mapState || params.namespace, 'mapState and/or namespace must be defined.')
-    }
-
-    return params
-}
-
-export const subspaceEnhanced = (mapState, namespace, { enhancer } = {}) => {
-
-    const resolvedParams = resolveParameters(mapState, namespace, enhancer)
-
-    mapState = resolvedParams.mapState
-    namespace = resolvedParams.namespace
-    enhancer = resolvedParams.enhancer
-
+const subspaceEnhanced = (mapState, namespace, isRoot) => {
     const subspaceEnhancers = compose(
         subspaceEnhancer(mapState, namespace),
         namespaceEnhancer(namespace),
-        subspaceTypesEnhancer(namespace),
+        subspaceTypesEnhancer(isRoot, namespace),
         processActionEnhancer(namespace),
-        rootStoreEnhancer,
+        rootStoreEnhancer
     )
 
-    return (store) => {
-        if (store.subspaceOptions) {
-            enhancer = store.subspaceOptions.enhancer
-        }
-
-        return createSubspace(store, compose(enhancer, subspaceEnhancers))
-    }
+    return (store) => createSubspace(store, compose(resolveEnhancer(store.subspaceOptions), subspaceEnhancers))
 }
 
-const subspace = (mapState, namespace) => subspaceEnhanced(mapState, namespace)
+export const subspaceRoot = (store, subspaceOptions) => subspaceEnhanced(undefined, undefined, true)({ ...store, subspaceOptions})
+
+const subspace = (mapState, namespace) => subspaceEnhanced(...resolveParameters(mapState, namespace))
 
 export default subspace

@@ -8,6 +8,7 @@
 
 import applySubspaceMiddleware from './applySubspaceMiddleware'
 import namespacedAction from '../actions/namespacedAction'
+import applyToChildren from '../middleware/applyToChildren'
 
 const verifyState = (state) => {
     if (process.env.NODE_ENV !== 'production') {
@@ -16,9 +17,9 @@ const verifyState = (state) => {
     return state
 }
 
-const subspaceEnhancer = (mapState, namespace) => applySubspaceMiddleware((store) => ({
+const subspaceEnhancer = (mapState, namespace) => applySubspaceMiddleware(applyToChildren((store) => ({
     getState: (next) => () => verifyState(mapState(next(), store.rootStore.getState())),
     dispatch: (next) => (action) => next(namespacedAction(namespace)(action))
-}))
+})))
 
 export default subspaceEnhancer
