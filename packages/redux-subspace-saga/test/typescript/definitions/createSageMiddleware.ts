@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore } from 'redux'
+import { applyMiddleware } from 'redux-subspace'
 import { take, put } from 'redux-saga/effects'
 import createSagaMiddleware from '../../../src'
 
