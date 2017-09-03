@@ -154,12 +154,12 @@ describe('subspace Tests', () => {
 
     it('should not raise error if neither mapState or namespace are provided in production', () => {
         const nodeEnv = process.env.NODE_ENV
- 
+
         try {
             process.env.NODE_ENV = 'production'
- 
+
             const subspacedStore = subspace()(store)
- 
+
             expect(subspacedStore).to.not.be.undefined
         } finally {
             process.env.NODE_ENV = nodeEnv
@@ -175,7 +175,7 @@ describe('subspace Tests', () => {
         expect(() => subspace((state) => state.child, "child")(storeWithMiddleware))
             .to.throw('enhancer must be a function.')
     })
-    
+
     it('should not raise error if enhancer is not a function in production', () => {
         const nodeEnv = process.env.NODE_ENV
 
