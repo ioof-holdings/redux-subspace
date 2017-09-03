@@ -76,13 +76,13 @@ describe('subspace Tests', () => {
             }
         }
 
-        const storeWithMiddleware = { ...store }
-        storeWithMiddleware.dispatch = dispatch
-        storeWithMiddleware.subspaceOptions = {
+        const storeWithEnhancer = { ...store }
+        storeWithEnhancer.dispatch = dispatch
+        storeWithEnhancer.subspaceOptions = {
             enhancer
         }
 
-        const subspacedStore = subspace((state) => state.child, "test")(storeWithMiddleware)
+        const subspacedStore = subspace((state) => state.child, "test")(storeWithEnhancer)
 
         expect(subspacedStore.fromEnhancer).to.be.true
     })
@@ -167,13 +167,8 @@ describe('subspace Tests', () => {
     })
 
     it('should raise error if enhancer is not a function', () => {
-        const storeWithMiddleware = { ...store }
-        storeWithMiddleware.subspaceOptions = {
-            enhancer: 'wrong'
-        }
-
-        expect(() => subspace((state) => state.child, "child")(storeWithMiddleware))
-            .to.throw('enhancer must be a function.')
+        expect(() => subspaceRoot(store, { enhancer: "wrong" })
+            .to.throw('enhancer must be a function.'))
     })
 
     it('should not raise error if enhancer is not a function in production', () => {
