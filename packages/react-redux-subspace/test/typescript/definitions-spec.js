@@ -24,6 +24,6 @@ describe('TypeScript definitions', function () {
   fs.readdirSync(path.join(__dirname, 'definitions')).forEach((filename) => {
     it(`should compile ${path.basename(filename, path.extname(filename))} against index.d.ts`, (done) => {
       tt.compile([path.join(__dirname, 'definitions', filename)], options, done)
-    }).timeout(5000)
+    }).timeout(20000)
   });
 })
