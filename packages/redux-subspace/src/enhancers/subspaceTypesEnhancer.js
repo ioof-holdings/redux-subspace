@@ -10,12 +10,12 @@
  export const NAMESPACE_ROOT = 'NAMESPACE_ROOT'
  export const CHILD = 'CHILD'
 
-const subspaceTypesEnhancer = (namespace) => (createSubspace) => (store) => {
+const subspaceTypesEnhancer = (isRoot, namespace) => (createSubspace) => (store) => {
     const subspace = createSubspace(store)
 
     const subspaceTypes = []
 
-    if (!store.subspaceTypes) {
+    if (isRoot) {
         subspaceTypes.push(ROOT)
         subspaceTypes.push(NAMESPACE_ROOT)
     } else if (namespace) {

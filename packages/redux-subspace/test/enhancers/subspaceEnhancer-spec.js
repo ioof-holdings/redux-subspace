@@ -7,19 +7,21 @@
  */
 
 import subspaceEnhancer from '../../src/enhancers/subspaceEnhancer'
+import { NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypesEnhancer'
 
 describe('subspaceEnhancer tests', () => {
 
     it('should enhance getState with sub-state', () => {
         const store = { 
             getState: sinon.stub().returns({ parent: { child: { value: 'expected' } }, other: 'value' }),
-            dispatch: sinon.spy(),
+            dispatch: sinon.spy()
         }
 
         const subspace = {
             getState: store.getState,
             dispatch: store.dispatch,
-            rootStore: store
+            rootStore: store,
+            subspaceTypes: [NAMESPACE_ROOT, CHILD]
         }
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
@@ -32,13 +34,14 @@ describe('subspaceEnhancer tests', () => {
     it('should raise error if getState returns undefined', () => {
         const store = { 
             getState: sinon.stub().returns({ parent: { child: { value: 'expected' } } }),
-            dispatch: sinon.spy(),
+            dispatch: sinon.spy()
         }
 
         const subspace = {
             getState: store.getState,
             dispatch: store.dispatch,
-            rootStore: store
+            rootStore: store,
+            subspaceTypes: [NAMESPACE_ROOT, CHILD]
         }
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
@@ -51,13 +54,14 @@ describe('subspaceEnhancer tests', () => {
     it('should not raise error if getState returns undefined in production', () => {
         const store = { 
             getState: sinon.stub().returns({ parent: { child: { value: 'expected' } } }),
-            dispatch: sinon.spy(),
+            dispatch: sinon.spy()
         }
 
         const subspace = {
             getState: store.getState,
             dispatch: store.dispatch,
-            rootStore: store
+            rootStore: store,
+            subspaceTypes: [NAMESPACE_ROOT, CHILD]
         }
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
@@ -79,12 +83,13 @@ describe('subspaceEnhancer tests', () => {
     it('should enhance dispatch with namepace', () => {
         const store = { 
             getState: sinon.stub().returns({ unique: 'value' }),
-            dispatch: sinon.spy(),
+            dispatch: sinon.spy()
         }
 
         const subspace = {
             getState: store.getState,
             dispatch: store.dispatch,
+            subspaceTypes: [NAMESPACE_ROOT, CHILD]
         }
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)

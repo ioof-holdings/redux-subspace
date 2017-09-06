@@ -7,7 +7,7 @@
  */
 
 import { createStore, combineReducers } from 'redux'
-import subspace, { subspaceEnhanced } from '../../src/store/subspace'
+import subspace, { subspaceRoot } from '../../src/store/subspace'
 import { ROOT, NAMESPACE_ROOT, CHILD } from '../../src/enhancers/subspaceTypesEnhancer'
 
 describe('subspace Tests', () => {
@@ -62,21 +62,8 @@ describe('subspace Tests', () => {
                 fromEnhancer: true
             }
         }
-
-        const subspacedStore = subspaceEnhanced((state) => state.child, "test", { enhancer })(store)
-
-        expect(subspacedStore.fromEnhancer).to.be.true
-    })
-
-    it('should allow enhancer to be second paramter', () => {
-        const enhancer = (createSubspace) => (store) => {
-            return {
-                ...createSubspace(store),
-                fromEnhancer: true
-            }
-        }
-
-        const subspacedStore = subspaceEnhanced("child", { enhancer })(store)
+        
+        const subspacedStore = subspaceRoot(store, { enhancer })
 
         expect(subspacedStore.fromEnhancer).to.be.true
     })
@@ -89,15 +76,22 @@ describe('subspace Tests', () => {
             }
         }
 
-        const storeWithMiddleware = { ...store }
-        storeWithMiddleware.dispatch = dispatch
-        storeWithMiddleware.subspaceOptions = {
+        const storeWithEnhancer = { ...store }
+        storeWithEnhancer.dispatch = dispatch
+        storeWithEnhancer.subspaceOptions = {
             enhancer
         }
 
-        const subspacedStore = subspace((state) => state.child, "test")(storeWithMiddleware)
+        const subspacedStore = subspace((state) => state.child, "test")(storeWithEnhancer)
 
         expect(subspacedStore.fromEnhancer).to.be.true
+    })
+    
+    it('should handle missing enhancer in subspace options', () => {
+        
+        const subspacedStore = subspaceRoot(store, {})
+
+        expect(subspacedStore).to.not.be.undefined
     })
 
     it('should provide process action fuction on subspace', () => {
@@ -107,23 +101,21 @@ describe('subspace Tests', () => {
     })
 
     it('should provide subspace type on subspace', () => {
-        const subspacedStore1 = subspace("child1")(store)
-        const subspacedStore2 = subspace(() => {})(store)
-        const subspacedStore3 = subspace("child2")(subspacedStore1)
-        const subspacedStore4 = subspace(() => {})(subspacedStore1)
-        const subspacedStore5 = subspace(() => {})(subspacedStore3)
-        const subspacedStore6 = subspace('child3')(subspacedStore3)
-        const subspacedStore7 = subspace('child3')(subspacedStore4)
-        const subspacedStore8 = subspace(() => {})(subspacedStore4)
+        const subspacedStore1 = subspaceRoot(store)
+        const subspacedStore2 = subspace("child")(subspacedStore1)
+        const subspacedStore3 = subspace(() => {})(subspacedStore1)
+        const subspacedStore4 = subspace(() => {})(subspacedStore2)
+        const subspacedStore5 = subspace('child')(subspacedStore2)
+        const subspacedStore6 = subspace('child')(subspacedStore3)
+        const subspacedStore7 = subspace(() => {})(subspacedStore3)
 
         expect(subspacedStore1.subspaceTypes).to.deep.equal([ROOT, NAMESPACE_ROOT])
-        expect(subspacedStore2.subspaceTypes).to.deep.equal([ROOT, NAMESPACE_ROOT])
-        expect(subspacedStore3.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
+        expect(subspacedStore2.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
+        expect(subspacedStore3.subspaceTypes).to.deep.equal([CHILD])
         expect(subspacedStore4.subspaceTypes).to.deep.equal([CHILD])
-        expect(subspacedStore5.subspaceTypes).to.deep.equal([CHILD])
+        expect(subspacedStore5.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
         expect(subspacedStore6.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
-        expect(subspacedStore7.subspaceTypes).to.deep.equal([NAMESPACE_ROOT, CHILD])
-        expect(subspacedStore8.subspaceTypes).to.deep.equal([CHILD])
+        expect(subspacedStore7.subspaceTypes).to.deep.equal([CHILD])
     })
 
     it('should provide root store on subspace', () => {
@@ -161,12 +153,12 @@ describe('subspace Tests', () => {
     })
 
     it('should not raise error if neither mapState or namespace are provided in production', () => {
-        let nodeEnv = process.env.NODE_ENV
+        const nodeEnv = process.env.NODE_ENV
 
         try {
             process.env.NODE_ENV = 'production'
 
-            let subspacedStore = subspace()(store)
+            const subspacedStore = subspace()(store)
 
             expect(subspacedStore).to.not.be.undefined
         } finally {
@@ -175,18 +167,17 @@ describe('subspace Tests', () => {
     })
 
     it('should raise error if enhancer is not a function', () => {
-
-        expect(() => subspaceEnhanced((state) => state.child, "child", { enhancer: "wrong" })(store))
+        expect(() => subspaceRoot(store, { enhancer: "wrong" }))
             .to.throw('enhancer must be a function.')
     })
 
-    it('should not raise error if enhancer is not a functionin production', () => {
-        let nodeEnv = process.env.NODE_ENV
+    it('should not raise error if enhancer is not a function in production', () => {
+        const nodeEnv = process.env.NODE_ENV
 
         try {
             process.env.NODE_ENV = 'production'
 
-            let subspacedStore = subspaceEnhanced((state) => state.child, "child", { enhancer: "wrong" })(store)
+            const subspacedStore = subspaceRoot(store, { enhancer: "wrong" })
 
             expect(subspacedStore).to.not.be.undefined
         } finally {

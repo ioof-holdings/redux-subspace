@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, applyMiddleware, Action } from 'redux'
+import { createStore, Action } from 'redux'
+import { applyMiddleware } from 'redux-subspace'
 import { Epic, ActionsObservable } from 'redux-observable'
 import { takeEvery, put } from 'redux-saga/effects'
 import 'rxjs/add/operator/map'

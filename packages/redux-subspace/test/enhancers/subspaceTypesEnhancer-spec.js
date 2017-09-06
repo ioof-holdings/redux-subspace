@@ -20,7 +20,7 @@ describe('subspaceTypeEnhancer tests', () => {
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
 
-        const enhancedSubspace = subspaceTypesEnhancer()(createSubspace)(store)
+        const enhancedSubspace = subspaceTypesEnhancer(true)(createSubspace)(store)
 
         expect(enhancedSubspace.getState).to.equal(subspace.getState)
         expect(enhancedSubspace.dispatch).to.equal(subspace.dispatch)
@@ -28,7 +28,7 @@ describe('subspaceTypeEnhancer tests', () => {
     })
 
     it('should enhance child subspace', () => {
-        const store = { unique: 'value', subspaceTypes: 'anything' }
+        const store = { unique: 'value' }
 
         const subspace = {
             getState: sinon.stub().returns({}),
@@ -37,7 +37,7 @@ describe('subspaceTypeEnhancer tests', () => {
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
 
-        const enhancedSubspace = subspaceTypesEnhancer()(createSubspace)(store)
+        const enhancedSubspace = subspaceTypesEnhancer(false)(createSubspace)(store)
 
         expect(enhancedSubspace.getState).to.equal(subspace.getState)
         expect(enhancedSubspace.dispatch).to.equal(subspace.dispatch)
@@ -45,7 +45,7 @@ describe('subspaceTypeEnhancer tests', () => {
     })
 
     it('should enhance namespaced child subspace', () => {
-        const store = { unique: 'value', subspaceTypes: 'anything' }
+        const store = { unique: 'value' }
 
         const subspace = {
             getState: sinon.stub().returns({}),
@@ -54,7 +54,7 @@ describe('subspaceTypeEnhancer tests', () => {
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
 
-        const enhancedSubspace = subspaceTypesEnhancer('test')(createSubspace)(store)
+        const enhancedSubspace = subspaceTypesEnhancer(false, 'test')(createSubspace)(store)
 
         expect(enhancedSubspace.getState).to.equal(subspace.getState)
         expect(enhancedSubspace.dispatch).to.equal(subspace.dispatch)
