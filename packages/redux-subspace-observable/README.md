@@ -15,4 +15,5 @@ npm install --save redux-subspace-observable
 ## Documentation
 
 * [Usage](/packages/redux-subspace-observable/docs/Usage.md)
+* [Examples](/packages/redux-subspace-observable/docs/Examples.md)
 * [API Reference](/packages/redux-subspace-observable/docs/api/README.md)
