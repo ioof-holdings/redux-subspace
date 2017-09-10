@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace",
-  "version": "2.0.4-alpha",
+  "version": "2.0.5-alpha",
   "description": "Create isolated subspaces of a Redux store",
   "author": "Michael Peyper",
   "contributors": [
