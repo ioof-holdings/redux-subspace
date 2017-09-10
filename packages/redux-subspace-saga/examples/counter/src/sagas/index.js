@@ -1,15 +1,7 @@
-import { put, call, takeEvery, all } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { call, all } from 'redux-saga/effects'
 import { subspaced } from 'redux-subspace-saga'
 
-function* incrementAsync() {
-  yield call(delay, 1000)
-  yield put({type: 'INCREMENT'})
-}
-
-function* counterSaga() {
-  yield takeEvery('INCREMENT_ASYNC', incrementAsync)
-}
+import counterSaga from './counter'
 
 export default function* rootSaga() {
   yield all([
