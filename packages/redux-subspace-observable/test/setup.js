@@ -8,7 +8,7 @@
 
 import babelRegister from 'babel-register'
 
-require('babel-polyfill');
+require('babel-polyfill')
 
 babelRegister()
 

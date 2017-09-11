@@ -7,7 +7,7 @@
  */
 
 import React from 'react'
-import hoistNonReactStatics from 'hoist-non-react-statics';
+import hoistNonReactStatics from 'hoist-non-react-statics'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { subspace } from 'redux-subspace'
 import SubspaceProvider from './SubspaceProvider'

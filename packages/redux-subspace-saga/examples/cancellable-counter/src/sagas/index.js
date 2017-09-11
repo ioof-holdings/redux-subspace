@@ -1,4 +1,4 @@
-import { call, all } from 'redux-saga/effects'
+import { all, call } from 'redux-saga/effects'
 import { subspaced } from 'redux-subspace-saga'
 
 import counterSaga from './counter'

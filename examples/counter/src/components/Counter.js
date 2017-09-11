@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 class Counter extends Component {
   constructor(props) {
-    super(props);
-    this.incrementAsync = this.incrementAsync.bind(this);
-    this.incrementIfOdd = this.incrementIfOdd.bind(this);
+    super(props)
+    this.incrementAsync = this.incrementAsync.bind(this)
+    this.incrementIfOdd = this.incrementIfOdd.bind(this)
   }
 
   incrementIfOdd() {

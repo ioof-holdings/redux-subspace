@@ -7,7 +7,7 @@
  */
 
 import { createStore, combineReducers } from 'redux'
-import promiseMiddleware from 'redux-promise';
+import promiseMiddleware from 'redux-promise'
 import { subspace, applyMiddleware, namespaced } from '../../../src'
 
 describe('redux-promise', () => {

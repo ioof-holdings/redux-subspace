@@ -9,11 +9,11 @@
 import { namespaced as subspaceNamespaced, namespacedAction } from 'redux-subspace'
 import { loop, isLoop, getCmd, getEffect, getModel } from 'redux-loop'
 
-const IS_REDUX_LOOP_V2 = !getCmd;
+const IS_REDUX_LOOP_V2 = !getCmd
 
 function namespacedEffect(namespace) {
 
-    const actionNamespacer = namespacedAction(namespace);
+    const actionNamespacer = namespacedAction(namespace)
 
     return function namespaceEffect(effect) {
         if (effect.type === 'PROMISE') {
@@ -46,7 +46,7 @@ function namespacedEffect(namespace) {
 
 
 function namespacedCommand(namespace) {
-    const actionNamespacer = namespacedAction(namespace);
+    const actionNamespacer = namespacedAction(namespace)
 
     return function namespaceCommand(cmd) {
         if (cmd.type === "RUN") {
@@ -71,7 +71,7 @@ function namespacedCommand(namespace) {
             }
         }
 
-        return cmd;
+        return cmd
     }
 }
 
@@ -86,16 +86,16 @@ export function createNamespacer(isV2) {
 
         return reducer => {
             return namespacer((state, action) => {
-                const result = reducer(state, action);
+                const result = reducer(state, action)
                 if (isLoop(result)) {
-                    const model = getModel(result);
-                    const cmd = getSideEffect(result);
+                    const model = getModel(result)
+                    const cmd = getSideEffect(result)
 
-                    return loop(model, commandNamespacer(cmd));
+                    return loop(model, commandNamespacer(cmd))
                 }
-                return result;
-            });
-        };
+                return result
+            })
+        }
     }
 }
 

@@ -24,5 +24,5 @@ describe('TypeScript definitions', function () {
     it(`should compile ${path.basename(filename, path.extname(filename))} against index.d.ts`, (done) => {
       tt.compile([path.join(__dirname, 'definitions', filename)], options, done)
     }).timeout(20000)
-  });
+  })
 })
