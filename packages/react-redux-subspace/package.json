@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "nyc mocha --compilers js:babel-register --recursive --require jsdom-global/register --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
-    "prepare": "npm run dist"
+    "prepublish": "npm run dist"
   },
   "repository": {
     "type": "git",
