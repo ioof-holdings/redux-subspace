@@ -15,8 +15,8 @@ const store = createStore(
 )
 sagaMiddleware.run(rootSaga)
 
-const counter1Store = subspace(state => state.counter1, "counter1")(store);
-const counter2Store = subspace(state => state.counter2, "counter2")(store);
+const counter1Store = subspace(state => state.counter1, "counter1")(store)
+const counter2Store = subspace(state => state.counter2, "counter2")(store)
 
 const counter1Action = type => counter1Store.dispatch({type})
 const counter2Action = type => counter2Store.dispatch({type})

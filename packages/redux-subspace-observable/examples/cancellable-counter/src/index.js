@@ -1,4 +1,4 @@
-import 'rxjs';
+import 'rxjs'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
@@ -11,7 +11,7 @@ import reducer from './reducers'
 import { rootEpic } from './epic'
 import Counter from './components/Counter'
 
-const epicMiddleware = createEpicMiddleware(rootEpic);
+const epicMiddleware = createEpicMiddleware(rootEpic)
 
 const store = createStore(
   reducer,

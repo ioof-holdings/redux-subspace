@@ -10,10 +10,9 @@ import {
   START_COUNTDOWN
 } from '../actionTypes'
 
-
 function Counter({counter, countdown, dispatch}) {
 
-      const action = (type, value) => () => dispatch({type, value});
+      const action = (type, value) => () => dispatch({type, value})
 
       return (
         <div>
@@ -34,8 +33,6 @@ function Counter({counter, countdown, dispatch}) {
         </div>
       )
 }
-
-
 
 Counter.propTypes = {
   // dispatch actions

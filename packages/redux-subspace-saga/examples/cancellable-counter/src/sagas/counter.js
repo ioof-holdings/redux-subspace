@@ -19,7 +19,7 @@ const countdown = (secs) => {
           clearInterval(iv)
           console.log('countdown terminated')
         }
-      }, 1000);
+      }, 1000)
       return () => {
         clearInterval(iv)
         console.log('countdown cancelled')

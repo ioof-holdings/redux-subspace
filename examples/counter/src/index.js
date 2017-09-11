@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createStore } from "redux";
-import { subspace } from "redux-subspace";
-import Counter from "./components/Counter";
-import reducer from "./reducers";
+import React from "react"
+import ReactDOM from "react-dom"
+import { createStore } from "redux"
+import { subspace } from "redux-subspace"
+import Counter from "./components/Counter"
+import reducer from "./reducers"
 
-const store = createStore(reducer);
-const rootEl = document.getElementById("root");
+const store = createStore(reducer)
+const rootEl = document.getElementById("root")
 
-const counter1Store = subspace(state => state.counter1, "counter1")(store);
-const counter2Store = subspace(state => state.counter2, "counter2")(store);
+const counter1Store = subspace(state => state.counter1, "counter1")(store)
+const counter2Store = subspace(state => state.counter2, "counter2")(store)
 
 const render = () => {
   ReactDOM.render(
@@ -26,7 +26,8 @@ const render = () => {
       />
     </div>,
     rootEl
-  );
-};
-render();
-store.subscribe(render);
+  )
+}
+
+render()
+store.subscribe(render)

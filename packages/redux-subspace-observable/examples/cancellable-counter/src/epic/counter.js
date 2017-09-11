@@ -1,7 +1,7 @@
-import 'rxjs';
-import { Observable } from 'rxjs/Observable';
-import { combineEpics } from 'redux-observable';
-import { START_COUNTDOWN, INCREMENT_ASYNC, INCREMENT, CANCEL_INCREMENT_ASYNC } from '../actionTypes';
+import 'rxjs'
+import { Observable } from 'rxjs/Observable'
+import { combineEpics } from 'redux-observable'
+import { START_COUNTDOWN, INCREMENT_ASYNC, INCREMENT, CANCEL_INCREMENT_ASYNC } from '../actionTypes'
 
 const startCountdownEpic = (action$) => {
   /*
@@ -10,7 +10,7 @@ const startCountdownEpic = (action$) => {
    */
   return action$.ofType(START_COUNTDOWN).switchMap(q => {
 
-    const start = 5;
+    const start = 5
 
     /*
      * A countdown generates a 5,4,3,2,1,0,-1 series of events,
@@ -44,13 +44,13 @@ const startCountdownEpic = (action$) => {
         else {
           return { type: INCREMENT_ASYNC, value: seconds }
         }
-      });
-  });
-};
+      })
+  })
+}
 
 /**
  * there is only one epic.
  */
 export const rootEpic = combineEpics(
   startCountdownEpic
-);
+)
