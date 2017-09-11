@@ -8,7 +8,7 @@
 
 import { getEffect, Cmd, loop, getCmd } from 'redux-loop'
 import { namespacedAction } from 'redux-subspace'
-import { namespaced, createNamespacer } from '../../src'
+import createNamespacer from '../src/namespaced'
 
 function suppressLoopWarnings() {
     const consoleWarn = console.warn.bind(console)
@@ -38,6 +38,7 @@ describe('namespaced', () => {
 
     const COMMAND_ACTION = { type: TEST_ACTION }
     const createEffectAction = (payload) => ({ ...COMMAND_ACTION, payload })
+    const v3Namespaced = createNamespacer(false)
 
     function fetchUser(user) {
       return Promise.resolve(user)
@@ -84,7 +85,7 @@ describe('namespaced', () => {
     }
 
     it('should namespace actions created with commands', async () => {
-        const namespacedReducer = namespaced('test')(reducer)
+        const namespacedReducer = v3Namespaced('test')(reducer)
         const result = namespacedReducer(undefined, {
             type: TEST_ACTION_TRIGGER,
             value: 'foobar'
@@ -100,7 +101,7 @@ describe('namespaced', () => {
 
     it('should handle RUN command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = namespaced('test')(commandsReducer)
+        const namespacedReducer = v3Namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'RUN'
@@ -112,7 +113,7 @@ describe('namespaced', () => {
 
     it('should handle ACTION command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = namespaced('test')(commandsReducer)
+        const namespacedReducer = v3Namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'ACTION'
@@ -122,7 +123,7 @@ describe('namespaced', () => {
 
     it('should handle BATCH command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = namespaced('test')(commandsReducer)
+        const namespacedReducer = v3Namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'BATCH'
@@ -137,7 +138,7 @@ describe('namespaced', () => {
 
     it('should handle SEQUENCE command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = namespaced('test')(commandsReducer)
+        const namespacedReducer = v3Namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'SEQUENCE'
