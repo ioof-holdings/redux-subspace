@@ -17,7 +17,8 @@
     "redux": "^3.7.2",
     "redux-observable": "^0.16.0",
     "redux-subspace": "^2.0.5-alpha",
-    "redux-subspace-observable": "^2.0.5-alpha"
+    "redux-subspace-observable": "^2.0.5-alpha",
+    "rxjs": "^5.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
