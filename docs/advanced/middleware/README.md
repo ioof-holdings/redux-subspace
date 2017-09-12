@@ -56,15 +56,14 @@ import someMiddleware from 'some-dependency'
 const store = createStore(reducer, applyMiddleware(applyToChildren(someMiddleware)))
 ```
 
-### Supported Redux Middleware
+## Supported Redux Middleware
 
-As previously stated, many Redux middlewares will just work with Redux Subspace, but the following list are actively supported:
+As previously stated, many Redux middlewares will just work with Redux Subspace, but the following list is actively supported:
 
 * [redux-observable](/docs/advanced/middleware/redux-observable.md)
 * [redux-promise](/docs/advanced/middleware/redux-promise.md)
 * [redux-saga](/docs/advanced/middleware/redux-saga.md)
 * [redux-thunk](/docs/advanced/middleware/redux-thunk.md)
-* [redux-loop](/docs/advanced/middleware/redux-loop.md)
 
 ## Writing Custom Middleware
 
