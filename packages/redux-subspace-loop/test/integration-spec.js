@@ -7,9 +7,9 @@
  */
 
 import { createStore } from 'redux'
+import { subspace } from 'redux-subspace'
 import { Cmd, loop, install, combineReducers } from 'redux-loop'
 import { namespaced } from '../src'
-import { subspace } from 'redux-subspace'
 
 describe('integration tests', () => {
 

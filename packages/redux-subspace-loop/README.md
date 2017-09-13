@@ -15,4 +15,5 @@ npm install --save redux-subspace-loop
 ## Documentation
 
 * [Usage](/packages/redux-subspace-loop/docs/Usage.md)
+* [Examples](/packages/redux-subspace-loop/docs/Examples.md)
 * [API Reference](/packages/redux-subspace-loop/docs/api/README.md)

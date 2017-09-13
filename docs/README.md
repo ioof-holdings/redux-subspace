@@ -17,6 +17,8 @@
     * [redux-saga](/docs/advanced/middleware/redux-saga.md)
     * [redux-thunk](/docs/advanced/middleware/redux-thunk.md)
     * [Custom Middleware](/docs/advanced/middleware/CustomMiddleware.md)
+  * [Enhancers](/docs/advanced/enhancers/README.md)
+    * [redux-loop](/docs/advanced/enhancers/redux-loop.md)
 * [Examples](/docs/Examples.md)
 * [API Reference](/docs/api/README.md)
   * [subspace](/docs/api/subspace.md)

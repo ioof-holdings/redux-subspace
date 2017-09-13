@@ -1,4 +1,4 @@
-# redux-promise
+# redux-loop
 
 Using [redux-loop](https://github.com/redux-loop/redux-loop) doesn't require any additional configuration when creating the store and you should be able to use it just like you normally would.
 
