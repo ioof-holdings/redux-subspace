@@ -100,7 +100,7 @@ export function applyToNamespaceRoots(middleware: SubspaceMiddleware | Redux.Mid
 
 export function applyToChildren(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
 
-export function globalActions(...actionTypes: string[]): SubspaceMiddleware;
+export function globalActions(...actionTypes: (string | RegExp)[]): SubspaceMiddleware;
 
 /**
  * Actions
