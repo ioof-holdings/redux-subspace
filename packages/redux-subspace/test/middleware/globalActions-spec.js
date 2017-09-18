@@ -66,11 +66,13 @@ describe('globalActions tests', () => {
 
         const next = sinon.spy()
 
-        const middleware = globalActions('TEST')(store)(next)
+        const middleware = globalActions('A_TEST')(store)(next)
 
-        middleware({ type: 'NOT_TEST', value: 'expected' })
+        middleware({ type: 'NOT_A_TEST', value: 'expected' })
+        middleware({ type: 'TEST', value: 'expected' })
 
-        expect(next).to.be.calledWithMatch({ type: 'NOT_TEST', value: 'expected' })
+        expect(next).to.be.calledWithMatch({ type: 'NOT_A_TEST', value: 'expected' })
+        expect(next).to.be.calledWithMatch({ type: 'TEST', value: 'expected' })
         expect(store.dispatch).to.not.be.called
     })
 
