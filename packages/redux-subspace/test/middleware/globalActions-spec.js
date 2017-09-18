@@ -92,4 +92,21 @@ describe('globalActions tests', () => {
         expect(next).to.be.calledWith(action)
         expect(store.dispatch).to.not.be.called
     })
+
+    it('should ignore already global actions', () => {
+        const store = {
+            dispatch: sinon.spy()
+        }
+
+        const next = sinon.spy()
+
+        const middleware = globalActions('TEST')(store)(next)
+
+        const action = () => ({ type: 'TEST', value: 'expected', globalAction: true })
+
+        middleware(action)
+
+        expect(next).to.be.calledWith(action)
+        expect(store.dispatch).to.not.be.called
+    })
 })
