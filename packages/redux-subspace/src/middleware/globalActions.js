@@ -7,9 +7,18 @@
  */
 
 import globalAction from '../actions/globalAction'
+import isGlobal from '../actions/isGlobal'
 
-const globalActions = (...actionTypes) => () => (next) => (action) => action.type && actionTypes.find((type) => action.type.match(type)) 
-    ? next(globalAction(action)) 
-    : next(action)
+const isMatch = (expectedType, actualType) => {
+  return typeof expectedType === 'string' ? actualType === expectedType : actualType.match(expectedType) !== null
+}
+
+const shouldBeGlobal = (action, actionTypes) => {
+  return !isGlobal(action) && actionTypes.find((type) => isMatch(type, action.type))
+}
+
+const globalActions = (...actionTypes) => (store) => (next) => (action) => shouldBeGlobal(action, actionTypes) 
+  ? store.dispatch(globalAction(action)) 
+  : next(action)
 
 export default globalActions
