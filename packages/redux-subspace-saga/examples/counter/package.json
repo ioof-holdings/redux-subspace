@@ -1,6 +1,6 @@
 {
   "name": "counter",
-  "version": "2.0.6-alpha",
+  "version": "2.0.6",
   "private": true,
   "devDependencies": {
     "react-scripts": "^1.0.2"
@@ -11,8 +11,8 @@
     "react-dom": "^15.6.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
-    "redux-subspace": "^2.0.6-alpha",
-    "redux-subspace-saga": "^2.0.6-alpha"
+    "redux-subspace": "^2.0.6",
+    "redux-subspace-saga": "^2.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
