@@ -59,7 +59,7 @@ import thunk from 'redux-thunk'
 const store = createStore(reducer, applyMiddleware(thunk))
 ```
 
-Middleware applied to subspaces will also be applied to the root store, so there is not need to apply it twice.
+Middleware applied to subspaces will also be applied to the root store, so there is no need to apply it twice.
 
 ## The `root` node
 
