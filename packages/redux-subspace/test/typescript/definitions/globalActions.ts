@@ -11,3 +11,9 @@ import { applyMiddleware, globalActions } from '../../../src'
 applyMiddleware(globalActions('test'))
 
 applyMiddleware(globalActions('test1', 'test2'))
+
+applyMiddleware(globalActions(/test/))
+
+applyMiddleware(globalActions(/test1/, /test2/))
+
+applyMiddleware(globalActions('test1', /test2/))
