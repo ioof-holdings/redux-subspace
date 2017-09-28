@@ -36,7 +36,7 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>")
+        expect(testComponent.text()).to.equal("expected")
     })
 
     it('should render subspaced using namespace for substate', () => {
@@ -60,7 +60,7 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>")
+        expect(testComponent.text()).to.equal("expected")
     })
 
     it('should render subspaced component with props', () => {
@@ -84,7 +84,7 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected - something else</p>")
+        expect(testComponent.text()).to.equal("expected - something else")
     })
 
     it('should render subspaced component using root state', () => {
@@ -108,7 +108,7 @@ describe('subspaced Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+        expect(testComponent.text()).to.equal("expected 1 - expected 2")
     })
 
     it('should use component name in display name', () => {

@@ -35,7 +35,7 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>")
+        expect(testComponent.text()).to.equal("expected")
     })
 
     it('should render child component using namespace for substate', () => {
@@ -56,7 +56,7 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>")
+        expect(testComponent.text()).to.equal("expected")
     })
 
     it('should render nested child component with substate', () => {
@@ -82,7 +82,7 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected</p>")
+        expect(testComponent.text()).to.equal("expected")
     })
 
     it('should render child component with substate using root state', () => {
@@ -103,7 +103,7 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+        expect(testComponent.text()).to.equal("expected 1 - expected 2")
     })
 
     it('should render nested child component with substate using root state', () => {
@@ -129,6 +129,6 @@ describe('SubspaceProvider Tests', () => {
             </Provider>
         )
 
-        expect(testComponent.html()).to.equal("<p>expected 1 - expected 2</p>")
+        expect(testComponent.text()).to.equal("expected 1 - expected 2")
     })
 })

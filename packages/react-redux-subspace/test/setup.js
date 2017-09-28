@@ -7,6 +7,8 @@
  */
 
 import babelRegister from 'babel-register'
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 babelRegister()
 
@@ -18,3 +20,5 @@ var sinonChai = require("sinon-chai")
 global.expect = chai.expect
 global.assert = chai.assert
 chai.use(sinonChai)
+
+Enzyme.configure({ adapter: new Adapter() });
