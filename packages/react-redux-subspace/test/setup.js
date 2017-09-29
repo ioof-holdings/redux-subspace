@@ -21,4 +21,4 @@ global.expect = chai.expect
 global.assert = chai.assert
 chai.use(sinonChai)
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() })
