@@ -25,11 +25,11 @@
   "dependencies": {
     "hoist-non-react-statics": "^2.2.1",
     "prop-types": "^15.5.0",
-    "recompose": "^0.24.0",
+    "recompose": "^0.25.1",
     "redux-subspace": "^2.0.6"
   },
   "peerDependencies": {
-    "react": "^15.1",
+    "react": "^15.1 || ^16.0",
     "react-redux": "^5.0.4"
   },
   "devDependencies": {
@@ -42,18 +42,18 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
-    "enzyme": "^2.8.0",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.9.0",
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^2.2.5",
     "nyc": "^10.0.0",
-    "react": "^15.5.0",
-    "react-addons-test-utils": "^15.5.0",
-    "react-dom": "^15.5.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-redux": "^5.0.4",
-    "react-test-renderer": "^15.5.4",
+    "react-test-renderer": "^16.0.0",
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.1",
     "sinon": "^1.17.3",
