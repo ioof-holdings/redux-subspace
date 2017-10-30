@@ -27,7 +27,10 @@ class SubspaceProvider extends React.PureComponent {
 
 SubspaceProvider.propTypes = {
     children: PropTypes.element.isRequired,
-    mapState: PropTypes.func,
+    mapState: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.string,
+    ]),
     namespace: PropTypes.string,
     subspaceDecorator: PropTypes.func,
 }
