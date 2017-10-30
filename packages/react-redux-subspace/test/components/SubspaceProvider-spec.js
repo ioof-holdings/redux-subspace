@@ -16,7 +16,7 @@ import SubspaceProvider from '../../src/components/SubspaceProvider'
 describe('SubspaceProvider Tests', () => {
 
     const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
-
+    
     it('should render child component with substate', () => {
         let state = {
             subState: {
@@ -30,6 +30,27 @@ describe('SubspaceProvider Tests', () => {
         let testComponent = render(
             <Provider store={mockStore}>
                 <SubspaceProvider mapState={state => state.subState}>
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
+    })
+        
+    it('should render child component with string substate selector', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState="subState">
                     <TestComponent />
                 </SubspaceProvider>
             </Provider>

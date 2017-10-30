@@ -26,7 +26,7 @@ export const subspaced: Subspaced;
 
 export interface SubspaceProviderProps<TParentState, TRootState, TSubState> {
     children: React.ReactNode;
-    mapState?: MapState<TParentState, TRootState, TSubState>;
+    mapState?: MapState<TParentState, TRootState, TSubState> | string;
     namespace?: string;
 }
 

@@ -12,18 +12,18 @@ describe('isGlobal tests', () => {
     it('should be global', () => {
         const action = { type: 'TEST', value: 'expected', globalAction: true }
 
-        expect(isGlobal(action)).to.be.truthy
+        expect(isGlobal(action)).to.be.ok
     })
 
     it('should not be global', () => {
         const action = { type: 'TEST', value: 'expected' }
 
-        expect(isGlobal(action)).to.be.falsy
+        expect(isGlobal(action)).to.not.be.ok
     })
 
-    it('should not be global there is no action type', () => {
+    it('should be global if there is no action type', () => {
         const action = () => ({ type: 'TEST', value: 'expected' })
 
-        expect(isGlobal(action)).to.be.falsy
+        expect(isGlobal(action)).to.be.ok
     })
 })

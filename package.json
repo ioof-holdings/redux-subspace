@@ -23,8 +23,8 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "devDependencies": {
-    "eslint": "^3.13.1",
+    "eslint": "^4.10.0",
     "istanbul": "^0.4.5",
-    "lerna": "^2.0.0"
+    "lerna": "^2.4.0"
   }
 }

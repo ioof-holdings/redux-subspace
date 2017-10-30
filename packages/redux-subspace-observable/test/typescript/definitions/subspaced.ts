@@ -8,7 +8,6 @@
 
 import { createStore, applyMiddleware, Action } from 'redux'
 import { combineEpics, Epic, ActionsObservable } from 'redux-observable'
-import { takeEvery, put } from 'redux-saga/effects'
 import 'rxjs/add/operator/map'
 import { subspaced } from '../../../src'
 

@@ -45,6 +45,14 @@ const TestSubspacedComponent = () => {
     )
 }
 
+const TestSubspacedComponentShorthand = () => {
+    return (
+        <SubspaceProvider mapState="child">
+            <p>test</p>
+        </SubspaceProvider>
+    )
+}
+
 const TestComponentWithRootState = () => {
     return (
         <SubspaceProvider mapState={(state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent })}>

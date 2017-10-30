@@ -12,24 +12,24 @@ describe('hasNamespace tests', () => {
     it('should identify namespace in action type', () => {
         const action = { type: 'test/TEST', value: 'expected' }
 
-        expect(hasNamespace(action, 'test')).to.be.truthy
+        expect(hasNamespace(action, 'test')).to.be.ok
     })
 
     it('should not identify namespace in action type', () => {
         const action = { type: 'TEST', value: 'expected' }
 
-        expect(hasNamespace(action, 'test')).to.be.falsy
+        expect(hasNamespace(action, 'test')).to.not.be.ok
     })
 
     it('should not identify namespace if there is no action type', () => {
         const action = () => ({ type: 'TEST', value: 'expected' })
 
-        expect(hasNamespace(action, 'test')).to.be.falsy
+        expect(hasNamespace(action, 'test')).to.not.be.ok
     })
 
     it('should not identify namespace if there is no action', () => {
         const action = undefined
 
-        expect(hasNamespace(action, 'test')).to.be.falsy
+        expect(hasNamespace(action, 'test')).to.not.be.ok
     })
 })
