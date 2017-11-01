@@ -1,6 +1,6 @@
 {
   "name": "react-redux-subspace",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "react-redux Provider extension for redux-subspace",
   "author": "Michael Peyper",
   "contributors": [
@@ -26,7 +26,7 @@
     "hoist-non-react-statics": "^2.3.1",
     "prop-types": "^15.6.0",
     "recompose": "^0.26.0",
-    "redux-subspace": "^2.0.7"
+    "redux-subspace": "^2.0.8"
   },
   "peerDependencies": {
     "react": "^15.1 || ^16.0",
