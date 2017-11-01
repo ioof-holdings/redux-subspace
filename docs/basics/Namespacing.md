@@ -1,6 +1,6 @@
 # Namespacing
 
-In the [previous section](/docs/basics/CreatingSubspaces) we had an example where actions being raised by sub-applications could affect the state of other applications.
+In the [previous section](/docs/basics/CreatingSubspaces.md) we had an example where actions being raised by sub-applications could affect the state of other applications.
 
 Let's change our application to use the same reducer for both `subApp1` and `subApp2`:
 
