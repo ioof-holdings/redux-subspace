@@ -14,4 +14,8 @@ npm install --save redux-subspace
 
 ## Documentation
 
-The documentation for Redux Subspace can be found [here](https://ioof-holdings.github.io/redux-subspace/).
+* [Usage](/docs/basics/CreatingSubspace.md)
+* [Examples](/docs/Examples.md)
+* [API Reference](/packages/redux-subspace/docs/api/README.md)
+
+The full documentation for Redux Subspace can be found [here](https://ioof-holdings.github.io/redux-subspace/).

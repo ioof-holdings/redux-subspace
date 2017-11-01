@@ -29,7 +29,7 @@ This store's state will now look like:
 }
 ```
 
-To create a wormhole, you must apply the middleware to the root store.  It is important to use [Redux Subspace's applyMiddleware](/docs/api/applyMiddleware.md) to do this, instead of the Redux built in version:
+To create a wormhole, you must apply the middleware to the root store.  It is important to use [Redux Subspace's applyMiddleware](/packages/redux-subspace/docs/api/applyMiddleware.md) to do this, instead of the Redux built in version:
 
 ```javascript
 import { createStore } from 'redux'

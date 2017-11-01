@@ -18,7 +18,6 @@ npm install --save redux-subspace
 * [Basics](/docs/basics/README.md)
 * [Advanced](/docs/advanced/README.md)
 * [Examples](/docs/Examples.md)
-* [API Reference](/docs/api/README.md)
 
 ## Packages
 
