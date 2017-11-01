@@ -1,0 +1,57 @@
+{
+  "name": "redux-subspace-wormhole",
+  "version": "2.0.7",
+  "description": "Create isolated subspaces of a Redux store",
+  "author": "Michael Peyper",
+  "contributors": [
+    "Jonathan Peyper",
+    "Vivian Farrell"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "dist": "babel src --out-dir lib --copy-files",
+    "lint": "eslint . --ext .js --ext .jsx",
+    "lint:fix": "eslint . --ext .js --ext .jsx --fix",
+    "test": "nyc mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ioof-holdings/redux-subspace.git"
+  },
+  "dependencies": {
+    "lodash.isplainobject": "^4.0.6",
+    "redux-subspace": "^2.0.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": " ^6.7.7",
+    "babel-eslint": "^8.0.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.7.2",
+    "chai": "^4.1.2",
+    "eslint": "^4.10.0",
+    "eslint-plugin-react": "^7.4.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "redux": "^3.6.0",
+    "redux-mock-store": "^1.3.0",
+    "sinon": "^4.0.2",
+    "sinon-chai": "^2.14.0",
+    "typescript": "^2.5.3",
+    "typescript-definition-tester": "0.0.5"
+  },
+  "nyc": {
+    "temp-directory": "coverage/.nyc_output",
+    "reporter": [
+      "html",
+      "text",
+      "json"
+    ]
+  }
+}

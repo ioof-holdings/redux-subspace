@@ -1,8 +1,10 @@
+.git/
 node_modules
 npm-debug.log
-lerna-debug.log
+test/
+docs/
+examples/
 .nyc_output
 coverage
 .vscode
 .idea
-lib/
