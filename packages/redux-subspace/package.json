@@ -23,7 +23,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "peerDependencies": {
-    "redux": "^3.7.2"
+    "redux": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
