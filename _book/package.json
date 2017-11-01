@@ -20,7 +20,7 @@
     "docs:prepare": "node scripts/prepareDocs.js",
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:serve": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:build && git subtree push --prefix _book origin gh-pages"
+    "docs:publish": "npm run docs:build && git add _book && git commit -m 'Publishing docs' && git subtree push --prefix _book origin gh-pages"
   },
   "repository": {
     "type": "git",
