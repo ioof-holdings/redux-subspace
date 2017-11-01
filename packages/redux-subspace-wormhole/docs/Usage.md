@@ -7,7 +7,7 @@ For example, given a reducer setup like this:
 ``` javascript
 import { createStore, combineReducers } from 'redux'
 
-const configuration = (state= { api: '/api' }) => state
+const configuration = (state = { api: '/api' }) => state
 const subApp = (state = { value: 1 }) => state
 
 const reducer = combineReducers({

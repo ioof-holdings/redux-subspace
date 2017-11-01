@@ -16,7 +16,10 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test && npm run coverage",
-    "test:watch": "lerna run --parallel test:watch"
+    "test:watch": "lerna run --parallel test:watch",
+    "docs:prepare": "node scripts/prepareDocs.js",
+    "docs:build": "npm run docs:prepare && gitbook build",
+    "docs:serve": "npm run docs:prepare && gitbook serve"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,11 @@
   },
   "devDependencies": {
     "eslint": "^4.10.0",
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-anchorjs": "^1.1.1",
+    "gitbook-plugin-edit-link": "^2.0.2",
+    "gitbook-plugin-github": "^2.0.0",
+    "gitbook-plugin-prism": "^2.3.0",
     "istanbul": "^0.4.5",
     "lerna": "^2.4.0"
   }

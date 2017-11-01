@@ -6,3 +6,4 @@ coverage
 .vscode
 .idea
 lib/
+_book/
