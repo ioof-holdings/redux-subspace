@@ -7,9 +7,9 @@ To run the example locally:
 ```sh
 git clone https://github.com/ioof-holdings/redux-subspace.git
 
-cd redux-subspace/packages/redux-subspace-loop/examples/redux-loop-example
+cd redux-subspace/examples/redux-loop/redux-loop-example
 npm install
 npm start
 ```
 
-Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop/examples/redux-loop-example).
+Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/tree/master/examples/redux-loop/redux-loop-example).

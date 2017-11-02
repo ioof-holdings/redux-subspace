@@ -1,6 +1,8 @@
 # Table of Contents
 
 * [Read Me](/packages/redux-subspace/README.md)
+* [Usage](/docs/basics/CreatingSubspaces.md)
+* [Examples](/docs/Examples.md#redux-subspace)
 * [API Reference](/packages/redux-subspace/docs/api/README.md)
   * [subspace](/packages/redux-subspace/docs/api/subspace.md)
   * [applyMiddleware](/packages/redux-subspace/docs/api/applyMiddleware.md)
