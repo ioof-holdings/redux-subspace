@@ -7,9 +7,9 @@ To run the example locally:
 ```sh
 git clone https://github.com/ioof-holdings/redux-subspace.git
 
-cd redux-subspace/packages/redux-subspace-saga/examples/cancellable-counter
+cd redux-subspace/examples/redux-saga/cancellable-counter
 npm install
 npm start
 ```
 
-Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-saga/examples/cancellable-counter).
+Or check out the [sandbox](https://codesandbox.io/s/github/ioof-holdings/redux-subspace/tree/master/examples/redux-saga/cancellable-counter).

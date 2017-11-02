@@ -9,10 +9,11 @@ This is a library to inject additional global state into subspaces.
 ## Installation
 
 ```sh
-npm install --save redux-subspace-wormhole
+npm install --save redux redux-subspace redux-subspace-wormhole
 ```
 
 ## Documentation
 
 * [Usage](/packages/redux-subspace-wormhole/docs/Usage.md)
+* [Examples](/docs/Examples.md#general-examples)
 * [API Reference](/packages/redux-subspace-wormhole/docs/api/README.md)

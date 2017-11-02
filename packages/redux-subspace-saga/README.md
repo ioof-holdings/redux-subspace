@@ -9,11 +9,11 @@ This is a library to create subspaces for sagas. It's designed to work with [red
 ## Installation
 
 ```sh
-npm install --save redux-subspace-saga
+npm install --save redux redux-saga redux-subspace redux-subspace-saga
 ```
 
 ## Documentation
 
 * [Usage](/packages/redux-subspace-saga/docs/Usage.md)
-* [Examples](/packages/redux-subspace-saga/docs/Examples.md)
+* [Examples](/docs/Examples.md#redux-subspace-saga)
 * [API Reference](/packages/redux-subspace-saga/docs/api/README.md)

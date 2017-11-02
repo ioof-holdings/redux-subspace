@@ -9,11 +9,11 @@ This is a library to create subspaces for epics. It's designed to work with [red
 ## Installation
 
 ```sh
-npm install --save redux-subspace-observable
+npm install --save redux redux-observable redux-subspace redux-subspace-observable
 ```
 
 ## Documentation
 
 * [Usage](/packages/redux-subspace-observable/docs/Usage.md)
-* [Examples](/packages/redux-subspace-observable/docs/Examples.md)
+* [Examples](/docs/Examples.md#redux-subspace-observable)
 * [API Reference](/packages/redux-subspace-observable/docs/api/README.md)

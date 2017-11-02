@@ -9,11 +9,11 @@ This library provides necessary utilities for supporting redux-subspace in proje
 ## Installation
 
 ```sh
-npm install --save redux-subspace-loop
+npm install --save redux redux-loop redux-subspace redux-subspace-loop
 ```
 
 ## Documentation
 
 * [Usage](/packages/redux-subspace-loop/docs/Usage.md)
-* [Examples](/packages/redux-subspace-loop/docs/Examples.md)
+* [Examples](/docs/Examples.md#redux-subspace-loop)
 * [API Reference](/packages/redux-subspace-loop/docs/api/README.md)

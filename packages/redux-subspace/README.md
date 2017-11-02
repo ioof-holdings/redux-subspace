@@ -9,13 +9,13 @@ This is a library to create subspaces for Redux stores. This is the core package
 ## Installation
 
 ```sh
-npm install --save redux-subspace
+npm install --save redux redux-subspace
 ```
 
 ## Documentation
 
-* [Usage](/docs/basics/CreatingSubspace.md)
-* [Examples](/docs/Examples.md)
+* [Usage](/docs/basics/CreatingSubspaces.md)
+* [Examples](/docs/Examples.md#redux-subspace)
 * [API Reference](/packages/redux-subspace/docs/api/README.md)
 
 The full documentation for Redux Subspace can be found [here](https://ioof-holdings.github.io/redux-subspace/).

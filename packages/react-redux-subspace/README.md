@@ -9,10 +9,11 @@ This is a library to create subspaces for Redux connected React components. It's
 ## Installation
 
 ```sh
-npm install --save react-redux-subspace
+npm install --save react redux react-redux redux-subspace react-redux-subspace
 ```
 
 ## Documentation
 
 * [Usage](/packages/react-redux-subspace/docs/Usage.md)
+* [Examples](/docs/Examples.md#react-redux-subspace)
 * [API Reference](/packages/react-redux-subspace/docs/api/README.md)
