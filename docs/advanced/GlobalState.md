@@ -47,4 +47,4 @@ When [nesting subspaces](/docs/advanced/NestingSubspaces.md), the `rootState` wi
 
 ## Wormholes
 
-Often, the global state is required by all sub-applications. Rather than repetitively merging the state in the `mapState` selector, the [`wormhole' middleware](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-wormhole) can be used to provide it to all subspaces. For details, see the [`redux-subspace-wormhole' documentation](/packages/redux-subspace-wormhole/README.md).
+Often, the global state is required by all sub-applications. Rather than repetitively merging the state in the `mapState` selector, the [`wormhole` middleware](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-wormhole) can be used to provide it to all subspaces. For details, see the [`redux-subspace-wormhole' documentation](/packages/redux-subspace-wormhole/README.md).
