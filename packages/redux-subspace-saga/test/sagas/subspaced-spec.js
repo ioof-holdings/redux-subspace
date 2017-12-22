@@ -34,7 +34,8 @@ describe('subspaced Tests', () => {
         const iterator = subspacedSaga()
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
-        iterator.next(mockStore)
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next(undefined).value).to.be.ok
         expect(iterator.next({ type: "TEST" }).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([{ type: "SET_VALUE", value: "expected" }])
@@ -61,7 +62,8 @@ describe('subspaced Tests', () => {
         const iterator = subspacedSaga()
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
-        iterator.next(mockStore)
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next(undefined).value).to.be.ok
         expect(iterator.next({ type: "test/TEST" }).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([{ type: "test/SET_VALUE", value: "expected" }])
@@ -88,7 +90,8 @@ describe('subspaced Tests', () => {
         const iterator = subspacedSaga()
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
-        iterator.next(mockStore)
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next(undefined).value).to.be.ok
         expect(iterator.next({ type: "TEST" }).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([{ type: "subState/SET_VALUE", value: "expected" }])
@@ -115,7 +118,8 @@ describe('subspaced Tests', () => {
         const iterator = subspacedSaga()
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
-        iterator.next(mockStore)
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next(undefined).value).to.be.ok
         expect(iterator.next(globalAction({ type: "TEST" })).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([{ type: "test/SET_VALUE", value: "expected" }])
@@ -142,9 +146,38 @@ describe('subspaced Tests', () => {
         const iterator = subspacedSaga()
 
         expect(iterator.next().value).to.deep.equal(getContext('store'))
-        iterator.next(mockStore)
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next(undefined).value).to.be.ok
         expect(iterator.next({ type: "test/TEST" }).done).to.be.true
 
         expect(mockStore.getActions()).to.deep.equal([globalAction({ type: "SET_VALUE", value: "expected" })])
+    })
+
+    it('should get context for subspaced saga', () => {
+
+        const state = {
+            subState: {
+                value: "also wrong"
+            },
+            value: "wrong"
+        }
+
+        const mockStore = configureStore()(state)
+
+        function* saga() {
+            const value = yield getContext('value')
+            yield put({ type: "SET_VALUE", value })
+        }
+
+        const subspacedSaga = subspaced(state => state.subState)(saga)
+
+        const iterator = subspacedSaga()
+
+        expect(iterator.next().value).to.deep.equal(getContext('store'))
+        expect(iterator.next(mockStore).value).to.deep.equal(getContext('sagaMiddlewareOptions'))
+        expect(iterator.next({ context: { value: 'expected' } }).value).to.be.ok
+        expect(iterator.next({ type: "TEST" }).done).to.be.true
+
+        expect(mockStore.getActions()).to.deep.equal([{ type: "SET_VALUE", value: "expected" }])
     })
 })

@@ -8,7 +8,7 @@
 
 import { createStore, combineReducers } from 'redux'
 import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
-import { takeEvery, select, put, all } from 'redux-saga/effects'
+import { takeEvery, select, put, all, getContext } from 'redux-saga/effects'
 import createSagaMiddleware, { subspaced } from '../src'
 
 describe('integration tests', () => {
@@ -32,6 +32,124 @@ describe('integration tests', () => {
             yield takeEvery(TEST_ACTION_TRIGGER, makeTestAction)
         }
     }
+
+    const contextAwareSaga = () => {
+        function* makeTestAction(action) {
+            const value = yield getContext(action.key)
+            yield put({ type: TEST_ACTION, value: value })
+        }
+        return function* watchTestAction() {
+            yield takeEvery(TEST_ACTION_TRIGGER, makeTestAction)
+        }
+    }
+
+    it('should transfer context to subspaced saga', () => {
+        const sagaMiddleware = createSagaMiddleware({ context: { fromContext: 'context value'} })
+
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent1)(rootStore)
+
+        const parentSaga = subspaced((state) => state.parent1)(contextAwareSaga())
+
+        sagaMiddleware.run(parentSaga)
+
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, key: 'fromContext' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'context value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should transfer context to nested subspaced saga', () => {
+        const sagaMiddleware = createSagaMiddleware({ context: { fromContext: 'context value'} })
+
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent1)(rootStore)
+
+        const childStore = subspace((state) => state.child1)(parentStore)
+
+        const childSaga = subspaced((state) => state.child1)(contextAwareSaga())
+
+        const parentSaga = subspaced((state) => state.parent1)(childSaga)
+
+        sagaMiddleware.run(parentSaga)
+
+        childStore.dispatch({ type: TEST_ACTION_TRIGGER, key: 'fromContext' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'context value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should transfer context to subspaced saga with namespace', () => {
+        const sagaMiddleware = createSagaMiddleware({ context: { fromContext: 'context value'} })
+
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        const parentSaga = subspaced((state) => state.parent2, 'parentNamespace')(contextAwareSaga())
+
+        sagaMiddleware.run(parentSaga)
+
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, key: 'fromContext' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'initial value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'context value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should transfer context to nested subspaced saga with namespace', () => {
+        const sagaMiddleware = createSagaMiddleware({ context: { fromContext: 'context value'} })
+
+        const rootStore = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
+
+        const childSaga = subspaced((state) => state.child2, 'childNamespace')(contextAwareSaga())
+
+        const parentSaga = subspaced((state) => state.parent2, 'parentNamespace')(childSaga)
+
+        sagaMiddleware.run(parentSaga)
+
+        childStore.dispatch({ type: TEST_ACTION_TRIGGER, key: 'fromContext' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'initial value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'context value'
+            }
+        })
+    })
 
     it('should work with no subspaces', () => {
         const sagaMiddleware = createSagaMiddleware()

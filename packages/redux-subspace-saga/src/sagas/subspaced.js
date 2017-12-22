@@ -39,17 +39,19 @@ const subspaced = (mapState, namespace) => {
     const subspaceDecorator = subspace(mapState, namespace)
 
     return (saga) => {
-        return function* wrappedSaga() {
+        return function* wrappedSaga(...args) {
             const parentStore = yield getContext('store')
+            const sagaMiddlewareOptions = yield getContext('sagaMiddlewareOptions')
 
             const sagaEmitter = emitter()
             
             const store = {
+                ...sagaMiddlewareOptions,
                 ...subspaceDecorator(parentStore),
                 subscribe: sagaEmitter.subscribe,
             }
 
-            runSaga(store, provideStore(store)(saga))
+            runSaga(store, provideStore(store, sagaMiddlewareOptions)(saga), ...args)
 
             yield takeEvery('*', function* (action) {
                 store.processAction(action, sagaEmitter.emit)

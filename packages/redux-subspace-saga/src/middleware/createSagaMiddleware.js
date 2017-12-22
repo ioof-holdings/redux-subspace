@@ -13,7 +13,7 @@ export default (options) => {
     const sagaMiddleware = createSagaMiddleware(options)
     
     const sagaSubspaceMiddleware = (store) => {
-        sagaSubspaceMiddleware.run = (saga) => sagaMiddleware.run(provideStore(store)(saga))
+        sagaSubspaceMiddleware.run = (saga, ...args) => sagaMiddleware.run(provideStore(store, options)(saga), ...args)
         return sagaMiddleware(store)
     }
 

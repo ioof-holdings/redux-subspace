@@ -4,7 +4,7 @@ Using Redux Subspace with [`redux-saga`](https://redux-saga.js.org/) is pretty s
 
 ## Saga Middleware
 
-In order for `redux-saga` middleware to work, it must only be applied to the root store and not to every subspace.  You can use the [`applyToRoot` utility](/docs/advanced/middleware/README.md#applyToRoot) yourself, but `redux-subspace-saga` provides a middleware that does that for you:
+In order for `redux-saga` with `redux-subspace` you can use the `createSagaMiddleware` function from the `redux-subspace-saga` package instead of the default one.  This allows `redux-subspace` to intercept subspaced sagas to provide the extra bits it needs to work.
 
 ```javascript
 import { createStore } from 'redux'
@@ -36,20 +36,23 @@ Now any [`select`](https://redux-saga.js.org/docs/api/#selectselector-args) and 
 
 You can nest subspaces sagas by [composing them together](https://redux-saga.js.org/docs/advanced/ComposingSagas.html) like regular sagas. By doing this, the [standard nesting behavior](/docs/advanced/NestingSubspaces.md) of subspaces will still occur.
 
-### Accessing the store
+## Caveats
 
-For `subspaced` to work, the store needs to be present in the saga's context. The `createSagaMiddleware` provided by `redux-subpsace-saga` will automatically inject the store it is applied to into the context, but if you are not using it you can use the `provideStore` higher-order saga to handle this for you.
+### Context
+
+When using the `context` feature of `redux-saga`, only `context` provided when creating the saga middleware is preserved in the subspaced sagas:
 
 ```javascript
 import { createStore } from 'redux'
 import { applyMiddleware } from 'redux-subspace'
-import createSagaMiddleware from 'redux-saga'
-import { provideStore } from 'redux-subspace-saga'
+import createSagaMiddleware from 'redux-subspace-saga'
 import { reducer, saga } from 'some-dependency'
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware({ context: { providedToAllSubspaces: 'you can use this anywhere' } })
 
 const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 
-sagaMiddleware.run(provideStore(store)(saga))
+sagaMiddleware.run(saga)
 ```
+
+Context provided using the [`setContext` effect](https://redux-saga.js.org/docs/api/#setcontextprops) will not be preserved.  This is due to a limitation in redux-saga that the full `context` of a saga cannot be retrieved, so there is no way for `redux-subspace-saga` to transfer all context values to the subspaced saga's `context`.

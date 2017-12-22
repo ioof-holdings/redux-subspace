@@ -23,6 +23,28 @@ describe('provideStore Tests', () => {
         const iterator = sagaWithStore()
 
         expect(iterator.next().value).to.deep.equal(setContext({ store }))
+        expect(iterator.next().value).to.deep.equal(setContext({ sagaMiddlewareOptions: undefined }))
+        expect(iterator.next().value).to.deep.equal(take("TEST"))
+        expect(iterator.next({ type: "TEST" }).value).to.deep.equal(put({ type: "USE_TEST" }))
+        expect(iterator.next().done).to.be.true
+    })
+
+
+    it('should provide store and options to saga', () => {
+        const store = { getState: "getState", dispatch: "dispatch" }
+        const options = { context: { value: "test" }}
+
+        function* saga() {
+            yield take("TEST")
+            yield put({ type: "USE_TEST" })
+        }
+
+        const sagaWithStore = provideStore(store, options)(saga)
+
+        const iterator = sagaWithStore()
+
+        expect(iterator.next().value).to.deep.equal(setContext({ store }))
+        expect(iterator.next().value).to.deep.equal(setContext({ sagaMiddlewareOptions: options }))
         expect(iterator.next().value).to.deep.equal(take("TEST"))
         expect(iterator.next({ type: "TEST" }).value).to.deep.equal(put({ type: "USE_TEST" }))
         expect(iterator.next().done).to.be.true

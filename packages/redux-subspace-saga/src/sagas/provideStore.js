@@ -8,9 +8,10 @@
 
 import { setContext } from 'redux-saga/effects'
 
-const provideStore = (store) => (saga) => {
+const provideStore = (store, options) => (saga) => {
     return function* () {
         yield setContext({ store })
+        yield setContext({ sagaMiddlewareOptions: options })
         yield* saga()
     }
 }
