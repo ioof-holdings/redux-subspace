@@ -1,6 +1,6 @@
 # `subspaced(mapState, [namespace])`
 
-A [higher-order React component](https://facebook.github.io/react/docs/higher-order-components.html) that wraps a component is a [`SubspaceProvider`](/packages/react-redux-subspace/docs/api/SubspaceProvider.md).
+A [higher-order React component](https://facebook.github.io/react/docs/higher-order-components.html) that wraps a component in a [`SubspaceProvider`](/packages/react-redux-subspace/docs/api/SubspaceProvider.md).
 
 ## Arguments
 
