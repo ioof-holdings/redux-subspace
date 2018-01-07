@@ -1,6 +1,6 @@
 # redux-subspace
 
-<img width="200px" src="./logo/logo.svg" alt="Redux Subspace">
+<img width="200px" src="./logo/subspace-logo.svg" alt="Redux Subspace">
 
 [![npm version](https://img.shields.io/npm/v/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
