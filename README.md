@@ -1,5 +1,5 @@
 # redux-subspace
-
+![Alt text](logo/logo.svg?raw=true "Redux Subspace")
 [![npm version](https://img.shields.io/npm/v/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
