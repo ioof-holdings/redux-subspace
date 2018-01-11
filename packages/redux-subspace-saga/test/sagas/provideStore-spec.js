@@ -22,8 +22,7 @@ describe('provideStore Tests', () => {
 
         const iterator = sagaWithStore()
 
-        expect(iterator.next().value).to.deep.equal(setContext({ store }))
-        expect(iterator.next().value).to.deep.equal(setContext({ sagaMiddlewareOptions: undefined }))
+        expect(iterator.next().value).to.deep.equal(setContext({ store, sagaMiddlewareOptions: undefined }))
         expect(iterator.next().value).to.deep.equal(take("TEST"))
         expect(iterator.next({ type: "TEST" }).value).to.deep.equal(put({ type: "USE_TEST" }))
         expect(iterator.next().done).to.be.true
@@ -43,8 +42,7 @@ describe('provideStore Tests', () => {
 
         const iterator = sagaWithStore()
 
-        expect(iterator.next().value).to.deep.equal(setContext({ store }))
-        expect(iterator.next().value).to.deep.equal(setContext({ sagaMiddlewareOptions: options }))
+        expect(iterator.next().value).to.deep.equal(setContext({ store, sagaMiddlewareOptions: options }))
         expect(iterator.next().value).to.deep.equal(take("TEST"))
         expect(iterator.next({ type: "TEST" }).value).to.deep.equal(put({ type: "USE_TEST" }))
         expect(iterator.next().done).to.be.true
