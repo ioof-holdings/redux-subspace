@@ -79,6 +79,6 @@ When submitting an enhancement submission, please include as much information as
 
 ### Pull Requests
 
-If you want to get your hands dirty, please take a look at the [open issues](https://github.com/ioof-holdings/redux-subspace/issues?q=is%3Aissue%20is%3Aopen) and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in commit message.
+If you want to get your hands dirty, please take a look at the [open issues](https://github.com/ioof-holdings/redux-subspace/issues?q=is%3Aissue%20is%3Aopen) and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in the commit message.
 
 Please keep our [key concepts](#key-concepts) in mind when implementing your changes.

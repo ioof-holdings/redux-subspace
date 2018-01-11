@@ -17,10 +17,11 @@
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test && npm run coverage",
     "test:watch": "lerna run --parallel test:watch",
+    "docs:clean": "rimraf _book",
     "docs:prepare": "node scripts/prepareDocs.js",
     "docs:build": "npm run docs:prepare && gitbook build --timing; rm SUMMARY.md",
     "docs:serve": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:build && git add _book && git commit -m 'Publishing docs' && git subtree push --prefix _book origin gh-pages"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Publishing docs [ci skip]' && git checkout -b gh-pages && git add . && git commit -am 'Publishing docs [ci skip]' && git push git@github.com:mpeyper/redux-subspace gh-pages --force"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-prism": "^2.3.0",
     "istanbul": "^0.4.5",
-    "lerna": "^2.4.0"
+    "lerna": "^2.4.0",
+    "rimraf": "^2.6.2"
   }
 }
