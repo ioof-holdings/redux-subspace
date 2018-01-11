@@ -8,7 +8,7 @@
 
 import path from 'path'
 import fs from 'fs'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, compose } from 'redux'
 import { 
     subspace,
     applyMiddleware,
@@ -830,6 +830,50 @@ describe('integration tests', () => {
             expect(dispatchSpy).to.have.been.calledWithMatch(subspaceMatcher, sinon.match.func, testAction('root value'))
             expect(dispatchSpy).to.have.been.calledWithMatch(subspaceMatcher, sinon.match.func, testAction('parent value'))
             expect(dispatchSpy).to.have.been.calledWithMatch(subspaceMatcher, sinon.match.func, namespacedAction('childNamespace')(testAction('child value')))
+        })
+
+        it('should allow multiple applyMiddleware enhances for subspaces', () => {
+            const childReducer = (state = { value: 'initial value' }, action) => {
+            if (action.type === TEST_ACTION) {
+                const { type, ...values } = action
+                return { ...state, ...values }
+            }
+            
+            return state
+            }
+            
+            const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
+        
+            const middleware = (newKey, value) => () => (next) => (action) => {
+                if (action.type === TEST_ACTION) {
+                    return next({ ...action, [newKey]: value })
+                } 
+                return next(action)
+            }
+
+            const parentStore = createStore(parentReducer, compose(
+            applyMiddleware(middleware('value2', 'middleware value 1')),
+            applyMiddleware(middleware('value3', 'middleware value 2')),
+            applyMiddleware(middleware('value4', 'middleware value 3'), middleware('value5', 'middleware value 4')),
+            applyMiddleware(middleware('value6', 'middleware value 5'))
+            ))
+            const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
+        
+            childStore.dispatch(testAction('action value'))
+            
+            expect(parentStore.getState()).to.deep.equal({
+            child1: {
+                value: 'initial value'
+            },
+            child2: {
+                value: 'action value',
+                value2: 'middleware value 1',
+                value3: 'middleware value 2',
+                value4: 'middleware value 3',
+                value5: 'middleware value 4',
+                value6: 'middleware value 5'
+            }
+            })
         })
     })
 
