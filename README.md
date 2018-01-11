@@ -31,7 +31,7 @@ npm install --save redux-subspace
 
 ## Upgrading From Version 1 to Version 2
 
-When upgrading to version 2 or Redux Subspace, refer to the [migration guide](/docs/Migrating.md) to work through all the breaking changes.
+When upgrading to version 2 of Redux Subspace, refer to the [migration guide](/docs/Migrating.md) to work through all the breaking changes.
 
 ## Media
 
