@@ -12,6 +12,41 @@ This is a library to create subspaces for sagas. It's designed to work with [red
 npm install --save redux redux-saga redux-subspace redux-subspace-saga
 ```
 
+## Quick Start
+
+```javascript
+import { createStore, combineReducers } from 'redux'
+import { namespaced, applyMiddleware } from 'redux-subspace'
+import createSagaMiddleware, { subspaced } from 'redux-subspace-saga'
+import { all } from 'redux-saga/effects'
+import { todoReducer, todoSaga } from './todoApp'
+import { counterReducer, counterSaga } from './counterApp'
+
+const rootReducer = combineReducers({
+  todo: todoReducer
+  counter1: namespaced('counter1')(counterReducer),
+  counter2: namespaced('counter2')(counterReducer)
+})
+
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+
+const subspacedTodoSaga = subspaced((state) => state.todo)(todoSaga)
+const subspacedCounter1Saga = subspaced((state) => state.counter1, 'counter1')(counterSaga)
+const subspacedCounter2Saga = subspaced((state) => state.counter2, 'counter2')(counterSaga)
+
+function* rootSaga() {
+  yield all([
+    subspacedTodoSaga(),
+    subspacedCounter1Saga(),
+    subspacedCounter2Saga()
+  ])
+}
+
+sagaMiddleware.run(rootSaga)
+```
+
 ## Documentation
 
 * [Usage](/packages/redux-subspace-saga/docs/Usage.md)

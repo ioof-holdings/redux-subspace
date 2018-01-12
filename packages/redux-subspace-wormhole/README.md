@@ -12,6 +12,26 @@ This is a library to inject additional global state into subspaces.
 npm install --save redux redux-subspace redux-subspace-wormhole
 ```
 
+## Quick Start
+
+```javascript
+import { createStore, combineReducers } from 'redux'
+import { namespaced, applyMiddleware } from 'redux-subspace'
+import wormhole from 'redux-subspace-wormhole'
+import { todoReducer } from './todoApp'
+import { counterReducer } from './counterApp'
+
+const rootReducer = combineReducers({
+  todo: todoReducer
+  counter1: namespaced('counter1')(counterReducer),
+  counter2: namespaced('counter2')(counterReducer)
+})
+
+const store = createStore(rootReducer, applyMiddleware(
+    wormhole((state) => state.globalValue, 'globalValue')
+))
+```
+
 ## Documentation
 
 * [Usage](/packages/redux-subspace-wormhole/docs/Usage.md)
