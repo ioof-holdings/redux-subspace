@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace-observable.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-observable)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace-observable.svg?style=flat-square)](/LICENSE.md)
 
-This is a library to create subspaces for epics. It's designed to work with [redux-observable](https://redux-observable.js.org/) middleware.
+This is an extension for [redux-subspace](/) to create subspaces for epics. It's designed to work with [redux-observable](https://redux-observable.js.org/) middleware.
 
 ## Installation
 

@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-subspace)
 [![License: MIT](https://img.shields.io/npm/l/react-redux-subspace.svg?style=flat-square)](/LICENSE.md)
 
-This is a library to create subspaces for Redux connected React components. It's designed to work with Provider from the [react-redux](https://github.com/reactjs/react-redux) bindings.
+This is an extension for [redux-subspace](/) to create subspaces for Redux connected React components. It's designed to work with the `Provider` component from the [react-redux](https://github.com/reactjs/react-redux) bindings.
 
 ## Installation
 

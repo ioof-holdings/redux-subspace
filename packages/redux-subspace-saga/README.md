@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace-saga.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-saga)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace-saga.svg?style=flat-square)](/LICENSE.md)
 
-This is a library to create subspaces for sagas. It's designed to work with [redux-saga](https://redux-saga.js.org) middleware.
+This is an extension for [redux-subspace](/) to create subspaces for sagas. It's designed to work with [redux-saga](https://redux-saga.js.org) middleware.
 
 ## Installation
 

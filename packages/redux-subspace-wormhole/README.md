@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace-wormhole.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace-wormhole)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace-wormhole.svg?style=flat-square)](/LICENSE.md)
 
-This is a library to inject additional global state into subspaces.
+This is [redux-subspace](/) middleware that injects additional global state into the subspace's state.
 
 ## Installation
 
