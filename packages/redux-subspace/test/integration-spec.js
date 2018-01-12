@@ -834,12 +834,12 @@ describe('integration tests', () => {
 
         it('should allow multiple applyMiddleware enhances for subspaces', () => {
             const childReducer = (state = { value: 'initial value' }, action) => {
-            if (action.type === TEST_ACTION) {
-                const { type, ...values } = action
-                return { ...state, ...values }
-            }
-            
-            return state
+                if (action.type === TEST_ACTION) {
+                    const { type, ...values } = action
+                    return { ...state, ...values }
+                }
+
+                return state
             }
             
             const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
@@ -852,27 +852,27 @@ describe('integration tests', () => {
             }
 
             const parentStore = createStore(parentReducer, compose(
-            applyMiddleware(middleware('value2', 'middleware value 1')),
-            applyMiddleware(middleware('value3', 'middleware value 2')),
-            applyMiddleware(middleware('value4', 'middleware value 3'), middleware('value5', 'middleware value 4')),
-            applyMiddleware(middleware('value6', 'middleware value 5'))
+                applyMiddleware(middleware('value2', 'middleware value 1')),
+                applyMiddleware(middleware('value3', 'middleware value 2')),
+                applyMiddleware(middleware('value4', 'middleware value 3'), middleware('value5', 'middleware value 4')),
+                applyMiddleware(middleware('value6', 'middleware value 5'))
             ))
             const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
         
             childStore.dispatch(testAction('action value'))
             
             expect(parentStore.getState()).to.deep.equal({
-            child1: {
-                value: 'initial value'
-            },
-            child2: {
-                value: 'action value',
-                value2: 'middleware value 1',
-                value3: 'middleware value 2',
-                value4: 'middleware value 3',
-                value5: 'middleware value 4',
-                value6: 'middleware value 5'
-            }
+                child1: {
+                    value: 'initial value'
+                },
+                child2: {
+                    value: 'action value',
+                    value2: 'middleware value 1',
+                    value3: 'middleware value 2',
+                    value4: 'middleware value 3',
+                    value5: 'middleware value 4',
+                    value6: 'middleware value 5'
+                }
             })
         })
     })
