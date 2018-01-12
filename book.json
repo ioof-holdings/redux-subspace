@@ -9,6 +9,11 @@
     },
     "github": {
       "url": "https://github.com/ioof-holdings/redux-subspace/"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "docs/gitbook.css"
+      }
     }
   }
 }

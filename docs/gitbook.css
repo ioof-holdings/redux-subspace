@@ -1,0 +1,32 @@
+/*!
+ * https://redux.js.org/
+ *
+ * Copyright 2015-present Dan Abramov and other contributors
+ * Released under the MIT license.
+ * https://github.com/reactjs/redux/blob/master/LICENSE.md
+ *
+ * https://github.com/reactjs/redux/blob/master/build/gitbook.css
+ */
+
+.book-summary ul.summary li span {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.book-summary ul.summary li a:hover {
+  color: #0070CC;
+  text-decoration: none;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  text-shadow: none;
+}
+
+.color-theme-2 .token.keyword {
+  color: #24788F;
+}
+
+.token.operator {
+  background: none;
+}
