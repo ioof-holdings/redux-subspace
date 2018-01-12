@@ -21,7 +21,7 @@
     "docs:prepare": "node scripts/prepareDocs.js",
     "docs:build": "npm run docs:prepare && gitbook build --timing; rm SUMMARY.md",
     "docs:serve": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Publishing docs [ci skip]' && git checkout -b gh-pages && git add . && git commit -am 'Publishing docs [ci skip]' && git push git@github.com:mpeyper/redux-subspace gh-pages --force"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Publishing docs [ci skip]' && git checkout -b gh-pages && git add . && git commit -am 'Publishing docs [ci skip]' && git push git@github.com:ioof-holdings/redux-subspace gh-pages --force"
   },
   "repository": {
     "type": "git",
