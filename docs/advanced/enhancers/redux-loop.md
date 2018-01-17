@@ -9,7 +9,7 @@ import { install } from 'redux-loop'
 const store = createStore(reducer, install())
 ```
 
-The only difference is that you have to import the `namespaced` function from `redux-subspace-loop` instead of using the default one from redux-subspace package. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.
+The only difference is that you have to import the `namespaced` function from the [`redux-subspace-loop` package](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) instead of using the default one from redux-subspace. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.
 
 ```diff
 import { createStore, combineReducers } from 'redux'
@@ -33,3 +33,5 @@ const reducer = combineReducers({
 
 const store = createStore(reducer)
 ```
+
+For more details, refer to the [`redux-subspace-loop` documentation](/packages/redux-subspace-loop/README.md).

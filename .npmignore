@@ -3,6 +3,8 @@ node_modules
 npm-debug.log
 test/
 docs/
+_book/
+SUMMARY.md
 examples/
 .nyc_output
 coverage

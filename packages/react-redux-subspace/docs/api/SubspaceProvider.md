@@ -1,6 +1,6 @@
 # `<SubspaceProvider mapState namespace>`
 
-A [`react-redux`](https://github.com/reactjs/react-redux) compatible [React component](https://facebook.github.io/react/docs/components-and-props.html) that creates a [subspace](/docs/api/subspace.md) store for any children of it..
+A [`react-redux`](https://github.com/reactjs/react-redux) compatible [React component](https://facebook.github.io/react/docs/components-and-props.html) that creates a [subspace](/packages/redux-subspace/docs/api/subspace.md) store for any children of it..
 
 ## Props
 

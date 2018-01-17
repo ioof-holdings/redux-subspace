@@ -85,7 +85,6 @@ console.log('store state:', store.getState()) // { "subApp1": { value: 2 }, "sub
 However, in this scenario, if `'INCREMENT_APP_2'` was dispatched by `subApp1Store` the state for `subApp2` would still update
 
 ```javascript
-
 subApp1Store.dispatch({ type: 'INCREMENT_APP_2' })
 
 console.log('subApp1 state:', subApp1Store.getState()) // { "value": 2 }

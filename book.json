@@ -1,0 +1,19 @@
+{
+  "gitbook": "3.2.2",
+  "title": "Redux Subspace",
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/ioof-holdings/redux-subspace/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/ioof-holdings/redux-subspace/"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "docs/gitbook.css"
+      }
+    }
+  }
+}
