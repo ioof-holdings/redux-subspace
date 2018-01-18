@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+lerna-debug.log
+.nyc_output
+coverage
+.vscode
+.idea
+lib/
+_book/

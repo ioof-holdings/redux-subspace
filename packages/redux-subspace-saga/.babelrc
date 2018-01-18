@@ -1,0 +1,4 @@
+{
+  "presets": ["env", "react", "stage-3"],
+  "plugins": ["transform-runtime"]
+}
