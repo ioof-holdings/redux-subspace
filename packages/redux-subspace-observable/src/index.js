@@ -11,4 +11,7 @@ import { createEpicMiddleware as baseCreateEpicMiddleware } from 'redux-observab
 
 export { default as subspaced } from './observable/subspaced'
 
-export const createEpicMiddleware = (rootEpic, options) => applyToRoot(baseCreateEpicMiddleware(rootEpic, options))
+export const createEpicMiddleware = (rootEpic, options = {}) =>
+    applyToRoot(store =>
+        baseCreateEpicMiddleware(rootEpic, { ...options, dependencies: { ...options.dependencies, store } })(store)
+    )
