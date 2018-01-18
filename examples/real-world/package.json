@@ -1,6 +1,6 @@
 {
   "name": "real-world",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": true,
   "devDependencies": {
     "react-scripts": "^1.0.14",
@@ -17,12 +17,12 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
-    "react-redux-subspace": "^2.1.0",
+    "react-redux-subspace": "^2.1.1",
     "react-router": "^3.2.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.7.2",
-    "redux-subspace": "^2.1.0",
-    "redux-subspace-wormhole": "^2.1.0",
+    "redux-subspace": "^2.1.1",
+    "redux-subspace-wormhole": "^2.1.1",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
