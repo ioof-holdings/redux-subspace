@@ -128,7 +128,7 @@ describe('integration tests', () => {
         )
 
         const rootStore = createStore(rootReducer, applyMiddleware(
-            store => createEpicMiddleware(rootEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(rootEpic)
         ))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
@@ -172,7 +172,7 @@ describe('integration tests', () => {
         )
 
         const rootStore = createStore(rootReducer, applyMiddleware(
-            store => createEpicMiddleware(rootEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(rootEpic)
         ))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)

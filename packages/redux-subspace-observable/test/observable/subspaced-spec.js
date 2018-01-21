@@ -7,10 +7,9 @@
  */
 
 import configureStore from 'redux-mock-store'
-import { createEpicMiddleware } from 'redux-observable'
 import { mapTo } from 'rxjs/operator/mapTo'
 import { namespacedAction, globalAction } from 'redux-subspace'
-import subspaced from '../../src/observable/subspaced'
+import { subspaced, createEpicMiddleware } from '../../src'
 
 describe('subspaced Tests', () => {
     
@@ -29,7 +28,7 @@ describe('subspaced Tests', () => {
         const subspacedEpic = subspaced(state => state.subState)(epic)
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(subspacedEpic)
         ])(state)
 
         mockStore.dispatch({ type: 'TEST' })
@@ -55,7 +54,7 @@ describe('subspaced Tests', () => {
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(subspacedEpic)
         ])(state)
 
         mockStore.dispatch(namespacedAction('test')({ type: 'TEST' }))
@@ -81,7 +80,7 @@ describe('subspaced Tests', () => {
         const subspacedEpic = subspaced("subState")(epic)
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(subspacedEpic)
         ])(state)
 
         mockStore.dispatch(namespacedAction('subState')({ type: 'TEST' }))
@@ -107,7 +106,7 @@ describe('subspaced Tests', () => {
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(subspacedEpic)
         ])(state)
 
         mockStore.dispatch(globalAction({ type: 'TEST' }))
@@ -133,7 +132,7 @@ describe('subspaced Tests', () => {
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { store } })(store)
+            createEpicMiddleware(subspacedEpic)
         ])(state)
 
         mockStore.dispatch(namespacedAction('test')({ type: 'TEST' }))
@@ -161,7 +160,7 @@ describe('subspaced Tests', () => {
         const dependencies = { value: 'expected' }
 
         const mockStore = configureStore([
-            store => createEpicMiddleware(subspacedEpic, { dependencies: { ...dependencies, store } })(store)
+            createEpicMiddleware(subspacedEpic, { dependencies })
         ])(state)
 
         mockStore.dispatch({ type: 'TEST' })
