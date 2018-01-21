@@ -6,12 +6,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { applyToRoot } from 'redux-subspace'
-import { createEpicMiddleware as baseCreateEpicMiddleware } from 'redux-observable'
-
 export { default as subspaced } from './observable/subspaced'
-
-export const createEpicMiddleware = (rootEpic, options = {}) =>
-    applyToRoot(store =>
-        baseCreateEpicMiddleware(rootEpic, { ...options, dependencies: { ...options.dependencies, store } })(store)
-    )
+export { createEpicMiddleware } from './observable/subspaceEpicMiddleware'
