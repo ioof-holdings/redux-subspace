@@ -122,14 +122,12 @@ describe('integration tests', () => {
     })
 
     it('should work with namespaced single subspace', () => {
-        const rootEpic = combineEpics(
-            checkingEpic,
-            subspaced((state) => state.parent2, 'parentNamespace')(checkingEpic)
-        )
-
-        const rootStore = createStore(rootReducer, applyMiddleware(
-            createEpicMiddleware(rootEpic)
-        ))
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
+            combineEpics(
+                checkingEpic,
+                subspaced((state) => state.parent2, 'parentNamespace')(checkingEpic)
+            )
+        )))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
@@ -161,19 +159,17 @@ describe('integration tests', () => {
     })
 
     it('should work with namespaced nested subspaces', () => {
-        const rootEpic = combineEpics(
-            checkingEpic,
-            subspaced((state) => state.parent2, 'parentNamespace')(
-                combineEpics(
-                    checkingEpic,
-                    subspaced((state) => state.child2, 'childNamespace')(checkingEpic)
+        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
+            combineEpics(
+                checkingEpic,
+                subspaced((state) => state.parent2, 'parentNamespace')(
+                    combineEpics(
+                        checkingEpic,
+                        subspaced((state) => state.child2, 'childNamespace')(checkingEpic)
+                    )
                 )
             )
-        )
-
-        const rootStore = createStore(rootReducer, applyMiddleware(
-            createEpicMiddleware(rootEpic)
-        ))
+        )))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
