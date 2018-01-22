@@ -16,7 +16,7 @@ const identity = (x) => x
 
 const subspaced = (mapState, namespace) => {
     const subspaceDecorator = subspace(mapState, namespace)
-    return epic => (action$, store, { [SUBSPACE_STORE_KEY]: parentStore, ...dependencies }) => {
+    return epic => (action$, store, { [SUBSPACE_STORE_KEY]: parentStore, ...dependencies } = {}) => {
         if (parentStore === undefined) {
             throw new Error('Subspace epic couldn\'t find the store. Make sure you\'ve used createEpicMiddleware from redux-subspace-observable')
         }
