@@ -12,7 +12,16 @@ import { namespacedAction, globalAction } from 'redux-subspace'
 import { subspaced, createEpicMiddleware } from '../../src'
 
 describe('subspaced Tests', () => {
-    
+
+    it('should throw error when not using subspace createEpicMiddleware', () => {
+        const epic = actions$ => actions$.ofType('PING')
+            ::mapTo({ type: 'PONG' })
+
+        expect(
+            subspaced(state => state)(epic)
+        ).to.throw('Subspace epic couldn\'t find the store. Make sure you\'ve used createEpicMiddleware from redux-subspace-observable')
+    })
+
     it('should get substate for epic', () => {
         
         const state = {
