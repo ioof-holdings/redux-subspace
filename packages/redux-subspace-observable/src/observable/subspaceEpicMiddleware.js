@@ -3,9 +3,8 @@ import { createEpicMiddleware as baseCreateEpicMiddleware } from 'redux-observab
 import { SUBSPACE_STORE_KEY } from './subspaceStoreKey';
 
 export const createEpicMiddleware = (rootEpic, options = {}) => {
-    if (process.env.NODE_ENV !== 'production') {
-        const dependenciesIsObject = options.dependencies == undefined || typeof options.dependencies === 'object'
-        console.assert(dependenciesIsObject, 'dependencies must be an object')
+    if (options.dependencies != null && (Array.isArray(options.dependencies) || typeof options.dependencies !== 'object')) {
+        throw new TypeError('dependencies must be an object')
     }
 
     return applyToRoot(store => {

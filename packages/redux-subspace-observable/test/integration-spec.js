@@ -25,6 +25,46 @@ describe('integration tests', () => {
     const checkingEpic = (action$) => action$.ofType(TEST_ACTION_TRIGGER)
         ::map(action => ({ type: TEST_ACTION, value: action.value }))
 
+    it('should not throw error when dependencies is undefined/null/an object', () => {
+        expect(() => {
+            createEpicMiddleware(checkingEpic)
+        }).not.to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, {})
+        }).not.to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: undefined })
+        }).not.to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: null })
+        }).not.to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: { foo: 'bar' } })
+        }).not.to.throw(TypeError, 'dependencies must be an object')
+    })
+
+    it('should throw error when dependencies is not an object', () => {
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: true })
+        }).to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: 5 })
+        }).to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: 'foo' })
+        }).to.throw(TypeError, 'dependencies must be an object')
+
+        expect(() => {
+            createEpicMiddleware(checkingEpic, { dependencies: ['foo', 'bar'] })
+        }).to.throw(TypeError, 'dependencies must be an object')
+    })
+
     it('should work with no subspaces', () => {
         const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
 
