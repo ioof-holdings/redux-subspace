@@ -14,8 +14,8 @@ import subspaceTypesEnhancer from '../enhancers/subspaceTypesEnhancer'
 import processActionEnhancer from '../enhancers/processActionEnhancer'
 
 const resolveParameters = (mapState, namespace) => {
-    if (process.env.NODE_ENV !== 'production') {
-        console.assert(mapState || namespace, 'mapState and/or namespace must be defined.')
+    if (process.env.NODE_ENV !== 'production' && !(mapState || namespace)) {
+        throw new TypeError('mapState and/or namespace must be defined.')
     }
 
     const mapStateType = typeof mapState
@@ -37,12 +37,10 @@ const DEFAULT_OPTIONS = {
 }
 
 const resolveEnhancer = ({ enhancer = DEFAULT_OPTIONS.enhancer } = DEFAULT_OPTIONS) => {
-
-    const enhancerCheck = typeof enhancer === 'function'
-
-    if (process.env.NODE_ENV !== 'production') {
-        console.assert(enhancerCheck, 'enhancer must be a function.')
-    } else if (!enhancerCheck) {
+    if (typeof enhancer !== 'function') {
+        if (process.env.NODE_ENV !== 'production') {
+            throw new TypeError('enhancer must be a function.')
+        }
         return DEFAULT_OPTIONS.enhancer
     }
 
