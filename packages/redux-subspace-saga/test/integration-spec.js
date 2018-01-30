@@ -9,13 +9,15 @@
 import { createStore, combineReducers } from 'redux'
 import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
 import { takeEvery, select, put, all, getContext } from 'redux-saga/effects'
+import thunk from 'redux-thunk'
 import createSagaMiddleware, { subspaced } from '../src'
 
 describe('integration tests', () => {
 
     const TEST_ACTION_TRIGGER = 'TEST_ACTION_TRIGGER'
-
+    const TEST_THUNK_ACTION_TRIGGER = 'TEST_THUNK_ACTION_TRIGGER'
     const TEST_ACTION = 'TEST_ACTION'
+    const TEST_THUNK_ACTION = 'TEST_THUNK_ACTION'
 
     const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.value : state
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
@@ -31,6 +33,25 @@ describe('integration tests', () => {
         return function* watchTestAction() {
             yield takeEvery(TEST_ACTION_TRIGGER, makeTestAction)
         }
+    }
+
+    const checkingThunkSaga = (store) => {
+        const thunk = (action) => (dispatch, getState) => {
+            expect(getState()).to.deep.equal(store.getState())
+            dispatch({
+                type: TEST_ACTION_TRIGGER,
+                value: action.value
+            })
+        }
+
+        function* dispatchThunk(action) {
+            yield put(thunk(action))
+        }
+
+        return function* watchTestThunkAction() {
+            yield takeEvery(TEST_THUNK_ACTION_TRIGGER, dispatchThunk)
+        }
+
     }
 
     const contextAwareSaga = () => {
@@ -250,6 +271,248 @@ describe('integration tests', () => {
         })
 
         childStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'child value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'parent value',
+                child2: 'child value'
+            }
+        })
+    })
+    
+    it('should work with thunk and no subspaces', () => {
+        const sagaMiddleware = createSagaMiddleware()
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+
+        function* rootSaga() {
+            yield all([
+                checkingSaga(rootStore)(),
+                checkingThunkSaga(rootStore)()
+            ]);
+        }
+
+        sagaMiddleware.run(rootSaga)
+
+        rootStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'root value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should work with thunk and no namespace single subspace', () => {
+        const sagaMiddleware = createSagaMiddleware()
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+
+        function* rootSaga() {
+            yield all([
+                checkingSaga(rootStore)(),
+                checkingThunkSaga(rootStore)()
+            ]);
+        }
+
+        sagaMiddleware.run(rootSaga)
+
+        const parentStore = subspace((state) => state.parent1)(rootStore)
+
+        rootStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'root value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+
+        parentStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'parent value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'parent value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should work with thunk and no namespace nested subspaces', () => {
+        const sagaMiddleware = createSagaMiddleware()
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+
+        function* rootSaga() {
+            yield all([
+                checkingSaga(rootStore)(),
+                checkingThunkSaga(rootStore)()
+            ]);
+        }
+
+        sagaMiddleware.run(rootSaga)
+
+        const parentStore = subspace((state) => state.parent1)(rootStore)
+
+        const childStore = subspace((state) => state.child1)(parentStore)
+
+        rootStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'root value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+
+        parentStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'parent value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'parent value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+
+        childStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'child value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'child value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should work with thunk and namespaced single subspace', () => {
+        const sagaMiddleware = createSagaMiddleware()
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        function* rootSaga() {
+            yield all([
+                checkingSaga(rootStore)(),
+                checkingThunkSaga(rootStore)(),
+                subspaced((state) => state.parent2, 'parentNamespace')(checkingSaga(parentStore))(),
+                subspaced((state) => state.parent2, 'parentNamespace')(checkingThunkSaga(parentStore))()
+            ])
+        }
+
+        sagaMiddleware.run(rootSaga)
+
+        rootStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'root value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+
+        parentStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'parent value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'parent value',
+                child2: 'initial value'
+            }
+        })
+    })
+
+    it('should work with thunk and namespaced nested subspace', () => {
+        const sagaMiddleware = createSagaMiddleware()
+
+        const rootStore = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        const childStore = subspace((state) => state.child2, 'childNamespace')(parentStore)
+
+        function* parentSaga() {
+            yield all([
+                checkingSaga(parentStore)(),
+                checkingThunkSaga(parentStore)(),
+                subspaced((state) => state.child2, 'childNamespace')(checkingSaga(childStore))(),
+                subspaced((state) => state.child2, 'childNamespace')(checkingThunkSaga(childStore))()
+            ])
+        }
+
+        function* rootSaga() {
+            yield all([
+                checkingSaga(rootStore)(),
+                checkingThunkSaga(rootStore)(),
+                subspaced((state) => state.parent2, 'parentNamespace')(parentSaga)()
+            ])
+        }
+
+        sagaMiddleware.run(rootSaga)
+
+        rootStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'root value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'initial value',
+                child2: 'initial value'
+            }
+        })
+
+        parentStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'parent value' })
+
+        expect(rootStore.getState()).to.deep.equal({
+            parent1: {
+                child1: 'root value',
+                child2: 'initial value'
+            },
+            parent2: {
+                child1: 'parent value',
+                child2: 'initial value'
+            }
+        })
+
+        childStore.dispatch({ type: TEST_THUNK_ACTION_TRIGGER, value: 'child value' })
 
         expect(rootStore.getState()).to.deep.equal({
             parent1: {

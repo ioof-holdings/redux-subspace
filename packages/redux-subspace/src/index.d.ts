@@ -30,11 +30,16 @@ export interface ProcessAction {
     <TReturn>(action: Redux.Action, callback: ProcessActionCallback<TReturn>, defaultValue: TReturn): TReturn;
 }
 
+export interface SubspaceOptions {
+    enhancer: Redux.GenericStoreEnhancer
+}
+
 export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
     rootStore: Redux.Store<TRootState>;
     namespace: string;
     subspaceTypes: SubspaceType[];
     processAction: ProcessAction;
+    subspaceOptions: SubspaceOptions;
 }
 
 export interface StoreDecorator<TParentState, TState, TStore extends Redux.Store<TState>> {
@@ -86,6 +91,7 @@ export interface SubspaceMiddlewareAPI<TState, TRootState> {
     namespace: string;
     subspaceTypes: SubspaceType[];
     processAction: ProcessAction;
+    subspaceOptions: SubspaceOptions;
 }
 
 export interface SubspaceMiddleware {
