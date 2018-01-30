@@ -1,5 +1,5 @@
 {
-  "name": "cancellable-counter",
+  "name": "redux-observable-cancellable-counter",
   "version": "2.2.0",
   "private": true,
   "devDependencies": {

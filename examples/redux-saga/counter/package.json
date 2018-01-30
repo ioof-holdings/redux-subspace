@@ -1,5 +1,5 @@
 {
-  "name": "counter",
+  "name": "redux-saga-counter",
   "version": "2.2.0",
   "private": true,
   "devDependencies": {
