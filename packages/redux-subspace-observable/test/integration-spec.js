@@ -10,7 +10,11 @@ import { createStore, combineReducers } from 'redux'
 import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
 import { combineEpics } from 'redux-observable'
 import { map } from 'rxjs/operator/map'
+import { mergeMap } from 'rxjs/operator/mergeMap'
+import 'rxjs/add/operator/catch'
+import { of } from 'rxjs/observable/of'
 import { createEpicMiddleware, subspaced } from '../src'
+import { merge } from 'rxjs/observable/merge';
 
 describe('integration tests', () => {
 
@@ -253,5 +257,46 @@ describe('integration tests', () => {
                 child2: 'child value'
             }
         })
+    })
+
+    it('should allow error handling in root epic', () => {
+
+        let actions = [];
+
+        const throwingEpic = (action$) =>
+            action$.ofType(TEST_ACTION_TRIGGER)
+                ::mergeMap(action => {throw new Error(`expected ${action.message}`);});
+
+        const errorHandler = (epic) => (action$, store, deps) => {
+            return epic(action$, store, deps)
+                .catch((error, stream) => {
+                    return merge(stream, of({ type: TEST_ACTION, message: error.message}));
+            })
+        };
+
+        const rootStore = createStore(
+            (s ,a) =>  {
+                actions.push(a);
+                return s || {};
+            },
+            applyMiddleware(createEpicMiddleware(
+                errorHandler(
+                    combineEpics(
+                        throwingEpic,
+                        subspaced((state) => state.parent2, 'parentNamespace')(throwingEpic)
+                    )
+                )
+            )));
+
+        const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
+
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'root' });
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'parent' });
+
+        expect(actions).to.deep.equal([ { type: '@@redux/INIT' },
+            { type: TEST_ACTION_TRIGGER, message: 'root' },
+            { type: TEST_ACTION, message: 'expected root' },
+            { type: `parentNamespace/${TEST_ACTION_TRIGGER}`, message: 'parent' },
+            { type: TEST_ACTION, message: 'expected parent'}]);
     })
 })
