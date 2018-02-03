@@ -94,7 +94,7 @@ describe('subspaced Tests', () => {
         ])
     })
 
-    it('should accept global actions for saga', () => {
+    it('should accept global actions for epic', () => {
         
         const state = {
             subState: {
@@ -118,7 +118,7 @@ describe('subspaced Tests', () => {
         ])
     })
 
-    it('should not namespace global actions for saga', () => {
+    it('should not namespace global actions for epic', () => {
         
         const state = {
             subState: {
