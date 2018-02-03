@@ -4,7 +4,7 @@ Using Redux Subspace with [`redux-observable`](https://redux-observable.js.org/)
 
 ## Epic Middleware
 
-In order for `redux-observable` middleware to work, it must only be applied to the root store and not to every subspace.  You can use the [`applyToRoot` utility](/docs/advanced/middleware/README.md#applyToRoot) yourself, but `redux-subspace-observable` provides a middleware that does that for you:
+In order for `redux-observable` to work with `redux-subspace` you must use the `createEpicMiddleware` function from the `redux-subspace-observable` package instead of the default one.  This allows `redux-subspace` to intercept `subspaced` epics to provide the extra bits it needs to work.
 
 ```javascript
 import { createStore } from 'redux'

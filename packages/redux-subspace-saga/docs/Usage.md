@@ -4,7 +4,7 @@ Using Redux Subspace with [`redux-saga`](https://redux-saga.js.org/) is pretty s
 
 ## Saga Middleware
 
-In order for `redux-saga` with `redux-subspace` you can use the `createSagaMiddleware` function from the `redux-subspace-saga` package instead of the default one.  This allows `redux-subspace` to intercept subspaced sagas to provide the extra bits it needs to work.
+In order for `redux-saga` to work with `redux-subspace` you must use the `createSagaMiddleware` function from the `redux-subspace-saga` package instead of the default one.  This allows `redux-subspace` to intercept `subspaced` sagas to provide the extra bits it needs to work.
 
 ```javascript
 import { createStore } from 'redux'
