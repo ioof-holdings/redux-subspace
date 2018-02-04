@@ -7,8 +7,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-[![Watch on GitHub][https://img.shields.io/github/watchers/ioof-holdings/redux-subspace.svg?style=social]][https://github.com/ioof-holdings/redux-subspace/watchers]
-[![Star on GitHub][https://img.shields.io/github/stars/ioof-holdings/redux-subspace.svg?style=social]][https://github.com/ioof-holdings/redux-subspace/stargazers]
+[![Watch on GitHub](https://img.shields.io/github/watchers/ioof-holdings/redux-subspace.svg?style=social)](https://github.com/ioof-holdings/redux-subspace/watchers()
+[![Star on GitHub](https://img.shields.io/github/stars/ioof-holdings/redux-subspace.svg?style=social)](https://github.com/ioof-holdings/redux-subspace/stargazers)
 
 This is a library to help build decoupled, componentized [Redux](http://redux.js.org/) apps that share a single global store.
 
