@@ -85,7 +85,7 @@ Please keep our [key concepts](#key-concepts) in mind when implementing your cha
 
 ### Add yourself as a contributor
 
-This project follows the [all contributors][https://github.com/kentcdodds/all-contributors] specification. To add yourself to the table of
+This project follows the [all contributors](https://github.com/kentcdodds/all-contributors) specification. To add yourself to the table of
 contributors on the README.md, please use the automated script as part of your PR:
 
 ```console
