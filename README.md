@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![License: MIT](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 This is a library to help build decoupled, componentized [Redux](http://redux.js.org/) apps that share a single global store.
 
@@ -70,3 +71,16 @@ When upgrading to version 2 of Redux Subspace, refer to the [migration guide](/d
 
 * [MelbJS](http://melbjs.com/) presentation that launched this library - [Scaling React and Redux at IOOF](http://www.slideshare.net/VivianFarrell/scaling-react-and-redux-at-ioof).
 * [Web Developer 42˚](http://web.dev42.co/) presentation about Micro-Frontends - [From Monolith to Micro-Frontends](https://mpeyper.github.io/from-monolith-to-micro-frontends-wd42/)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key][emojis]):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars0.githubusercontent.com/u/23029903?v=4" width="100px;"/><br /><sub><b>Michael Peyper</b></sub>](https://github.com/mpeyper)<br />[📖](https://github.com/ioof-holdings/redux-subspace/commits?author=mpeyper "Documentation") [💬](#question-mpeyper "Answering Questions") [🐛](https://github.com/ioof-holdings/redux-subspace/issues?q=author%3Ampeyper "Bug reports") [💻](https://github.com/ioof-holdings/redux-subspace/commits?author=mpeyper "Code") [🎨](#design-mpeyper "Design") [💡](#example-mpeyper "Examples") [🤔](#ideas-mpeyper "Ideas, Planning, & Feedback") [👀](#review-mpeyper "Reviewed Pull Requests") [📢](#talk-mpeyper "Talks") [⚠️](https://github.com/ioof-holdings/redux-subspace/commits?author=mpeyper "Tests") | [<img src="https://avatars2.githubusercontent.com/u/6560018?v=4" width="100px;"/><br /><sub><b>Jonathan Peyper</b></sub>](https://github.com/jpeyper)<br />[💬](#question-jpeyper "Answering Questions") [💻](https://github.com/ioof-holdings/redux-subspace/commits?author=jpeyper "Code") [🤔](#ideas-jpeyper "Ideas, Planning, & Feedback") [👀](#review-jpeyper "Reviewed Pull Requests") |
+| :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][https://github.com/kentcdodds/all-contributors] specification.
+Contributions of any kind are welcome!
