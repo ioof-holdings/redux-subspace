@@ -74,7 +74,7 @@ When upgrading to version 2 of Redux Subspace, refer to the [migration guide](/d
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key][emojis]):
+Thanks goes to these wonderful people ([emojis](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
