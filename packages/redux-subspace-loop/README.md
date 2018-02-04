@@ -48,6 +48,6 @@ const rootState = store.getState()
 
 ## Documentation
 
-* [Usage](/packages/redux-subspace-loop/docs/Usage.md)
-* [Examples](/docs/Examples.md#redux-subspace-loop)
-* [API Reference](/packages/redux-subspace-loop/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-loop/docs/Usage.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#redux-subspace-loop)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-loop/docs/api/)

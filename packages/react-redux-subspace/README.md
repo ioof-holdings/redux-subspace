@@ -48,6 +48,6 @@ const App = () => (
 
 ## Documentation
 
-* [Usage](/packages/react-redux-subspace/docs/Usage.md)
-* [Examples](/docs/Examples.md#react-redux-subspace)
-* [API Reference](/packages/react-redux-subspace/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/packages/react-redux-subspace/docs/Usage.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#react-redux-subspace)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/react-redux-subspace/docs/api/)

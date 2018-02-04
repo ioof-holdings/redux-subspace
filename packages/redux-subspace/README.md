@@ -46,8 +46,8 @@ const rootState = store.getState()
 
 ## Documentation
 
-* [Usage](/docs/basics/CreatingSubspaces.md)
-* [Examples](/docs/Examples.md#redux-subspace)
-* [API Reference](/packages/redux-subspace/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/docs/basics/CreatingSubspaces.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#redux-subspace)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace/docs/api/)
 
 The full documentation for Redux Subspace can be found [here](https://ioof-holdings.github.io/redux-subspace/).

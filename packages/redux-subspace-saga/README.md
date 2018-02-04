@@ -49,6 +49,6 @@ sagaMiddleware.run(rootSaga)
 
 ## Documentation
 
-* [Usage](/packages/redux-subspace-saga/docs/Usage.md)
-* [Examples](/docs/Examples.md#redux-subspace-saga)
-* [API Reference](/packages/redux-subspace-saga/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-saga/docs/Usage.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#redux-subspace-saga)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-saga/docs/api/)

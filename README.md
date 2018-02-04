@@ -46,12 +46,12 @@ const App = () => (
 )
 ```
 
-## Documentation
+## [Documentation](https://ioof-holdings.github.io/redux-subspace/)
 
-* [Introduction](/docs/Introduction.md)
-* [Basics](/docs/basics/README.md)
-* [Advanced](/docs/advanced/README.md)
-* [Examples](/docs/Examples.md)
+* [Introduction](https://ioof-holdings.github.io/redux-subspace/docs/Introduction.html)
+* [Basics](https://ioof-holdings.github.io/redux-subspace/docs/basics/)
+* [Advanced](https://ioof-holdings.github.io/redux-subspace/docs/advanced/)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html)
 
 ## Packages
 

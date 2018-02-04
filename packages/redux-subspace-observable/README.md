@@ -39,6 +39,6 @@ const store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(root
 
 ## Documentation
 
-* [Usage](/packages/redux-subspace-observable/docs/Usage.md)
-* [Examples](/docs/Examples.md#redux-subspace-observable)
-* [API Reference](/packages/redux-subspace-observable/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-observable/docs/Usage.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#redux-subspace-observable)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-observable/docs/api/)

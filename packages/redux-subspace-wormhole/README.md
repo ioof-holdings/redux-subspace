@@ -34,6 +34,6 @@ const store = createStore(rootReducer, applyMiddleware(
 
 ## Documentation
 
-* [Usage](/packages/redux-subspace-wormhole/docs/Usage.md)
-* [Examples](/docs/Examples.md#general-examples)
-* [API Reference](/packages/redux-subspace-wormhole/docs/api/README.md)
+* [Usage](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-wormhole/docs/Usage.html)
+* [Examples](https://ioof-holdings.github.io/redux-subspace/docs/Examples.html#general-examples)
+* [API Reference](https://ioof-holdings.github.io/redux-subspace/packages/redux-subspace-wormhole/docs/api/)
