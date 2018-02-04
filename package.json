@@ -21,7 +21,7 @@
     "docs:prepare": "node scripts/prepareDocs.js",
     "docs:build": "npm run docs:prepare && gitbook build --timing; rm SUMMARY.md",
     "docs:serve": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && gh-pages -d _book -r https://github.com/ioof-holdings/redux-subspace.git"
+    "docs:publish": "npm run docs:clean && npm run docs:build && gh-pages -d _book -r https://github.com/ioof-holdings/redux-subspace.git -m 'Publishing docs [ci skip]'"
   },
   "repository": {
     "type": "git",
