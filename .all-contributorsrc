@@ -36,6 +36,105 @@
         "ideas",
         "review"
       ]
+    },
+    {
+      "login": "vivian-farrell",
+      "name": "Vivian Farrell",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1409738?v=4",
+      "profile": "https://github.com/vivian-farrell",
+      "contributions": [
+        "ideas",
+        "review",
+        "talk"
+      ]
+    },
+    {
+      "login": "chaos95",
+      "name": "Morgan Larosa",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/121742?v=4",
+      "profile": "https://github.com/chaos95",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "amitkothari",
+      "name": "Amit Kothari",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/656565?v=4",
+      "profile": "http://amitkothari.com",
+      "contributions": [
+        "code",
+        "example"
+      ]
+    },
+    {
+      "login": "rikukissa",
+      "name": "Riku Rouvila",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1206987?v=4",
+      "profile": "http://rikurouvila.fi",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "mradionov",
+      "name": "Michael",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2007370?v=4",
+      "profile": "https://github.com/mradionov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "James-E-Adams",
+      "name": "James Adams",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9067274?v=4",
+      "profile": "https://medium.com/@jamesadams0",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "lkyles1991",
+      "name": "Lee Kyles",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/21031458?v=4",
+      "profile": "https://github.com/lkyles1991",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "evertbouw",
+      "name": "Evert Bouw",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6398211?v=4",
+      "profile": "https://github.com/evertbouw",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "Crazy-Ivan",
+      "name": "Paweł Bród",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4831814?v=4",
+      "profile": "https://github.com/Crazy-Ivan",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "majo44",
+      "name": "majo44",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2294352?v=4",
+      "profile": "https://github.com/majo44",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ]
 }
