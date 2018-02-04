@@ -1,6 +1,6 @@
 {
   "name": "react-redux-subspace",
-  "version": "2.1.1",
+  "version": "2.3.1",
   "description": "react-redux Provider extension for redux-subspace",
   "author": "Michael Peyper",
   "contributors": [
@@ -11,6 +11,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "predist": "rimraf lib",
     "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
@@ -26,7 +27,7 @@
     "hoist-non-react-statics": "^2.3.1",
     "prop-types": "^15.6.0",
     "recompose": "^0.26.0",
-    "redux-subspace": "^2.1.1"
+    "redux-subspace": "^2.3.1"
   },
   "peerDependencies": {
     "react": "^15.1 || ^16.0",

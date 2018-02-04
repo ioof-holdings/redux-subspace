@@ -12,18 +12,12 @@ const applySubspaceMiddleware = (...middlewares) => (createSubspace) => (store) 
 
     const subspacedStore = createSubspace(store)
 
-    let getState = subspacedStore.getState
-    let dispatch = subspacedStore.dispatch
-
-    const { namespace, rootStore, subspaceTypes, processAction } = subspacedStore
+    let { getState, dispatch, subscribe, replaceReducer, ...subspaceValues } = subspacedStore
 
     const middlewareApi = {
         getState: (...args) => getState(...args),
         dispatch: (...args) => dispatch(...args),
-        rootStore,
-        namespace,
-        subspaceTypes,
-        processAction
+        ...subspaceValues
     }
 
     const chain = middlewares.map((middleware) => middleware(middlewareApi))

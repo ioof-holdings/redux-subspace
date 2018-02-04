@@ -7,13 +7,21 @@
  */
 
 import configureStore from 'redux-mock-store'
-import { createEpicMiddleware } from 'redux-observable'
 import { mapTo } from 'rxjs/operator/mapTo'
 import { namespacedAction, globalAction } from 'redux-subspace'
-import subspaced from '../../src/observable/subspaced'
+import { subspaced, createEpicMiddleware } from '../../src'
 
 describe('subspaced Tests', () => {
-    
+
+    it('should throw error when not using subspace createEpicMiddleware', () => {
+        const epic = actions$ => actions$.ofType('PING')
+            ::mapTo({ type: 'PONG' })
+
+        expect(
+            subspaced(state => state)(epic)
+        ).to.throw('Subspace epic couldn\'t find the store. Make sure you\'ve used createEpicMiddleware from redux-subspace-observable')
+    })
+
     it('should get substate for epic', () => {
         
         const state = {
@@ -86,7 +94,7 @@ describe('subspaced Tests', () => {
         ])
     })
 
-    it('should accept global actions for saga', () => {
+    it('should accept global actions for epic', () => {
         
         const state = {
             subState: {
@@ -110,7 +118,7 @@ describe('subspaced Tests', () => {
         ])
     })
 
-    it('should not namespace global actions for saga', () => {
+    it('should not namespace global actions for epic', () => {
         
         const state = {
             subState: {
@@ -134,7 +142,7 @@ describe('subspaced Tests', () => {
         ])
     })
     
-    it('should pass on dependeies to epic', () => {
+    it('should pass on dependencies to epic', () => {
         
         const state = {
             subState: {

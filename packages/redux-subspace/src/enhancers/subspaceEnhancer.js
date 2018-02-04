@@ -11,8 +11,8 @@ import namespacedAction from '../actions/namespacedAction'
 import applyToChildren from '../middleware/applyToChildren'
 
 const verifyState = (state) => {
-    if (process.env.NODE_ENV !== 'production') {
-        console.assert(state !== undefined, 'mapState must not return undefined.')
+    if (process.env.NODE_ENV !== 'production' && state === undefined) {
+        throw new TypeError('mapState must not return undefined.')
     }
     return state
 }

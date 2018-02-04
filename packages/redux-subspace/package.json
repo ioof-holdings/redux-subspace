@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace",
-  "version": "2.1.1",
+  "version": "2.3.1",
   "description": "Create isolated subspaces of a Redux store",
   "author": "Michael Peyper",
   "contributors": [
@@ -11,6 +11,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "predist": "rimraf lib",
     "dist": "babel src --out-dir lib --copy-files",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
