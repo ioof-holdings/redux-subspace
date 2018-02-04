@@ -68,4 +68,5 @@ When upgrading to version 2 of Redux Subspace, refer to the [migration guide](/d
 
 ## Media
 
-The MelbJS presentation that launched this library - [Scaling React and Redux at IOOF](http://www.slideshare.net/VivianFarrell/scaling-react-and-redux-at-ioof).
+[MelbJS](http://melbjs.com/) presentation that launched this library - [Scaling React and Redux at IOOF](http://www.slideshare.net/VivianFarrell/scaling-react-and-redux-at-ioof).
+[Web Developer 42˚](http://web.dev42.co/) presentation about Micro-Frontends - [From Monolith to Micro-Frontends](https://mpeyper.github.io/from-monolith-to-micro-frontends-wd42/)
