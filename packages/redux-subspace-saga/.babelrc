@@ -1,4 +1,1 @@
-{
-  "presets": ["env", "react", "stage-3"],
-  "plugins": ["transform-runtime"]
-}
+{ "presets": ["./.babelrc.js"] }
