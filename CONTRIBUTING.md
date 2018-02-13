@@ -83,13 +83,19 @@ If you want to get your hands dirty, please take a look at the [open issues](htt
 
 Please keep our [key concepts](#key-concepts) in mind when implementing your changes.
 
+In order to run locally, start with the following:
+
+```console
+npm run bootstrap
+```
+
 ### Add yourself as a contributor
 
 This project follows the [all contributors](https://github.com/kentcdodds/all-contributors) specification. To add yourself to the table of
 contributors on the README.md, please use the automated script as part of your PR:
 
 ```console
-npm run add-contributor <YOUR_GITHUB_USERNAME>
+npm run contributors:add <YOUR_GITHUB_USERNAME>
 ```
 
 Follow the prompt. If you've already added yourself to the list and are making a new type of contribution, you can run
