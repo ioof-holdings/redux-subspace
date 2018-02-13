@@ -11,9 +11,9 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "typings": "index.d.ts",
+  "typings": "src/index.d.ts",
   "sideEffects": false,
-  "files": ["lib", "es", "index.d.ts"],
+  "files": ["lib", "es", "src"],
   "scripts": {
     "predist": "rimraf lib es",
     "dist": "rollup -c",
