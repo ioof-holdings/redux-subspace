@@ -23,7 +23,8 @@
         "review",
         "platform",
         "talk",
-        "test"
+        "test",
+        "tool"
       ]
     },
     {
@@ -156,6 +157,24 @@
       "profile": "https://github.com/Andarist",
       "contributions": [
         "tool"
+      ]
+    },
+    {
+      "login": "psamusev",
+      "name": "psamusev",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6784822?v=4",
+      "profile": "https://github.com/psamusev",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "jayphelps",
+      "name": "Jay Phelps",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/762949?v=4",
+      "profile": "https://twitter.com/_jayphelps",
+      "contributions": [
+        "review"
       ]
     }
   ]
