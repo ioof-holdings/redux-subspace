@@ -27,14 +27,16 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
-    "redux-subspace": "^2.3.1"
+    "@types/es6-shim": "^0.31.34",
+    "@types/node": "^8.0.47",
+    "redux-subspace": "^2.3.1",
+    "rxjs": "^5.5.2"
   },
   "peerDependencies": {
+    "redux": "^3.0.0",
     "redux-observable": "^0.16.0"
   },
   "devDependencies": {
-    "@types/es6-shim": "^0.31.34",
-    "@types/node": "^8.0.47",
     "babel-cli": "^6.18.0",
     "babel-core": " ^6.7.7",
     "babel-eslint": "^8.0.1",
@@ -55,7 +57,6 @@
     "redux-observable": "^0.17.0",
     "rollup": "^0.55.5",
     "rollup-plugin-babel": "^3.0.3",
-    "rxjs": "^5.5.2",
     "sinon": "^4.0.2",
     "sinon-chai": "^2.14.0",
     "typescript": "^2.5.3",

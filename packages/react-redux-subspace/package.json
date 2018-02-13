@@ -27,6 +27,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
+    "@types/react": "^16.0.18",
     "hoist-non-react-statics": "^2.3.1",
     "prop-types": "^15.6.0",
     "recompose": "^0.26.0",
@@ -34,10 +35,10 @@
   },
   "peerDependencies": {
     "react": "^15.1 || ^16.0",
-    "react-redux": "^5.0.0"
+    "react-redux": "^5.0.0",
+    "redux": "^3.0.0"
   },
   "devDependencies": {
-    "@types/react": "^16.0.18",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",

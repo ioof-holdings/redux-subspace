@@ -31,6 +31,7 @@
     "redux-subspace": "^2.3.1"
   },
   "peerDependencies": {
+    "redux": "^3.0.0",
     "redux-saga": "^0.16.0"
   },
   "devDependencies": {
