@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-loop",
-  "version": "2.3.1",
+  "version": "2.4.0-0",
   "description": "redux-subspace wrappers for redux-loop",
   "author": "Riku Rouvila",
   "contributors": [
@@ -13,7 +13,11 @@
   "module": "es/index.js",
   "typings": "src/index.d.ts",
   "sideEffects": false,
-  "files": ["lib", "es", "src"],
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
   "scripts": {
     "predist": "rimraf lib es",
     "dist": "rollup -c",
@@ -28,7 +32,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
-    "redux-subspace": "^2.3.1"
+    "redux-subspace": "^2.4.0-0"
   },
   "peerDependencies": {
     "redux": "^3.0.0",

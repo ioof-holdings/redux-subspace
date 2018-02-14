@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-saga",
-  "version": "2.3.1",
+  "version": "2.4.0-0",
   "description": "redux-subspace wrappers for redux-saga",
   "author": "Michael Peyper",
   "contributors": [
@@ -12,7 +12,11 @@
   "module": "es/index.js",
   "typings": "src/index.d.ts",
   "sideEffects": false,
-  "files": ["lib", "es", "src"],
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
   "scripts": {
     "predist": "rimraf lib es",
     "dist": "rollup -c",
@@ -28,7 +32,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "redux-subspace": "^2.3.1"
+    "redux-subspace": "^2.4.0-0"
   },
   "peerDependencies": {
     "redux": "^3.0.0",
