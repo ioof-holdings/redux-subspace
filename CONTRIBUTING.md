@@ -79,6 +79,24 @@ When submitting an enhancement submission, please include as much information as
 
 ### Pull Requests
 
-If you want to get your hands dirty, please take a look at the [open issues](https://github.com/ioof-holdings/redux-subspace/issues?q=is%3Aissue%20is%3Aopen) and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in the commit message.
+If you want to get your hands dirty, please take a look at the [open issues](https://github.com/ioof-holdings/redux-subspace/issues?q=is%3Aissue%20is%3Aopen), create a fork to make the required changes and submit a pull request with your proposed solution, [referencing the issue](https://help.github.com/articles/closing-issues-via-commit-messages/) in the commit message.
 
 Please keep our [key concepts](#key-concepts) in mind when implementing your changes.
+
+In order to run locally, start with the following:
+
+```console
+npm run bootstrap
+```
+
+### Add yourself as a contributor
+
+This project follows the [all contributors](https://github.com/kentcdodds/all-contributors) specification. To add yourself to the table of
+contributors on the README.md, please use the automated script as part of your PR:
+
+```console
+npm run contributors:add <YOUR_GITHUB_USERNAME>
+```
+
+Follow the prompt. If you've already added yourself to the list and are making a new type of contribution, you can run
+it again and select the added contribution type.

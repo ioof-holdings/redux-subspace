@@ -17,6 +17,8 @@
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test && npm run coverage",
     "test:watch": "lerna run --parallel test:watch",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
     "docs:clean": "rimraf _book",
     "docs:prepare": "node scripts/prepareDocs.js",
     "docs:build": "npm run docs:prepare && gitbook build --timing; rm SUMMARY.md",
@@ -28,6 +30,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "devDependencies": {
+    "all-contributors-cli": "^4.10.1",
     "eslint": "^4.10.0",
     "gh-pages": "^1.1.0",
     "gitbook-cli": "^2.3.2",
