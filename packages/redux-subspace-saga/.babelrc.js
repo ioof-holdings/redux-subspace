@@ -9,6 +9,7 @@ module.exports = {
     'stage-3',
   ],
   plugins: [
+    'annotate-pure-calls',
     cjs && 'transform-es2015-modules-commonjs',
     ['transform-runtime', {
       helpers: false,
