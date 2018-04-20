@@ -5,10 +5,8 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import { map } from 'rxjs/operator/map'
-import { filter } from 'rxjs/operator/filter'
-import { ignoreElements } from 'rxjs/operator/ignoreElements'
 import { subspace } from 'redux-subspace'
+import { filter, ignoreElements, map } from 'rxjs/operators'
 import { SUBSPACE_STORE_KEY } from './subspaceStoreKey'
 
 const identity = (x) => x
@@ -28,13 +26,13 @@ const subspaced = (mapState, namespace) => {
             value: subspacedStore
         })
 
-        const filteredAction$ = action$
-            ::map((action) => subspacedStore.processAction(action, identity))
-            ::filter(identity)
+        const filteredAction$ = action$.pipe(
+            map((action) => subspacedStore.processAction(action, identity)),
+            filter(identity))
 
-        return epic(filteredAction$, subspacedStore, dependencies)
-            ::map(subspacedStore.dispatch)
-            ::ignoreElements()
+        return epic(filteredAction$, subspacedStore, dependencies).pipe(
+            map(subspacedStore.dispatch),
+            ignoreElements())
     }
 }
 

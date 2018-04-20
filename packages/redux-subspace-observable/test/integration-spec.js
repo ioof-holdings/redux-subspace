@@ -6,15 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, combineReducers } from 'redux'
-import { subspace, applyMiddleware, namespaced } from 'redux-subspace'
-import { combineEpics } from 'redux-observable'
-import { map } from 'rxjs/operator/map'
-import { mergeMap } from 'rxjs/operator/mergeMap'
-import 'rxjs/add/operator/catch'
+import { combineReducers, createStore } from 'redux'
+import { combineEpics, ofType } from 'redux-observable'
+import { applyMiddleware, namespaced, subspace } from 'redux-subspace'
+import { merge } from 'rxjs/observable/merge'
 import { of } from 'rxjs/observable/of'
+import { catchError, map, mergeMap } from 'rxjs/operators'
 import { createEpicMiddleware, subspaced } from '../src'
-import { merge } from 'rxjs/observable/merge';
 
 describe('integration tests', () => {
 
@@ -26,8 +24,9 @@ describe('integration tests', () => {
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
     const rootReducer = combineReducers({ parent1: parentReducer, parent2: namespaced('parentNamespace')(parentReducer) })
 
-    const checkingEpic = (action$) => action$.ofType(TEST_ACTION_TRIGGER)
-        ::map(action => ({ type: TEST_ACTION, value: action.value }))
+    const checkingEpic = (action$) => action$.pipe(
+        ofType(TEST_ACTION_TRIGGER),
+        map(action => ({ type: TEST_ACTION, value: action.value })))
 
     it('should not throw error when dependencies is undefined/null/an object', () => {
         expect(() => {
@@ -261,23 +260,20 @@ describe('integration tests', () => {
 
     it('should allow error handling in root epic', () => {
 
-        let actions = [];
+        let actions = []
 
         const throwingEpic = (action$) =>
-            action$.ofType(TEST_ACTION_TRIGGER)
-                ::mergeMap(action => {throw new Error(`expected ${action.message}`);});
+            action$.pipe(
+                ofType(TEST_ACTION_TRIGGER),
+                mergeMap(action => {throw new Error(`expected ${action.message}`) }))
 
-        const errorHandler = (epic) => (action$, store, deps) => {
-            return epic(action$, store, deps)
-                .catch((error, stream) => {
-                    return merge(stream, of({ type: TEST_ACTION, message: error.message}));
-            })
-        };
+        const errorHandler = (epic) => (action$, store, deps) => epic(action$, store, deps).pipe(
+            catchError((error, stream) => merge(stream, of({ type: TEST_ACTION, message: error.message}))))
 
         const rootStore = createStore(
-            (s ,a) =>  {
-                actions.push(a);
-                return s || {};
+            (s, a) => {
+                actions.push(a)
+                return s || {}
             },
             applyMiddleware(createEpicMiddleware(
                 errorHandler(
@@ -286,17 +282,17 @@ describe('integration tests', () => {
                         subspaced((state) => state.parent2, 'parentNamespace')(throwingEpic)
                     )
                 )
-            )));
+            )))
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
-        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'root' });
-        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'parent' });
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'root' })
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'parent' })
 
         expect(actions).to.deep.equal([ { type: '@@redux/INIT' },
             { type: TEST_ACTION_TRIGGER, message: 'root' },
             { type: TEST_ACTION, message: 'expected root' },
             { type: `parentNamespace/${TEST_ACTION_TRIGGER}`, message: 'parent' },
-            { type: TEST_ACTION, message: 'expected parent'}]);
+            { type: TEST_ACTION, message: 'expected parent'}])
     })
 })
