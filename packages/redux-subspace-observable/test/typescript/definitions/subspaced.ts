@@ -6,9 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, applyMiddleware, Action } from 'redux'
-import { combineEpics, Epic, ActionsObservable } from 'redux-observable'
-import 'rxjs/add/operator/map'
+import { ActionsObservable, Epic, combineEpics, ofType } from 'redux-observable'
+import { map } from 'rxjs/operators'
 import { subspaced } from '../../../src'
 
 const reducer = (state = {}) => state
@@ -25,9 +24,9 @@ class RootState {
     parent: ParentState
 }
 
-const epic: Epic<any, any> = (action$: ActionsObservable<any>) => action$
-    .ofType('PING')
-    .map(action => ({ type: 'PONG' }))
+const epic: Epic<any, any> = (action$: ActionsObservable<any>) => action$.pipe(
+    ofType('PING'),
+    map(action => ({ type: 'PONG' })))
 
 const subStateEpic = subspaced<ParentState, ChildState>((state) => state.child)(epic)
 const namespacedEpic = subspaced('test')(epic)

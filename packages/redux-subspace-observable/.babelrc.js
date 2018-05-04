@@ -10,7 +10,6 @@ module.exports = {
   ],
   plugins: [
     'annotate-pure-calls',
-    cjs && 'transform-es2015-modules-commonjs',
-    'transform-function-bind'
+    cjs && 'transform-es2015-modules-commonjs'
   ].filter(Boolean),
 }

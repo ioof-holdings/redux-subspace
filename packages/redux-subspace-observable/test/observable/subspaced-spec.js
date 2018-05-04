@@ -7,15 +7,17 @@
  */
 
 import configureStore from 'redux-mock-store'
-import { mapTo } from 'rxjs/operator/mapTo'
-import { namespacedAction, globalAction } from 'redux-subspace'
-import { subspaced, createEpicMiddleware } from '../../src'
+import { ofType } from 'redux-observable'
+import { globalAction, namespacedAction } from 'redux-subspace'
+import { mapTo } from 'rxjs/operators'
+import { createEpicMiddleware, subspaced } from '../../src'
 
 describe('subspaced Tests', () => {
 
     it('should throw error when not using subspace createEpicMiddleware', () => {
-        const epic = actions$ => actions$.ofType('PING')
-            ::mapTo({ type: 'PONG' })
+        const epic = actions$ => actions$.pipe(
+            ofType('PING'),
+            mapTo({ type: 'PONG' }))
 
         expect(
             subspaced(state => state)(epic)
@@ -31,8 +33,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store) => actions$.ofType('TEST')
-            ::mapTo({ type: 'VERIFY', value: store.getState().value })
+        const epic = (actions$, store) => actions$.pipe(
+            ofType('TEST'),
+            mapTo({ type: 'VERIFY', value: store.getState().value }))
 
         const subspacedEpic = subspaced(state => state.subState)(epic)
 
@@ -55,8 +58,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store) => actions$.ofType('TEST')
-            ::mapTo({ type: 'VERIFY', value: store.getState().value })
+        const epic = (actions$, store) => actions$.pipe(
+            ofType('TEST'),
+            mapTo({ type: 'VERIFY', value: store.getState().value }))
 
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
@@ -79,8 +83,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store) => actions$.ofType('TEST')
-            ::mapTo({ type: 'VERIFY', value: store.getState().value })
+        const epic = (actions$, store) => actions$.pipe(
+            ofType('TEST'),
+            mapTo({ type: 'VERIFY', value: store.getState().value }))
 
         const subspacedEpic = subspaced("subState")(epic)
 
@@ -103,8 +108,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store) => actions$.ofType('TEST')
-            ::mapTo({ type: 'VERIFY', value: store.getState().value })
+        const epic = (actions$, store) => actions$.pipe(
+            ofType('TEST'),
+            mapTo({ type: 'VERIFY', value: store.getState().value }))
 
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
@@ -127,8 +133,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store) => actions$.ofType('TEST')
-            ::mapTo(globalAction({ type: 'VERIFY', value: store.getState().value }))
+        const epic = (actions$, store) => actions$.pipe(
+            ofType('TEST'),
+            mapTo(globalAction({ type: 'VERIFY', value: store.getState().value })))
 
         const subspacedEpic = subspaced(state => state.subState, "test")(epic)
 
@@ -151,8 +158,9 @@ describe('subspaced Tests', () => {
             value: "wrong"
         }
 
-        const epic = (actions$, store, dependency) => actions$.ofType('TEST')
-            ::mapTo({ type: 'VERIFY', value: dependency.value })
+        const epic = (actions$, store, dependency) => actions$.pipe(
+            ofType('TEST'),
+            mapTo({ type: 'VERIFY', value: dependency.value }))
 
         const subspacedEpic = subspaced(state => state.subState)(epic)
 
