@@ -10,7 +10,7 @@ Search open/closed issues before submitting since someone might have asked the s
 
 ### Which package(s) does this involve?
 
-<!--- Please prefix the title above with packages like so: "[package-1, package-2] {TITLE}" -->
+<!--- Please postfix the title above with packages like so: "{TITLE} [package-1, package-2]" -->
 
 ### Input Code
 
