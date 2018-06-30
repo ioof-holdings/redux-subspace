@@ -17,3 +17,5 @@ For issue references: Add a comma-separated list of a [closing word](https://hel
 | Tests Added + Pass?     | Yes
 
 <!-- Describe your changes below in as much detail as possible -->
+
+<!-- Don't forget to [add yourself as a contributor](https://github.com/ioof-holdings/redux-subspace/blob/master/CONTRIBUTING.md#add-yourself-as-a-contributor) if you're not already -->
