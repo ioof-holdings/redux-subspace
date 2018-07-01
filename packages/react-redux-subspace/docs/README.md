@@ -5,4 +5,5 @@
 * [Examples](/docs/Examples.md#react-redux-subspace)
 * [API Reference](/packages/react-redux-subspace/docs/api/README.md)
   * [SubspaceProvider](/packages/react-redux-subspace/docs/api/SubspaceProvider.md)
+  * [createSubspaceProvider](/packages/react-redux-subspace/docs/api/createSubspaceProvider.md)
   * [subspaced](/packages/react-redux-subspace/docs/api/subspaced.md)

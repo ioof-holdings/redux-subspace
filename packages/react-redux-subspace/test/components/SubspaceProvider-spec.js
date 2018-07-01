@@ -7,11 +7,11 @@
  */
 
 import React from 'react'
-import { Provider, connect } from 'react-redux'
+import { Provider, createProvider, connect } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { render } from 'enzyme'
 
-import SubspaceProvider from '../../src/components/SubspaceProvider'
+import SubspaceProvider, { createSubspaceProvider } from '../../src/components/SubspaceProvider'
 
 describe('SubspaceProvider Tests', () => {
 
@@ -32,6 +32,74 @@ describe('SubspaceProvider Tests', () => {
                 <SubspaceProvider mapState={state => state.subState}>
                     <TestComponent />
                 </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
+    })
+
+    it('should be able to provide a subspace on an alternate context key', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let storeKey = 'subStateKey'
+
+        let AlternateContextKeyTestComponent = connect(
+            state => { return { value: state.value } },
+            null,
+            null,
+            {storeKey}
+        )(props => <p>{props.value}</p>)
+
+        let Provider = createProvider(storeKey)
+        let AlternateContextKeySubspaceProvider = createSubspaceProvider(storeKey)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <AlternateContextKeySubspaceProvider mapState={state => state.subState}>
+                    <AlternateContextKeyTestComponent />
+                </AlternateContextKeySubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
+    })
+
+    it('should be able to consume a redux store defined on an alternate context key', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        let parentStoreKey = 'parentStoreKey'
+        let storeKey = 'storeKey'
+
+        let Provider = createProvider(parentStoreKey)
+
+        let AlternateContextKeyTestComponent = connect(
+            state => { return { value: state.value } },
+            null,
+            null,
+            {storeKey}
+        )(props => <p>{props.value}</p>)
+
+        let AlternateContextKeySubspaceProvider = createSubspaceProvider({storeKey, parentStoreKey})
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <AlternateContextKeySubspaceProvider mapState={state => state.subState}>
+                    <AlternateContextKeyTestComponent />
+                </AlternateContextKeySubspaceProvider>
             </Provider>
         )
 

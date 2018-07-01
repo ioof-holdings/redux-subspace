@@ -10,37 +10,50 @@ import React, { Children } from 'react'
 import PropTypes from 'prop-types'
 import { subspace }  from 'redux-subspace'
 
-class SubspaceProvider extends React.PureComponent {
+export function createSubspaceProvider(paramStoreKey = 'store') {
+    let storeKey = typeof paramStoreKey === 'object' ? paramStoreKey.storeKey || 'store' : paramStoreKey;
+    let parentStoreKey = typeof paramStoreKey === 'object' ? paramStoreKey.parentStoreKey || 'store' : paramStoreKey;
 
-    getChildContext() {
-        const makeSubspaceDecorator = (props) => props.subspaceDecorator || subspace(props.mapState, props.namespace)
+    class SubspaceProvider extends React.PureComponent {
+        getChildContext() {
+            const makeSubspaceDecorator = (props) => props.subspaceDecorator || subspace(props.mapState, props.namespace)
 
-        return { 
-            store: makeSubspaceDecorator(this.props)(this.context.store) 
+            if (storeKey !== 'store') {
+                console.log('parentStoreKey: ', parentStoreKey)
+                console.log(this.context[parentStoreKey])
+            }
+            return {
+                [storeKey]: makeSubspaceDecorator(this.props)(this.context[parentStoreKey]),
+                [`${storeKey}Subscription`]: this.context[`${parentStoreKey}Subscription`],
+            }
+        }
+
+        render() {
+            return Children.only(this.props.children)
         }
     }
 
-    render() {
-        return Children.only(this.props.children)
+    SubspaceProvider.propTypes = {
+        children: PropTypes.element.isRequired,
+        mapState: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.string,
+        ]),
+        namespace: PropTypes.string,
+        subspaceDecorator: PropTypes.func,
     }
+
+    SubspaceProvider.contextTypes = {
+        [parentStoreKey]: PropTypes.object.isRequired,
+        [`${parentStoreKey}Subscription`]: PropTypes.object,
+    }
+
+    SubspaceProvider.childContextTypes = {
+        [storeKey]: PropTypes.object,
+        [`${storeKey}Subscription`]: PropTypes.object,
+    }
+
+    return SubspaceProvider;
 }
 
-SubspaceProvider.propTypes = {
-    children: PropTypes.element.isRequired,
-    mapState: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.string,
-    ]),
-    namespace: PropTypes.string,
-    subspaceDecorator: PropTypes.func,
-}
-
-SubspaceProvider.contextTypes = {
-    store: PropTypes.object.isRequired
-}
-
-SubspaceProvider.childContextTypes = {
-    store: PropTypes.object
-}
-
-export default SubspaceProvider
+export default createSubspaceProvider()

@@ -7,4 +7,4 @@
  */
 
 export { default as subspaced } from './components/subspaced'
-export { default as SubspaceProvider } from './components/SubspaceProvider'
+export { default as SubspaceProvider, createSubspaceProvider } from './components/SubspaceProvider'
