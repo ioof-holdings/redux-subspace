@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-counter",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "^1.0.14"
@@ -11,8 +11,8 @@
     "react-dom": "^16.0.0",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
-    "redux-subspace": "^2.4.0",
-    "redux-subspace-saga": "^2.4.0"
+    "redux-subspace": "^2.5.0",
+    "redux-subspace-saga": "^2.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
