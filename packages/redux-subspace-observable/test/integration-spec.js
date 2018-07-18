@@ -9,8 +9,7 @@
 import { combineReducers, createStore } from 'redux'
 import { combineEpics, ofType } from 'redux-observable'
 import { applyMiddleware, namespaced, subspace } from 'redux-subspace'
-import { merge } from 'rxjs/observable/merge'
-import { of } from 'rxjs/observable/of'
+import { merge, of } from 'rxjs'
 import { catchError, map, mergeMap } from 'rxjs/operators'
 import { createEpicMiddleware, subspaced } from '../src'
 
@@ -30,46 +29,49 @@ describe('integration tests', () => {
 
     it('should not throw error when dependencies is undefined/null/an object', () => {
         expect(() => {
-            createEpicMiddleware(checkingEpic)
+            createEpicMiddleware()
         }).not.to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, {})
+            createEpicMiddleware({})
         }).not.to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: undefined })
+            createEpicMiddleware({ dependencies: undefined })
         }).not.to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: null })
+            createEpicMiddleware({ dependencies: null })
         }).not.to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: { foo: 'bar' } })
+            createEpicMiddleware({ dependencies: { foo: 'bar' } })
         }).not.to.throw(TypeError, 'dependencies must be an object')
     })
 
     it('should throw error when dependencies is not an object', () => {
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: true })
+            createEpicMiddleware({ dependencies: true })
         }).to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: 5 })
+            createEpicMiddleware({ dependencies: 5 })
         }).to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: 'foo' })
+            createEpicMiddleware({ dependencies: 'foo' })
         }).to.throw(TypeError, 'dependencies must be an object')
 
         expect(() => {
-            createEpicMiddleware(checkingEpic, { dependencies: ['foo', 'bar'] })
+            createEpicMiddleware({ dependencies: ['foo', 'bar'] })
         }).to.throw(TypeError, 'dependencies must be an object')
     })
 
     it('should work with no subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(rootReducer, applyMiddleware(epicMiddleware))
+
+        epicMiddleware.run(checkingEpic)
 
         rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root value' })
 
@@ -86,7 +88,10 @@ describe('integration tests', () => {
     })
 
     it('should work with no namespace single subspace', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(rootReducer, applyMiddleware(epicMiddleware))
+
+        epicMiddleware.run(checkingEpic)
 
         const parentStore = subspace((state) => state.parent1)(rootStore)
 
@@ -118,7 +123,10 @@ describe('integration tests', () => {
     })
 
     it('should work with no namespace nested subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(checkingEpic)))
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(rootReducer, applyMiddleware(epicMiddleware))
+
+        epicMiddleware.run(checkingEpic)
 
         const parentStore = subspace((state) => state.parent1)(rootStore)
 
@@ -165,12 +173,13 @@ describe('integration tests', () => {
     })
 
     it('should work with namespaced single subspace', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
-            combineEpics(
-                checkingEpic,
-                subspaced((state) => state.parent2, 'parentNamespace')(checkingEpic)
-            )
-        )))
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(rootReducer, applyMiddleware(epicMiddleware))
+        const rootEpic = combineEpics(
+            checkingEpic,
+            subspaced((state) => state.parent2, 'parentNamespace')(checkingEpic))
+
+        epicMiddleware.run(rootEpic)
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
@@ -188,7 +197,7 @@ describe('integration tests', () => {
         })
 
         parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent value' })
-        
+
         expect(rootStore.getState()).to.deep.equal({
             parent1: {
                 child1: 'root value',
@@ -202,17 +211,16 @@ describe('integration tests', () => {
     })
 
     it('should work with namespaced nested subspaces', () => {
-        const rootStore = createStore(rootReducer, applyMiddleware(createEpicMiddleware(
-            combineEpics(
-                checkingEpic,
-                subspaced((state) => state.parent2, 'parentNamespace')(
-                    combineEpics(
-                        checkingEpic,
-                        subspaced((state) => state.child2, 'childNamespace')(checkingEpic)
-                    )
-                )
-            )
-        )))
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(rootReducer, applyMiddleware(epicMiddleware))
+        const rootEpic = combineEpics(
+            checkingEpic,
+            subspaced((state) => state.parent2, 'parentNamespace')(
+                combineEpics(
+                    checkingEpic,
+                    subspaced((state) => state.child2, 'childNamespace')(checkingEpic))))
+
+        epicMiddleware.run(rootEpic)
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
@@ -259,40 +267,40 @@ describe('integration tests', () => {
     })
 
     it('should allow error handling in root epic', () => {
+        const actions = []
 
-        let actions = []
+        const epicMiddleware = createEpicMiddleware()
+        const rootStore = createStore(
+            (s, a) => {
+                actions.push(a)
+                return rootReducer(s, a)
+            },
+            applyMiddleware(epicMiddleware))
 
         const throwingEpic = (action$) =>
             action$.pipe(
                 ofType(TEST_ACTION_TRIGGER),
-                mergeMap(action => {throw new Error(`expected ${action.message}`) }))
+                mergeMap(action => { throw new Error(`expected ${action.value}`) }))
 
-        const errorHandler = (epic) => (action$, store, deps) => epic(action$, store, deps).pipe(
-            catchError((error, stream) => merge(stream, of({ type: TEST_ACTION, message: error.message}))))
+        const errorHandler = (epic) => (action$, state$, deps) => epic(action$, state$, deps).pipe(
+            catchError((error, stream) => merge(stream, of({ type: TEST_ACTION, value: error.message }))))
 
-        const rootStore = createStore(
-            (s, a) => {
-                actions.push(a)
-                return s || {}
-            },
-            applyMiddleware(createEpicMiddleware(
-                errorHandler(
-                    combineEpics(
-                        throwingEpic,
-                        subspaced((state) => state.parent2, 'parentNamespace')(throwingEpic)
-                    )
-                )
-            )))
+        const rootEpic = errorHandler(
+            combineEpics(
+                throwingEpic,
+                subspaced((state) => state.parent2, 'parentNamespace')(throwingEpic)))
+
+        epicMiddleware.run(rootEpic)
 
         const parentStore = subspace((state) => state.parent2, 'parentNamespace')(rootStore)
 
-        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'root' })
-        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, message: 'parent' })
+        rootStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'root' })
+        parentStore.dispatch({ type: TEST_ACTION_TRIGGER, value: 'parent' })
 
-        expect(actions).to.deep.equal([ { type: '@@redux/INIT' },
-            { type: TEST_ACTION_TRIGGER, message: 'root' },
-            { type: TEST_ACTION, message: 'expected root' },
-            { type: `parentNamespace/${TEST_ACTION_TRIGGER}`, message: 'parent' },
-            { type: TEST_ACTION, message: 'expected parent'}])
+        expect(actions.slice(1)).to.deep.equal([
+            { type: TEST_ACTION_TRIGGER, value: 'root' },
+            { type: TEST_ACTION, value: 'expected root' },
+            { type: `parentNamespace/${TEST_ACTION_TRIGGER}`, value: 'parent' },
+            { type: TEST_ACTION, value: 'expected parent' }])
     })
 })

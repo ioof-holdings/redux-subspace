@@ -8,12 +8,13 @@
 import { subspace } from 'redux-subspace'
 import { filter, ignoreElements, map } from 'rxjs/operators'
 import { SUBSPACE_STORE_KEY } from './subspaceStoreKey'
+import { StateObservable } from 'redux-observable'
 
 const identity = (x) => x
 
 const subspaced = (mapState, namespace) => {
     const subspaceDecorator = subspace(mapState, namespace)
-    return epic => (action$, store, { [SUBSPACE_STORE_KEY]: parentStore, ...dependencies } = {}) => {
+    return epic => (action$, state$, { [SUBSPACE_STORE_KEY]: parentStore, ...dependencies } = {}) => {
         if (parentStore === undefined) {
             throw new Error('Subspace epic couldn\'t find the store. Make sure you\'ve used createEpicMiddleware from redux-subspace-observable')
         }
@@ -26,11 +27,15 @@ const subspaced = (mapState, namespace) => {
             value: subspacedStore
         })
 
+        const subspacedState$ = new StateObservable(
+            state$.pipe(map(subspacedStore.getState)),
+            subspacedStore.getState())
+
         const filteredAction$ = action$.pipe(
             map((action) => subspacedStore.processAction(action, identity)),
             filter(identity))
 
-        return epic(filteredAction$, subspacedStore, dependencies).pipe(
+        return epic(filteredAction$, subspacedState$, dependencies).pipe(
             map(subspacedStore.dispatch),
             ignoreElements())
     }
