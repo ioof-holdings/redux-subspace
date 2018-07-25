@@ -30,6 +30,8 @@ const epic: Epic<any, any> = (action$: ActionsObservable<any>) => action$.pipe(
     ofType('PING'),
     map(action => ({ type: 'PONG' })))
 
-const epicMiddleware = createEpicMiddleware(epic)
+const epicMiddleware = createEpicMiddleware()
 
 const store = createStore(reducer, applyMiddleware(epicMiddleware))
+
+epicMiddleware.run(epic)
