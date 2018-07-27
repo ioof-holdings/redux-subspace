@@ -34,7 +34,11 @@ const rootEpic = combineEpics(
   subspaced((state) => state.counter2, 'counter2')(counterEpic)
 )
 
-const store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)))
+const epicMiddleware = createEpicMiddleware()
+
+const store = createStore(rootReducer, applyMiddleware())
+
+epicMiddleware.run(rootEpic)
 ```
 
 ## Documentation
