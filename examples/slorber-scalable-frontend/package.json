@@ -3,18 +3,18 @@
   "version": "2.5.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^1.0.14"
+    "react-scripts": "^2.0.5"
   },
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-redux": "^5.0.6",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-redux": "^5.0.7",
     "react-redux-subspace": "^2.5.0",
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.5",
     "redux-subspace": "^2.5.0",
     "redux-subspace-wormhole": "^2.5.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
