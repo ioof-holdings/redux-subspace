@@ -1,13 +1,13 @@
 import { applyToRoot } from 'redux-subspace'
 import { createEpicMiddleware as baseCreateEpicMiddleware } from 'redux-observable'
-import { SUBSPACE_STORE_KEY } from './subspaceStoreKey';
+import { SUBSPACE_STORE_KEY } from './subspaceStoreKey'
 
-export const createEpicMiddleware = (rootEpic, options = {}) => {
+export const createEpicMiddleware = (options = {}) => {
     if (options.dependencies != null && (Array.isArray(options.dependencies) || typeof options.dependencies !== 'object')) {
         throw new TypeError('dependencies must be an object')
     }
 
-    return applyToRoot(store => {
+    const subspaceEpicMiddleware = (store) => {
         const optionsWithStore = {
             ...options,
             dependencies: {
@@ -15,6 +15,10 @@ export const createEpicMiddleware = (rootEpic, options = {}) => {
                 [SUBSPACE_STORE_KEY]: store
             }
         }
-        return baseCreateEpicMiddleware(rootEpic, optionsWithStore)(store)
-    })
+        const epicMiddleware = baseCreateEpicMiddleware(optionsWithStore)
+        subspaceEpicMiddleware.run = (rootEpic) => epicMiddleware.run(rootEpic)
+        return epicMiddleware(store)
+    }
+
+    return applyToRoot(subspaceEpicMiddleware)
 }

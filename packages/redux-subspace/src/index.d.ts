@@ -31,7 +31,7 @@ export interface ProcessAction {
 }
 
 export interface SubspaceOptions {
-    enhancer: Redux.GenericStoreEnhancer
+    enhancer: Redux.StoreEnhancer
 }
 
 export interface Subspace<TState, TRootState> extends Redux.Store<TState> {
@@ -81,12 +81,12 @@ export interface GetStateMiddleware<TState> {
 }
 
 export interface DispatchMiddleware<TState> {
-    (next: Redux.Dispatch<TState>): Redux.Dispatch<TState>;
+    (next: Redux.Dispatch): Redux.Dispatch;
 }
 
 export interface SubspaceMiddlewareAPI<TState, TRootState> {
     getState: GetState<TState>;
-    dispatch: Redux.Dispatch<TState>;
+    dispatch: Redux.Dispatch;
     rootStore: Redux.Store<TRootState>;
     namespace: string;
     subspaceTypes: SubspaceType[];
@@ -98,7 +98,7 @@ export interface SubspaceMiddleware {
     <TState>(subspace: SubspaceMiddlewareAPI<TState, any>): ({ getState?: GetStateMiddleware<TState>, dispatch?: DispatchMiddleware<TState> });
 }
 
-export function applyMiddleware(...middlewares: (SubspaceMiddleware | Redux.Middleware)[]): Redux.GenericStoreEnhancer;
+export function applyMiddleware(...middlewares: (SubspaceMiddleware | Redux.Middleware)[]): Redux.StoreEnhancer;
 
 export function applyToRoot(middleware: SubspaceMiddleware | Redux.Middleware): SubspaceMiddleware;
 
