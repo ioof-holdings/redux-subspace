@@ -81,15 +81,15 @@ export const reducer = createReducer({
    * or succeed randomly, and we've covered both cases.
    */
   [Actions.shortIncrementStart]: (state, amount) => {
-      console.log('short start');
-      return loop(state
-        .setIn(['short', 'loading'], true)
-        .setIn(['short', 'failed'], false),
-        Cmd.run(Api.shortIncrement, {
-          successActionCreator: Actions.shortIncrementSucceed,
-          failActionCreator: Actions.shortIncrementFail,
-          args: [amount]
-        })
+    console.log('short start');
+    return loop(state
+      .setIn(['short', 'loading'], true)
+      .setIn(['short', 'failed'], false),
+      Cmd.run(Api.shortIncrement, {
+        successActionCreator: Actions.shortIncrementSucceed,
+        failActionCreator: Actions.shortIncrementFail,
+        args: [amount]
+      })
     )
   },
 
@@ -148,7 +148,7 @@ export const reducer = createReducer({
   [Actions.incrementBothStart]: (state, amount) => {
     console.log('both start');
     return loop(state,
-      Cmd.batch([
+      Cmd.list([
         Cmd.action(Actions.shortIncrementStart(amount)),
         Cmd.action(Actions.longIncrementStart(amount)),
       ])

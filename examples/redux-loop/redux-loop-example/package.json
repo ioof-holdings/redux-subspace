@@ -3,7 +3,9 @@
   "version": "2.5.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^2.0.5"
+    "npm-link-shared": "^0.5.3",
+    "react-scripts": "^2.0.5",
+    "string": "^3.3.3"
   },
   "dependencies": {
     "immutable": "^3.8.2",
@@ -13,13 +15,12 @@
     "react-redux-subspace": "^2.5.0",
     "redux": "^4.0.1",
     "redux-act": "^1.7.4",
-    "redux-loop": "^3.2.2",
+    "redux-loop": "^4.4.1",
     "redux-subspace-loop": "^2.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "prestart": "npm-link-shared ./node_modules/redux-subspace-loop/node_modules . redux-loop",
+    "start": "react-scripts start"
   },
   "browserslist": [
     ">0.2%",

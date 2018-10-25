@@ -6,9 +6,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { getCmd } from 'redux-loop'
-import createNamespacer from './namespaced'
-
-const IS_REDUX_LOOP_V2 = !getCmd
-
-export const namespaced = createNamespacer(IS_REDUX_LOOP_V2)
+export { default as namespaced } from './namespaced'

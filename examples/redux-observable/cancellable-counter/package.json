@@ -18,9 +18,7 @@
     "rxjs": "^6.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": "react-scripts start"
   },
   "browserslist": [
     ">0.2%",

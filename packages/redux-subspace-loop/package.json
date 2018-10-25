@@ -36,7 +36,7 @@
   },
   "peerDependencies": {
     "redux": "^3.0.0 || ^4.0.0",
-    "redux-loop": "^2.0.0 || ^3.0.0"
+    "redux-loop": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -54,7 +54,7 @@
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "redux": "^4.0.1",
-    "redux-loop": "^3.2.2",
+    "redux-loop": "^4.4.1",
     "redux-mock-store": "^1.5.3",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
