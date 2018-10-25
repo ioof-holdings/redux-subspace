@@ -1,16 +1,17 @@
 import { createStore } from 'redux'
 import { applyMiddleware } from 'redux-subspace'
 import thunk from 'redux-thunk'
-import api from '../../common/middleware/api'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 import wormhole from 'redux-subspace-wormhole'
+import api from '../../common/middleware/api'
 import rootReducer from '../reducers'
 
-const configureStore = preloadedState => createStore(
-  rootReducer,
-  preloadedState,
+const configureStore = history => createStore(
+  connectRouter(history)(rootReducer),
   applyMiddleware(
-    thunk, 
-    api, 
+    thunk,
+    api,
+    routerMiddleware(history),
     wormhole((state) => state.configuration, 'configuration')
   )
 )

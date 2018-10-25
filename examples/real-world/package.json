@@ -10,6 +10,8 @@
     "redux-logger": "^3.0.6"
   },
   "dependencies": {
+    "connected-react-router": "^4.5.0",
+    "history": "^4.7.2",
     "humps": "^2.0.1",
     "lodash": "^4.17.11",
     "normalizr": "^3.3.0",
@@ -19,7 +21,7 @@
     "react-redux": "^5.0.7",
     "react-redux-subspace": "^2.5.0",
     "react-router": "^4.3.1",
-    "react-router-redux": "^4.0.8",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-subspace": "^2.5.0",
     "redux-subspace-wormhole": "^2.5.0",
@@ -29,5 +31,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

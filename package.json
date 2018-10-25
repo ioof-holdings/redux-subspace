@@ -10,12 +10,10 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --concurrency=1",
     "postinstall": "npm run bootstrap",
     "coverage": "istanbul report --root packages --reporter html --reporter text-summary",
     "dist": "lerna run --parallel dist",
-    "lint": "eslint . --ext .js --ext .jsx",
-    "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test && npm run coverage",
     "test:watch": "lerna run --parallel test:watch",
     "contributors:add": "all-contributors add",
@@ -32,7 +30,6 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
-    "eslint": "^5.7.0",
     "gh-pages": "^2.0.1",
     "gitbook-cli": "^2.3.2",
     "gitbook-plugin-anchorjs": "^2.0.1",
