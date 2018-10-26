@@ -196,4 +196,34 @@ describe('applySubspaceMiddleware tests', () => {
         expect(middlewareSpy).to.be.calledWithMatch('test', { value: 'expected' })
         expect(middlewareSpy).to.be.calledWithMatch('test', { type: 'TEST' })
     })
+
+    it('should raise error if dispatch occurs during subspace setup', () => {
+        const store = { unique: 'value' }
+
+        const subspace = {
+            getState: sinon.stub().returns({ value: 'expected' }),
+            dispatch: sinon.spy(),
+            namespace: 'test'
+        }
+
+        const middlewareSpy = sinon.spy()
+
+        const middleware = (store) => {
+            store.dispatch({ type: 'TEST' })
+            return (next) => (action) => {
+                middlewareSpy(store.namespace, action)
+                return next(action)
+            }
+        }
+    
+        const createSubspace = sinon.mock().withArgs(store).returns(subspace)
+
+        expect(() => applySubspaceMiddleware(middleware)(createSubspace)(store)).to.throw(
+            'Dispatching while constructing your middleware is not allowed. ' +
+            'Other middleware would not be applied to this dispatch.'
+        )
+
+        expect(subspace.dispatch).to.not.be.called
+        expect(middlewareSpy).to.not.be.called
+    })
 })
