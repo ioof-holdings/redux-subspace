@@ -15,8 +15,6 @@ export default {
 	],
 	external: id => external.test(id),
 	plugins: [
-		babel({
-			plugins: ['external-helpers']
-		})
+		babel()
 	]
 }

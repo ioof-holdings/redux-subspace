@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
-[![License: MIT](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
+[![License: BSD-3-Clause](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)

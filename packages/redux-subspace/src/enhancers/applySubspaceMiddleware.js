@@ -12,12 +12,19 @@ const applySubspaceMiddleware = (...middlewares) => (createSubspace) => (store) 
 
     const subspacedStore = createSubspace(store)
 
-    let { getState, dispatch, subscribe, replaceReducer, ...subspaceValues } = subspacedStore
+    let dispatch = () => {
+        throw new Error(
+            'Dispatching while constructing your middleware is not allowed. ' +
+            'Other middleware would not be applied to this dispatch.'
+        )
+      }
+
+    let { getState, subscribe, replaceReducer, ...subspaceValues } = subspacedStore
 
     const middlewareApi = {
+        ...subspaceValues,
         getState: (...args) => getState(...args),
-        dispatch: (...args) => dispatch(...args),
-        ...subspaceValues
+        dispatch: (...args) => dispatch(...args)
     }
 
     const chain = middlewares.map((middleware) => middleware(middlewareApi))

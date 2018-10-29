@@ -100,7 +100,7 @@ export default subspaced((state) => state.subApp, 'subApp')(SubApplication)
 ```
 
 ```javascript
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { subspaced } from 'react-redux-subspace'
 import SubApplication from 'some-dependency'
 

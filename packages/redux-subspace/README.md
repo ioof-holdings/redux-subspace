@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
 [![npm downloads](https://img.shields.io/npm/dm/redux-subspace.svg?style=flat-square)](https://www.npmjs.com/package/redux-subspace)
-[![License: MIT](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
+[![License: BSD-3-Clause](https://img.shields.io/npm/l/redux-subspace.svg?style=flat-square)](/LICENSE.md)
 
 This is a library to help build decoupled, componentized [Redux](http://redux.js.org/) apps that share a single global store. This is the core package of [redux-subspace](/)
 

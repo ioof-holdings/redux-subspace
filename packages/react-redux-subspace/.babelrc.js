@@ -4,12 +4,12 @@ const cjs = BABEL_ENV === 'cjs' || NODE_ENV === 'test'
 
 module.exports = {
   presets: [
-    ['env', { loose: true, modules: false }],
-    'react',
-    'stage-3',
+    ['@babel/env', { loose: true, modules: false }],
+    '@babel/react'
   ],
   plugins: [
-    'annotate-pure-calls',
-    cjs && 'transform-es2015-modules-commonjs',
+    '@babel/proposal-object-rest-spread',
+	  'annotate-pure-calls',
+    cjs && '@babel/transform-modules-commonjs',
   ].filter(Boolean),
 }

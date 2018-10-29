@@ -6,11 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import babelRegister from 'babel-register'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-
-babelRegister()
 
 global.expect = require('chai').expect
 global.sinon = require('sinon')

@@ -10,8 +10,8 @@ import applySubspaceMiddleware from '../enhancers/applySubspaceMiddleware'
 import { subspaceRoot } from '../store/subspace'
 import { compose } from 'redux'
 
-const applyMiddleware = (...middlewares) => (createStore) => (reducer, preloadedState, enhancer) => {
-    const store = createStore(reducer, preloadedState, enhancer)
+const applyMiddleware = (...middlewares) => (createStore) => (...args) => {
+    const store = createStore(...args)
 
     if(store.subspaceOptions && typeof store.subspaceOptions.enhancer === "function") {
         return subspaceRoot(store, { enhancer: compose(applySubspaceMiddleware(...middlewares), store.subspaceOptions.enhancer)})

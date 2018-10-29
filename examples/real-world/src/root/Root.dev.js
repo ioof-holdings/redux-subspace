@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import routes from './routes'
+import Routes from './Routes'
 import DevTools from './containers/DevTools'
-import { Router } from 'react-router'
+import { ConnectedRouter } from 'connected-react-router'
 
 const Root = ({ store, history }) => (
   <Provider store={store}>
     <div>
-      <Router history={history} routes={routes} />
+      <ConnectedRouter history={history}>
+        <Routes />
+      </ConnectedRouter>
       <DevTools />
     </div>
   </Provider>

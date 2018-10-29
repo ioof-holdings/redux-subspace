@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { SubspaceProvider } from 'react-redux-subspace'
-import { browserHistory } from 'react-router'
+import { push } from 'connected-react-router'
 import Explore from './containers/Explore'
 import { ErrorMessage } from '../errorMessage'
 
@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   handleChange = nextValue => {
-    browserHistory.push(`/${nextValue}`)
+    this.props.push(`/${nextValue}`)
   }
 
   render() {
@@ -40,4 +40,8 @@ const mapStateToProps = (state, ownProps) => ({
   inputValue: ownProps.location.pathname.substring(1)
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  push
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

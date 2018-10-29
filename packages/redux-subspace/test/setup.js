@@ -6,10 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import babelRegister from 'babel-register'
-
-babelRegister()
-
 global.expect = require('chai').expect
 global.sinon = require('sinon')
 
