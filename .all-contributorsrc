@@ -126,7 +126,9 @@
       "profile": "https://github.com/evertbouw",
       "contributions": [
         "code",
-        "test"
+        "test",
+        "doc",
+        "example"
       ]
     },
     {
