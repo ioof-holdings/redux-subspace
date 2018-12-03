@@ -11,7 +11,7 @@ import { Epic } from 'redux-observable'
 import { MapState } from 'redux-subspace'
 
 export interface EpicDecorator {
-    <T extends Action, S, D = any>(epic: Epic<T, S, D>): Epic<T, S, D>
+    <T extends Action, O extends T = T, S = void, D = any>(epic: Epic<T, O, S, D>): Epic<T, O, S, D>
 }
 
 export interface Subspaced {

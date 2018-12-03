@@ -7,10 +7,10 @@
  */
 
 import { createStore } from 'redux'
-import { loop, Effects, install, combineReducers } from 'redux-loop'
+import { loop, Cmd, install, combineReducers } from 'redux-loop'
 import { namespaced } from '../../../src'
 
-const reducer = (state = {}) => loop(state, Effects.none)
+const reducer = (state = {}) => loop(state, Cmd.none)
 
 createStore(combineReducers({
   child: namespaced('test')(reducer)

@@ -10,11 +10,10 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --concurrency=1",
+    "postinstall": "npm run bootstrap",
     "coverage": "istanbul report --root packages --reporter html --reporter text-summary",
     "dist": "lerna run --parallel dist",
-    "lint": "eslint . --ext .js --ext .jsx",
-    "lint:fix": "eslint . --ext .js --ext .jsx --fix",
     "test": "lerna run test && npm run coverage",
     "test:watch": "lerna run --parallel test:watch",
     "contributors:add": "all-contributors add",
@@ -30,16 +29,15 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "devDependencies": {
-    "all-contributors-cli": "^4.10.1",
-    "eslint": "^4.10.0",
-    "gh-pages": "^1.1.0",
+    "all-contributors-cli": "^5.4.1",
+    "gh-pages": "^2.0.1",
     "gitbook-cli": "^2.3.2",
-    "gitbook-plugin-anchorjs": "^1.1.1",
+    "gitbook-plugin-anchorjs": "^2.0.1",
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-prism": "^2.4.0",
     "istanbul": "^0.4.5",
-    "lerna": "^2.4.0",
+    "lerna": "^3.4.3",
     "rimraf": "^2.6.2"
   }
 }

@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { getEffect, Cmd, loop, getCmd } from 'redux-loop'
+import { Cmd, loop, getCmd } from 'redux-loop'
 import { namespacedAction } from 'redux-subspace'
-import createNamespacer from '../src/namespaced'
+import namespaced from '../src/namespaced'
 
 function suppressLoopWarnings() {
     const consoleWarn = console.warn.bind(console)
@@ -38,7 +38,6 @@ describe('namespaced', () => {
 
     const COMMAND_ACTION = { type: TEST_ACTION }
     const createEffectAction = (payload) => ({ ...COMMAND_ACTION, payload })
-    const v3Namespaced = createNamespacer(false)
 
     function fetchUser(user) {
       return Promise.resolve(user)
@@ -55,6 +54,16 @@ describe('namespaced', () => {
 
             case 'ACTION':
               return loop(state, Cmd.action(COMMAND_ACTION))
+
+            case 'LIST':
+                return loop(state, Cmd.list([
+                    Cmd.run(fetchUser, {
+                        successActionCreator: createEffectAction,
+                        failActionCreator: createEffectAction,
+                        args: [{name: 'John'}]
+                    }),
+                    Cmd.action(COMMAND_ACTION)
+                ]))
 
             case 'BATCH':
                 return loop(state, Cmd.batch([
@@ -85,7 +94,7 @@ describe('namespaced', () => {
     }
 
     it('should namespace actions created with commands', async () => {
-        const namespacedReducer = v3Namespaced('test')(reducer)
+        const namespacedReducer = namespaced('test')(reducer)
         const result = namespacedReducer(undefined, {
             type: TEST_ACTION_TRIGGER,
             value: 'foobar'
@@ -101,7 +110,7 @@ describe('namespaced', () => {
 
     it('should handle RUN command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = v3Namespaced('test')(commandsReducer)
+        const namespacedReducer = namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'RUN'
@@ -113,7 +122,7 @@ describe('namespaced', () => {
 
     it('should handle ACTION command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = v3Namespaced('test')(commandsReducer)
+        const namespacedReducer = namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
             type: 'ACTION'
@@ -121,12 +130,12 @@ describe('namespaced', () => {
         expect(result.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
     })
 
-    it('should handle BATCH command type', () => {
+    it('should handle LIST command type', () => {
         const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = v3Namespaced('test')(commandsReducer)
+        const namespacedReducer = namespaced('test')(commandsReducer)
 
         const result = getCmd(namespacedReducer(undefined, {
-            type: 'BATCH'
+            type: 'LIST'
         }))
 
         const [runEffect, actionEffect] = result.cmds
@@ -136,131 +145,37 @@ describe('namespaced', () => {
         expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
     })
 
-    it('should handle SEQUENCE command type', () => {
-        const actionNamespacer = namespacedAction('test')
-        const namespacedReducer = v3Namespaced('test')(commandsReducer)
-
-        const result = getCmd(namespacedReducer(undefined, {
-            type: 'SEQUENCE'
-        }))
-
-        const [runEffect, actionEffect] = result.cmds
-
-        expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-        expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-        expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
-    })
-
-    describe('redux-loop v2', () => {
+    describe('redux-loop v3', () => {
         suppressLoopWarnings()
 
-        const TEST_ACTION = 'TEST_ACTION'
-
-        const COMMAND_ACTION = { type: TEST_ACTION }
-        const createEffectAction = (payload) => ({ ...COMMAND_ACTION, payload })
-        const v2Namespaced = createNamespacer(true)
-
-        function fetchUser(user) {
-            return Promise.resolve(user)
-                .then(createEffectAction)
-                .catch(createEffectAction)
-        }
-
-        const Effects = {
-            batch: (effects) => ({
-                ...Cmd.none,
-                effects,
-                type: 'BATCH'
-            }),
-            constant: (action) => ({
-                ...Cmd.none,
-                action,
-                type: 'CONSTANT'
-            }),
-            none: () => Cmd.none,
-            promise: (factory, ...args) => ({
-                ...Cmd.none,
-                factory,
-                args,
-                type: 'PROMISE'
-            })
-        }
-
-        const effectsReducer = (state = 'initial value', action) => {
-            switch (action.type) {
-                case 'PROMISE':
-                    return loop(state, Effects.promise(fetchUser, {name: 'John'}))
-
-                case 'CONSTANT':
-                    return loop(state, Effects.constant(COMMAND_ACTION))
-
-                case 'BATCH':
-                    return loop(state, Effects.batch([
-                        Effects.promise(fetchUser, {name: 'John'}),
-                        Effects.constant(COMMAND_ACTION)
-                    ]))
-                case 'NONE':
-                    return loop(state, Effects.none())
-
-                default:
-                    return state
-            }
-        }
-
-        it('should namespace actions created with commands', async () => {
-            const namespacedReducer = v2Namespaced('test')(effectsReducer)
-            const result = namespacedReducer(undefined, {
-                type: 'CONSTANT'
-            })
-
+        it('should handle BATCH command type', () => {
             const actionNamespacer = namespacedAction('test')
+            const namespacedReducer = namespaced('test')(commandsReducer)
 
-            expect(result[1].action).to.deep.equal(actionNamespacer({ type: TEST_ACTION }))
-        })
-
-        it('should handle NONE command type', () => {
-            const namespacedReducer = v2Namespaced('test')(effectsReducer)
-
-            const result = getEffect(namespacedReducer(undefined, {
-                type: 'NONE'
-            }))
-
-            expect(result).to.deep.equal(Effects.none())
-        })
-
-        it('should handle PROMISE command type', async () => {
-            const actionNamespacer = namespacedAction('test')
-            const namespacedReducer = v2Namespaced('test')(effectsReducer)
-
-            const result = getEffect(namespacedReducer(undefined, {
-                type: 'PROMISE'
-            }))
-
-            expect(await result.factory()).to.deep.equal(actionNamespacer(createEffectAction()))
-        })
-
-        it('should handle CONSTANT command type', () => {
-            const actionNamespacer = namespacedAction('test')
-            const namespacedReducer = v2Namespaced('test')(effectsReducer)
-
-            const result = getEffect(namespacedReducer(undefined, {
-                type: 'CONSTANT'
-            }))
-            expect(result.action).to.deep.equal(actionNamespacer(COMMAND_ACTION))
-        })
-
-        it('should handle BATCH command type', async () => {
-            const actionNamespacer = namespacedAction('test')
-            const namespacedReducer = v2Namespaced('test')(effectsReducer)
-
-            const result = getEffect(namespacedReducer(undefined, {
+            const result = getCmd(namespacedReducer(undefined, {
                 type: 'BATCH'
             }))
 
-            const [promiseEffect, actionEffect] = result.effects
+            const [runEffect, actionEffect] = result.cmds
 
-            expect(await promiseEffect.factory()).to.deep.equal(actionNamespacer(createEffectAction()))
-            expect(actionEffect.action).to.deep.equal(actionNamespacer(COMMAND_ACTION))
+            expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
+            expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
+            expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
+        })
+
+        it('should handle SEQUENCE command type', () => {
+            const actionNamespacer = namespacedAction('test')
+            const namespacedReducer = namespaced('test')(commandsReducer)
+
+            const result = getCmd(namespacedReducer(undefined, {
+                type: 'SEQUENCE'
+            }))
+
+            const [runEffect, actionEffect] = result.cmds
+
+            expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
+            expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
+            expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
         })
     })
 })
