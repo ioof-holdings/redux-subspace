@@ -10,7 +10,7 @@ import hasNamespace from '../actions/hasNamespace'
 import isGlobal from '../actions/isGlobal'
 
 const processAction = (namespace) => (action, callback, defaultValue) => {
-    if (!namespace || isGlobal(action)) {
+    if (!namespace || isGlobal(action) || action.alreadyNameSpaced) {
         return callback(action)
     } else if (hasNamespace(action, namespace)) {
         return callback({...action, type: action.type.substring(namespace.length + 1)})
@@ -19,4 +19,4 @@ const processAction = (namespace) => (action, callback, defaultValue) => {
     }
 }
 
-export default processAction
+export default processAction 

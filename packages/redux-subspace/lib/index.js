@@ -295,7 +295,7 @@ var hasNamespace = function hasNamespace(action, namespace) {
 
 var processAction = function processAction(namespace) {
   return function (action, callback, defaultValue) {
-    if (!namespace || isGlobal(action)) {
+    if (!namespace || isGlobal(action) || action.alreadyNameSpaced) {
       return callback(action);
     } else if (hasNamespace(action, namespace)) {
       return callback(_objectSpread({}, action, {
