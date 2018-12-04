@@ -8,8 +8,8 @@
 
 import isGlobal from './isGlobal'
 
-const namespacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace) && !action.alreadyNamespaced 
-    ? { ...action, type: `${namespace}/${action.type}` } 
+const overRideNameSpacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace) 
+    ? { ...action, type: `${namespace}/${action.type}`, alreadyNamespaced: true } 
     : action
 
-export default namespacedAction
+export default overRideNameSpacedAction

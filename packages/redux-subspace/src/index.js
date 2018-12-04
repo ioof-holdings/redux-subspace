@@ -12,10 +12,11 @@ export { default as applyMiddleware } from './store/applyMiddleware'
 export { default as namespaced } from './reducers/namespaced'
 
 export { default as namespacedAction } from './actions/namespacedAction'
+export { default as overRideNameSpacedAction } from './actions/overRideNameSpacedAction'
 export { default as globalAction } from './actions/globalAction'
 
 export { default as applyToRoot } from './middleware/applyToRoot'
 export { default as applyToNamespaceRoots } from './middleware/applyToNamespaceRoots'
 export { default as applyToChildren } from './middleware/applyToChildren'
 
-export { default as globalActions } from './middleware/globalActions'
+export { default as globalActions } from './middleware/globalActions' 
