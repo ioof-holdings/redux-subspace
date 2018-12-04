@@ -5,6 +5,5 @@ lerna-debug.log
 coverage
 .vscode
 .idea
-lib/
 es/
 _book/
