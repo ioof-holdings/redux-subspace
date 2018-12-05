@@ -8,8 +8,8 @@
 
 import isGlobal from './isGlobal'
 
-const namespacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace) || console.log('nameaction', acction)
-    ? { ...action, type: `${namespace}/${action.type}` } 
+const namespacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace)
+    ? console.log('nameaction', { ...action, type: `${namespace}/${action.type}` }) 
     : action
 
 export default namespacedAction

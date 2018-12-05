@@ -120,9 +120,9 @@ var isGlobal = function isGlobal(action) {
 
 var namespacedAction = function namespacedAction(namespace) {
   return function (action) {
-    return namespace && !isGlobal(action, namespace) || console.log('nameaction', acction) ? _objectSpread({}, action, {
+    return namespace && !isGlobal(action, namespace) ? console.log('nameaction', _objectSpread({}, action, {
       type: namespace + "/" + action.type
-    }) : action;
+    })) : action;
   };
 };
 
