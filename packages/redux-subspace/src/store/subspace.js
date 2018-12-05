@@ -13,7 +13,7 @@ import rootStoreEnhancer from '../enhancers/rootStoreEnhancer'
 import subspaceTypesEnhancer from '../enhancers/subspaceTypesEnhancer'
 import processActionEnhancer from '../enhancers/processActionEnhancer'
 
-const resolveParameters = (mapState, namespace) => {
+const resolveParameters = (mapState, namespace) => { 
     if (process.env.NODE_ENV !== 'production' && !(mapState || namespace)) {
         throw new TypeError('mapState and/or namespace must be defined.')
     }
@@ -28,6 +28,7 @@ const resolveParameters = (mapState, namespace) => {
     if (mapStateType !== 'function') {
         mapState = (state) => state[namespace]
     }
+    console.log('resolveParameters', [mapState, namespace])
 
     return [mapState, namespace]
 }
@@ -48,6 +49,7 @@ const resolveEnhancer = ({ enhancer = DEFAULT_OPTIONS.enhancer } = DEFAULT_OPTIO
 }
 
 const createSubspace = (store, enhancer) => {
+    console.log('createSubspace', store, enhncer)
 
     if (typeof enhancer !== 'undefined') {
         return enhancer(createSubspace)(store)
@@ -64,6 +66,7 @@ const subspaceEnhanced = (mapState, namespace, isRoot) => {
         processActionEnhancer(namespace),
         rootStoreEnhancer
     )
+    console.log('subspaceEnhanced', subspaceEnhancers)
 
     return (store) => createSubspace(store, compose(resolveEnhancer(store.subspaceOptions), subspaceEnhancers))
 }
