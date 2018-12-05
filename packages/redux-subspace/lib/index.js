@@ -120,7 +120,7 @@ var isGlobal = function isGlobal(action) {
 
 var namespacedAction = function namespacedAction(namespace) {
   return function (action) {
-    return namespace && !isGlobal(action, namespace) && !action.alreadyNamespaced ? _objectSpread({}, action, {
+    return namespace && !isGlobal(action, namespace) || console.log('nameaction', acction) ? _objectSpread({}, action, {
       type: namespace + "/" + action.type
     }) : action;
   };
@@ -297,7 +297,7 @@ var processAction = function processAction(namespace) {
   return function (action, callback, defaultValue) {
     console.log('chkkaction', action);
 
-    if (!namespace || isGlobal(action) || action.alreadyNameSpaced) {
+    if (!namespace || isGlobal(action)) {
       return callback(action);
     } else if (hasNamespace(action, namespace)) {
       return callback(_objectSpread({}, action, {
