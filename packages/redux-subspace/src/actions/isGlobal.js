@@ -6,6 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const isGlobal = (action) => !action.type || action.globalAction === true
+const isGlobal = (action) => !action.type || action.globalAction === true || action.alreadyNameSpaced
 
 export default isGlobal

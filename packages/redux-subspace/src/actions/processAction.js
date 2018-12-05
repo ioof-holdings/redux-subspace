@@ -10,6 +10,7 @@ import hasNamespace from '../actions/hasNamespace'
 import isGlobal from '../actions/isGlobal'
 
 const processAction = (namespace) => (action, callback, defaultValue) => {
+    console.log('chkkaction', action)
     if (!namespace || isGlobal(action) || action.alreadyNameSpaced) {
         return callback(action)
     } else if (hasNamespace(action, namespace)) {

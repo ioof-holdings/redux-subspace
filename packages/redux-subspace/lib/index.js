@@ -115,13 +115,13 @@ var applySubspaceMiddleware = function applySubspaceMiddleware() {
  * LICENSE file in the root directory of this source tree.
  */
 var isGlobal = function isGlobal(action) {
-  return !action.type || action.globalAction === true;
+  return !action.type || action.globalAction === true || action.alreadyNameSpaced;
 };
 
 var namespacedAction = function namespacedAction(namespace) {
   return function (action) {
     return namespace && !isGlobal(action, namespace) && !action.alreadyNamespaced ? _objectSpread({}, action, {
-      type: namespace + "hiiiiii/" + action.type
+      type: namespace + "/" + action.type
     }) : action;
   };
 };
@@ -295,6 +295,8 @@ var hasNamespace = function hasNamespace(action, namespace) {
 
 var processAction = function processAction(namespace) {
   return function (action, callback, defaultValue) {
+    console.log('chkkaction', action);
+
     if (!namespace || isGlobal(action) || action.alreadyNameSpaced) {
       return callback(action);
     } else if (hasNamespace(action, namespace)) {
@@ -441,7 +443,7 @@ var namespaced = (function (namespace) {
 var overRideNameSpacedAction = function overRideNameSpacedAction(namespace) {
   return function (action) {
     return namespace && !isGlobal(action, namespace) ? _objectSpread({}, action, {
-      type: "changed" + namespace + "/" + action.type,
+      type: namespace + "/" + action.type,
       alreadyNamespaced: true
     }) : action;
   };
