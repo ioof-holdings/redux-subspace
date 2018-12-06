@@ -295,8 +295,6 @@ var hasNamespace = function hasNamespace(action, namespace) {
 
 var processAction = function processAction(namespace) {
   return function (action, callback, defaultValue) {
-    console.log('processAction', action, callback, defaultValue);
-
     if (!namespace || isGlobal(action)) {
       return callback(action);
     } else if (hasNamespace(action, namespace)) {
@@ -338,7 +336,6 @@ var resolveParameters = function resolveParameters(mapState, namespace) {
     };
   }
 
-  console.log('resolveParameters', [mapState, namespace]);
   return [mapState, namespace];
 };
 
@@ -365,8 +362,6 @@ var resolveEnhancer = function resolveEnhancer(_temp) {
 };
 
 var createSubspace = function createSubspace(store, enhancer) {
-  console.log('createSubspace', store, enhncer);
-
   if (typeof enhancer !== 'undefined') {
     return enhancer(createSubspace)(store);
   }
@@ -376,7 +371,6 @@ var createSubspace = function createSubspace(store, enhancer) {
 
 var subspaceEnhanced = function subspaceEnhanced(mapState, namespace, isRoot) {
   var subspaceEnhancers = redux.compose(subspaceEnhancer(mapState, namespace), namespaceEnhancer(namespace), subspaceTypesEnhancer(isRoot, namespace), processActionEnhancer(namespace), rootStoreEnhancer);
-  console.log('subspaceEnhanced', subspaceEnhancers);
   return function (store) {
     return createSubspace(store, redux.compose(resolveEnhancer(store.subspaceOptions), subspaceEnhancers));
   };
