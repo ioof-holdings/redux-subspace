@@ -440,7 +440,7 @@ var namespaced = (function (namespace) {
 
 var overRideNameSpacedAction = function overRideNameSpacedAction(namespace) {
   return function (action) {
-    return namespace && !isGlobal(action, namespace) ? _objectSpread({}, action, {
+    return namespace && namespace !== '' && !isGlobal(action, namespace) ? _objectSpread({}, action, {
       type: namespace + "/" + action.type,
       alreadyNamespaced: true
     }) : action;

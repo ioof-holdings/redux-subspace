@@ -8,7 +8,7 @@
 
 import isGlobal from './isGlobal'
 
-const overRideNameSpacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace) 
+const overRideNameSpacedAction = (namespace) => (action) => namespace && namespace !== '' && !isGlobal(action, namespace) 
     ? { ...action, type: `${namespace}/${action.type}`, alreadyNamespaced: true } 
     : action
 
