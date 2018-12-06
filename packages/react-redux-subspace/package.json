@@ -36,7 +36,7 @@
     "lerna": "^3.5.1",
     "prop-types": "^15.6.0",
     "recompose": "^0.30.0",
-    "redux-subspace": "https://github.com/prasadyash2411/redux-subspace/archive/3.0.8.tar.gz"
+    "redux-subspace": "https://github.com/prasadyash2411/redux-subspace/archive/v3.1.2.tar.gz"
   },
   "peerDependencies": {
     "react": "^15.1 || ^16.0",
