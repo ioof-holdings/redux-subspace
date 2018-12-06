@@ -9,7 +9,7 @@
 import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import wrapDisplayName from 'recompose/wrapDisplayName'
-import { subspace } from 'redux-subspace'
+import { subspace } from 'redux-subspace/packages/redux-subspace'
 import SubspaceProvider from './SubspaceProvider'
 
 const subspaced = (mapState, namespace) => {

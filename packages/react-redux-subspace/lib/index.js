@@ -7,7 +7,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var React = require('react');
 var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
-var reduxSubspace = require('redux-subspace');
+var reduxSubspace = require('redux-subspace/packages/redux-subspace');
 var hoistNonReactStatics = _interopDefault(require('hoist-non-react-statics'));
 var wrapDisplayName = _interopDefault(require('recompose/wrapDisplayName'));
 

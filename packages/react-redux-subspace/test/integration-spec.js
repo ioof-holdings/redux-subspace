@@ -8,7 +8,7 @@
 
 import React from 'react'
 import { createStore, combineReducers } from 'redux'
-import { namespaced } from 'redux-subspace'
+import { namespaced } from 'redux-subspace/packages/redux-subspace'
 import { Provider, connect } from 'react-redux'
 import { mount } from 'enzyme'
 

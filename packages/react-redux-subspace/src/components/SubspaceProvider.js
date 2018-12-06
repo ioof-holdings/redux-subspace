@@ -8,7 +8,7 @@
 
 import React, { Children } from 'react'
 import PropTypes from 'prop-types'
-import { subspace }  from 'redux-subspace'
+import { subspace }  from 'redux-subspace/packages/redux-subspace'
 
 class SubspaceProvider extends React.PureComponent {
 

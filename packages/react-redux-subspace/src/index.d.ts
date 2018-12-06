@@ -8,7 +8,7 @@
 
 import * as React from 'react';
 import * as Redux from 'redux';
-import { MapState } from 'redux-subspace'
+import { MapState } from 'redux-subspace/packages/redux-subspace'
 
 interface ComponentDecorator {
     <TProps, TComponentConstruct extends (React.ComponentClass<TProps> | React.StatelessComponent<TProps>)>(component: TComponentConstruct): TComponentConstruct;
