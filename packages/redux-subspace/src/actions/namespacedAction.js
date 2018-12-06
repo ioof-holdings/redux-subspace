@@ -8,7 +8,7 @@
 
 import isGlobal from './isGlobal'
 
-const namespacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace)
+const namespacedAction = (namespace) => (action) => namespace && !isGlobal(action, namespace) && !action.alreadyNamespaced
     ? { ...action, type: `${namespace}/${action.type}` } 
     : action
 
