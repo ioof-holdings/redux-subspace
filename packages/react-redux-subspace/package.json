@@ -33,9 +33,10 @@
   "dependencies": {
     "@types/react": "^16.4.18",
     "hoist-non-react-statics": "^3.0.1",
+    "lerna": "^3.5.1",
     "prop-types": "^15.6.0",
     "recompose": "^0.30.0",
-    "redux-subspace": "https://github.com/prasadyash2411/redux-subspace/archive/3.0.8.tar.gz" 
+    "redux-subspace": "https://github.com/prasadyash2411/redux-subspace/archive/3.0.8.tar.gz"
   },
   "peerDependencies": {
     "react": "^15.1 || ^16.0",
