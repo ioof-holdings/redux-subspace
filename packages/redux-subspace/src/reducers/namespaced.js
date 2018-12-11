@@ -15,6 +15,8 @@ export default (namespace) => {
             return reducer(state, action)
         }
 
-        return actionProcessor(action, (transformedAction) => reducer(state, transformedAction), state)
+        const defaultState = reducer(state, action)
+
+        return actionProcessor(action, (transformedAction) => reducer(state, transformedAction), defaultState)
     }
 }
