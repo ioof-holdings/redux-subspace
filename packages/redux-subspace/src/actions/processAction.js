@@ -8,10 +8,9 @@
 
 import hasNamespace from '../actions/hasNamespace'
 import isGlobal from '../actions/isGlobal'
-import isReduxSpecific from '../actions/reduxSpecific'
 
 const processAction = (namespace) => (action, callback, defaultValue) => {
-    if (!namespace || isGlobal(action) || isReduxSpecific(action)) {
+    if (!namespace || isGlobal(action)) {
         return callback(action)
     } else if (hasNamespace(action, namespace)) {
         return callback({...action, type: action.type.substring(namespace.length + 1)})
