@@ -196,6 +196,18 @@
       "contributions": [
         "talk"
       ]
+    },
+    {
+      "login": "NikitaKolokoltsev",
+      "name": "Nikita",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15002250?v=4",
+      "profile": "https://github.com/NikitaKolokoltsev",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }

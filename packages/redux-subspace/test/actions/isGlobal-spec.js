@@ -26,4 +26,12 @@ describe('isGlobal tests', () => {
 
         expect(isGlobal(action)).to.be.ok
     })
+
+    it('should be global if it is a redux-specific action', () => {
+        const type = '@@redux/INIT' + Math.random().toString(36).substring(7).split('').join('.')
+
+        const action = () => ({ type })
+
+        expect(isGlobal(action)).to.be.ok
+    })
 })
