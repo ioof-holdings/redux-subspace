@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-cancellable-counter",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": true,
   "devDependencies": {
     "react-scripts": "^2.0.5"
@@ -13,8 +13,8 @@
     "react-redux-subspace": "^2.5.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
-    "redux-subspace": "^3.0.0",
-    "redux-subspace-saga": "^3.0.0"
+    "redux-subspace": "^3.0.1",
+    "redux-subspace-saga": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start"

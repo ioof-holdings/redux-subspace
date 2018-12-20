@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-wormhole",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Create isolated subspaces of a Redux store",
   "author": "Michael Peyper",
   "contributors": [
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
-    "redux-subspace": "^3.0.0"
+    "redux-subspace": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
