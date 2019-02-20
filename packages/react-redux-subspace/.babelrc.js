@@ -8,6 +8,7 @@ module.exports = {
     '@babel/react'
   ],
   plugins: [
+    '@babel/proposal-class-properties',
     '@babel/proposal-object-rest-spread',
 	  'annotate-pure-calls',
     cjs && '@babel/transform-modules-commonjs',

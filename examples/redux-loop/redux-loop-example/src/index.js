@@ -5,6 +5,10 @@ import { Provider } from 'react-redux';
 import { SubspaceProvider } from 'react-redux-subspace'
 import { install, combineReducers } from 'redux-loop';
 import { namespaced } from 'redux-subspace-loop'
+
+// work around for lerna/npm link issue for local development
+import { ReactReduxContext } from 'react-redux'
+
 import { CounterApp, reducer as counterReducer } from './counter';
 
 /**
@@ -20,11 +24,11 @@ const reducer = combineReducers({
  */
 const App = () => (
   <div>
-    <SubspaceProvider mapState={(state) => state.counter1} namespace="counter1">
+    <SubspaceProvider mapState={(state) => state.counter1} namespace="counter1" context={ReactReduxContext}>
       <CounterApp />
     </SubspaceProvider>
     <hr />
-    <SubspaceProvider mapState={(state) => state.counter2} namespace="counter2">
+    <SubspaceProvider mapState={(state) => state.counter2} namespace="counter2" context={ReactReduxContext}>
       <CounterApp />
     </SubspaceProvider>
   </div>

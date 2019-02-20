@@ -8,8 +8,8 @@
   "dependencies": {
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-redux": "^5.1.0",
-    "react-redux-subspace": "^2.5.0",
+    "react-redux": "^6.0.0",
+    "react-redux-subspace": "^3.0.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",
     "redux-subspace": "^3.0.1",
@@ -18,5 +18,11 @@
   },
   "scripts": {
     "start": "react-scripts start"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

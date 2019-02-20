@@ -6,6 +6,9 @@ import { applyMiddleware } from 'redux-subspace'
 import { SubspaceProvider } from 'react-redux-subspace'
 import { createEpicMiddleware } from 'redux-subspace-observable'
 
+// work around for lerna/npm link issue for local development
+import { ReactReduxContext } from 'react-redux'
+
 import reducer from './reducers'
 import { rootEpic } from './epic'
 import Counter from './components/Counter'
@@ -22,10 +25,10 @@ epicMiddleware.run(rootEpic)
 render(
   <Provider store={store}>
     <div>
-      <SubspaceProvider mapState={state => state.counter1} namespace="counter1">
+      <SubspaceProvider mapState={state => state.counter1} namespace="counter1" context={ReactReduxContext}>
         <Counter />
       </SubspaceProvider>
-      <SubspaceProvider mapState={state => state.counter2} namespace="counter2">
+      <SubspaceProvider mapState={state => state.counter2} namespace="counter2" context={ReactReduxContext}>
         <Counter />
       </SubspaceProvider>
     </div>

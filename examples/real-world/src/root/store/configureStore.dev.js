@@ -1,16 +1,16 @@
 import { createStore, compose } from 'redux'
 import { applyMiddleware, applyToRoot } from 'redux-subspace'
 import thunk from 'redux-thunk'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router'
 import { createLogger } from 'redux-logger'
 import wormhole from 'redux-subspace-wormhole'
 import api from '../../common/middleware/api'
-import rootReducer from '../reducers'
+import createRootReducer from '../reducers'
 import DevTools from '../containers/DevTools'
 
 const configureStore = history => {
   const store = createStore(
-    connectRouter(history)(rootReducer),
+    createRootReducer(history),
     compose(
       applyMiddleware(
         thunk,
