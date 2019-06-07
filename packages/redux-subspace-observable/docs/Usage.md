@@ -28,7 +28,7 @@ import epic from 'some-dependency'
 const subspacedEpic = subspaced((state) => state.subApp, 'subApp')(epic)
 ```
 
-Now the epic will only recieve actions that match the subspace's namespace and any actions it emits will be automatically namespaced as well.
+Now the epic will only receive actions that match the subspace's namespace and any actions it emits will be automatically namespaced as well.
 
 The [`store` parameter](https://redux-observable.js.org/docs/basics/Epics.html#accessing-the-stores-state) will also be a subspace created by the provided selector and namespace.
 
