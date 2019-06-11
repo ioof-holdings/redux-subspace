@@ -57,6 +57,8 @@ export interface SubspaceCreator {
 
 export const subspace: SubspaceCreator;
 
+export function parentSpace<TParentStore>(store: { parentStore: TParentStore }): TParentStore;
+
 /**
  * Reducers
  */

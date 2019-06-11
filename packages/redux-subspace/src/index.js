@@ -7,6 +7,7 @@
  */
 
 export { default as subspace } from './store/subspace'
+export { default as parentSpace } from './store/parentSpace'
 export { default as applyMiddleware } from './store/applyMiddleware'
 
 export { default as namespaced } from './reducers/namespaced'

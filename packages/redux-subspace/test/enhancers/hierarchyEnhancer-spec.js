@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import rootStoreEnhancer from '../../src/enhancers/rootStoreEnhancer'
+import hierarchyEnhancer from '../../src/enhancers/hierarchyEnhancer'
 
-describe('rootStoreEnhancer tests', () => {
+describe('hierarchyEnhancer tests', () => {
 
     it('should enhance subspace with rootStore field', () => {
         const store = { unique: 'value' }
@@ -20,7 +20,7 @@ describe('rootStoreEnhancer tests', () => {
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
 
-        const enhancedSubspace = rootStoreEnhancer(createSubspace)(store)
+        const enhancedSubspace = hierarchyEnhancer(createSubspace)(store)
 
         expect(enhancedSubspace.getState).to.equal(subspace.getState)
         expect(enhancedSubspace.dispatch).to.equal(subspace.dispatch)
@@ -38,7 +38,7 @@ describe('rootStoreEnhancer tests', () => {
     
         const createSubspace = sinon.mock().withArgs(store).returns(subspace)
 
-        const enhancedSubspace = rootStoreEnhancer(createSubspace)(store)
+        const enhancedSubspace = hierarchyEnhancer(createSubspace)(store)
 
         expect(enhancedSubspace.getState).to.equal(subspace.getState)
         expect(enhancedSubspace.dispatch).to.equal(subspace.dispatch)
