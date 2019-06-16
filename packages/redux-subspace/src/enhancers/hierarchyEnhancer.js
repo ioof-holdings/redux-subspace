@@ -6,9 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const rootStoreEnhancer = (createSubspace) => (store) => {
+const hierarchyEnhancer = (createSubspace) => (store) => {
     const subspace = createSubspace(store)
-    return { ...subspace, rootStore: store.rootStore || store }
+    return {
+    	...subspace,
+    	rootStore: store.rootStore || store,
+    	parentStore: store
+    }
 }
 
-export default rootStoreEnhancer
+export default hierarchyEnhancer

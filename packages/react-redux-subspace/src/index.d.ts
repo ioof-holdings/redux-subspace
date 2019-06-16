@@ -31,3 +31,7 @@ export interface SubspaceProviderProps<TParentState, TRootState, TSubState> {
 }
 
 export class SubspaceProvider<TParentState, TRootState, TSubState> extends React.Component<SubspaceProviderProps<TParentState, TRootState, TSubState>> { }
+
+export const parentSpaced: ComponentDecorator;
+
+export class ParentSpaceProvider extends React.Component { }

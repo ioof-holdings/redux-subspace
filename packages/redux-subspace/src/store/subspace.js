@@ -9,7 +9,7 @@
 import { compose } from 'redux'
 import subspaceEnhancer from '../enhancers/subspaceEnhancer'
 import namespaceEnhancer from '../enhancers/namespaceEnhancer'
-import rootStoreEnhancer from '../enhancers/rootStoreEnhancer'
+import hierarchyEnhancer from '../enhancers/hierarchyEnhancer'
 import subspaceTypesEnhancer from '../enhancers/subspaceTypesEnhancer'
 import processActionEnhancer from '../enhancers/processActionEnhancer'
 
@@ -62,7 +62,7 @@ const subspaceEnhanced = (mapState, namespace, isRoot) => {
         namespaceEnhancer(namespace),
         subspaceTypesEnhancer(isRoot, namespace),
         processActionEnhancer(namespace),
-        rootStoreEnhancer
+        hierarchyEnhancer
     )
 
     return (store) => createSubspace(store, compose(resolveEnhancer(store.subspaceOptions), subspaceEnhancers))

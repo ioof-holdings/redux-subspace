@@ -1,6 +1,6 @@
 {
   "name": "redux-loop-example",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "private": true,
   "devDependencies": {
     "npm-link-shared": "^0.5.3",
@@ -16,7 +16,7 @@
     "redux": "^4.0.1",
     "redux-act": "^1.7.4",
     "redux-loop": "^4.4.1",
-    "redux-subspace-loop": "^3.0.1"
+    "redux-subspace-loop": "^3.1.0"
   },
   "scripts": {
     "prestart": "npm-link-shared ./node_modules/redux-subspace-loop/node_modules . redux-loop",
