@@ -6,41 +6,34 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Children } from 'react'
-import PropTypes from 'prop-types'
-import { subspace }  from 'redux-subspace'
+import React, { Children, useMemo } from "react"
+import PropTypes from "prop-types"
+import { Provider, ReactReduxContext } from "react-redux"
+import { subspace } from "redux-subspace"
 
-class SubspaceProvider extends React.PureComponent {
-
-    getChildContext() {
-        const makeSubspaceDecorator = (props) => props.subspaceDecorator || subspace(props.mapState, props.namespace)
-
-        return { 
-            store: makeSubspaceDecorator(this.props)(this.context.store) 
-        }
-    }
-
-    render() {
-        return Children.only(this.props.children)
-    }
-}
+const SubspaceProvider = ({
+  mapState,
+  namespace,
+  subspaceDecorator = useMemo(() => subspace(mapState, namespace), [
+    mapState,
+    namespace
+  ]),
+  children
+}) => (
+  <ReactReduxContext.Consumer>
+    {({ store }) => (
+      <Provider store={subspaceDecorator(store)}>
+        {Children.only(children)}
+      </Provider>
+    )}
+  </ReactReduxContext.Consumer>
+)
 
 SubspaceProvider.propTypes = {
-    children: PropTypes.element.isRequired,
-    mapState: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.string,
-    ]),
-    namespace: PropTypes.string,
-    subspaceDecorator: PropTypes.func,
-}
-
-SubspaceProvider.contextTypes = {
-    store: PropTypes.object.isRequired
-}
-
-SubspaceProvider.childContextTypes = {
-    store: PropTypes.object
+  children: PropTypes.element.isRequired,
+  mapState: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  namespace: PropTypes.string,
+  subspaceDecorator: PropTypes.func
 }
 
 export default SubspaceProvider

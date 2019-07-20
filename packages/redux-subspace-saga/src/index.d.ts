@@ -7,7 +7,7 @@
  */
 
 import * as Redux from 'redux';
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, { Saga } from 'redux-saga'
 import { MapState } from 'redux-subspace'
 
 type Saga0 = () => Iterator<any>;
@@ -23,16 +23,10 @@ type Saga6Rest<T1, T2, T3, T4, T5, T6> =
    ...rest: any[]) => Iterator<any>;
 
 export interface SagaDecorator {
-    (saga: Saga0): Saga0;
-    <T1>(saga: Saga1<T1>): Saga1<T1>;
-    <T1, T2>(saga: Saga2<T1, T2>): Saga2<T1, T2>;
-    <T1, T2, T3>(saga: Saga3<T1, T2, T3>): Saga3<T1, T2, T3>;
-    <T1, T2, T3, T4>(saga: Saga4<T1, T2, T3, T4>): Saga4<T1, T2, T3, T4>;
-    <T1, T2, T3, T4, T5>(saga: Saga5<T1, T2, T3, T4, T5>): Saga5<T1, T2, T3, T4, T5>;
-    <T1, T2, T3, T4, T5, T6>(saga: Saga6Rest<T1, T2, T3, T4, T5, T6>): Saga6Rest<T1, T2, T3, T4, T5, T6>;
+  <S extends Saga>(...args: Parameters<S>): Saga<Parameters<S>>
 }
 
-export function provideStore(store: Redux.Store<any>): SagaDecorator;
+export function provideStore<S extends Saga>(store: Redux.Store<any>): SagaDecorator
 
 export interface Subspaced {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>): SagaDecorator;
