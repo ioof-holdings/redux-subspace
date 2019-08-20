@@ -28,7 +28,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "browserslist": [
     ">0.2%",

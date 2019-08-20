@@ -15,13 +15,6 @@ import SubspaceProvider from '../../src/components/SubspaceProvider'
 import ParentSpaceProvider from '../../src/components/ParentSpaceProvider'
 
 describe('ParentSpaceProvider Tests', () => {
-    const testAction = () => ({ type: "ACTION" })
-    const TestComponent = connect(
-        ({ value }) => ({ value }),
-        { testAction }
-    )(
-        ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
-    )
 
     it('should render child component outside of its containing subspace', () => {
         let state = {
@@ -32,6 +25,14 @@ describe('ParentSpaceProvider Tests', () => {
         }
 
         let mockStore = configureStore()(state)
+
+        const testAction = () => ({ type: "ACTION" })
+        const TestComponent = connect(
+            ({ value }) => ({ value }),
+            { testAction }
+        )(
+            ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
+        )
 
         let testComponent = mount(
             <Provider store={mockStore}>
@@ -57,11 +58,137 @@ describe('ParentSpaceProvider Tests', () => {
 
         let mockStore = configureStore()(state)
 
+        const testAction = () => ({ type: "ACTION" })
+        const TestComponent = connect(
+            ({ value }) => ({ value }),
+            { testAction }
+        )(
+            ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
+        )
+
         let testComponent = mount(
             <Provider store={mockStore}>
                 <ParentSpaceProvider>
                     <TestComponent prop="expected2" />
                 </ParentSpaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected1 - expected2")
+        testComponent.find("#act").simulate("click");
+
+        const actions = mockStore.getActions()
+        expect(actions).to.deep.equal([{ type: "ACTION" }])
+    })
+
+    it('should use custom context', () => {
+        let state = {
+            subState: {
+                value: "wrong"
+            },
+            value: "expected1"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const testAction = () => ({ type: "ACTION" })
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            ({ value }) => ({ value }),
+            { testAction },
+            null,
+            { context: CustomContext }
+        )(
+            ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
+        )
+
+        let testComponent = mount(
+            <Provider store={mockStore} context={CustomContext}>
+                <SubspaceProvider mapState={(state) => state.subState} namespace="PLSNO" context={CustomContext}>
+                    <ParentSpaceProvider context={CustomContext}>
+                        <TestComponent prop="expected2" />
+                    </ParentSpaceProvider>
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected1 - expected2")
+        testComponent.find("#act").simulate("click");
+
+        const actions = mockStore.getActions()
+        expect(actions).to.deep.equal([{ type: "ACTION" }])
+    })
+
+    it('should use custom parent context', () => {
+        let state = {
+            subState: {
+                value: "wrong"
+            },
+            value: "expected1"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const testAction = () => ({ type: "ACTION" })
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            ({ value }) => ({ value }),
+            { testAction }
+        )(
+            ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
+        )
+
+        let testComponent = mount(
+            <Provider store={mockStore} context={CustomContext}>
+                <SubspaceProvider mapState={(state) => state.subState} namespace="PLSNO" context={CustomContext}>
+                    <ParentSpaceProvider context={{ parent: CustomContext }}>
+                        <TestComponent prop="expected2" />
+                    </ParentSpaceProvider>
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected1 - expected2")
+        testComponent.find("#act").simulate("click");
+
+        const actions = mockStore.getActions()
+        expect(actions).to.deep.equal([{ type: "ACTION" }])
+    })
+
+    it('should use custom child context', () => {
+        let state = {
+            subState: {
+                value: "wrong"
+            },
+            value: "expected1"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const testAction = () => ({ type: "ACTION" })
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            ({ value }) => ({ value }),
+            { testAction },
+            null,
+            { context: CustomContext }
+        )(
+            ({ value, prop, testAction }) => <p>{value} - {prop}<a onClick={testAction} id="act" /></p>
+        )
+
+        let testComponent = mount(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState={(state) => state.subState} namespace="PLSNO">
+                    <ParentSpaceProvider context={{ child: CustomContext}}>
+                        <TestComponent prop="expected2" />
+                    </ParentSpaceProvider>
+                </SubspaceProvider>
             </Provider>
         )
 

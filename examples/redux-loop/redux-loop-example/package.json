@@ -20,7 +20,7 @@
   },
   "scripts": {
     "prestart": "npm-link-shared ./node_modules/redux-subspace-loop/node_modules . redux-loop",
-    "start": "react-scripts start"
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "browserslist": [
     ">0.2%",

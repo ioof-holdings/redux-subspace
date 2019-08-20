@@ -15,7 +15,7 @@ const Routes = () => (
               <RepoPage {...props} />
             </SubspaceProvider>
           )} />
-          <Route path="/:login" render={props => console.log(props) || (
+          <Route path="/:login" render={props => (
             <SubspaceProvider mapState={(state) => state.userPage} namespace="userPage">
               <UserPage {...props} />
             </SubspaceProvider>

@@ -6,6 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { namespacedAction } from '../../../src'
+import * as React from 'react'
+import { useParentSpace } from '../../../src'
 
-const action = namespacedAction('test')({ type: 'TEST_ACTION' })
+const parentSpace = useParentSpace()
+
+const parentSpaceWithContextOverride = useParentSpace({ context: React.createContext(null) })

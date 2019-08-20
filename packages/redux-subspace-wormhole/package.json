@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-wormhole",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Create isolated subspaces of a Redux store",
   "author": "Michael Peyper",
   "contributors": [
@@ -22,7 +22,7 @@
     "build": "rollup -c",
     "lint": "eslint . --ext .js --ext .jsx",
     "lint:fix": "eslint . --ext .js --ext .jsx --fix",
-    "test": "cross-env NODE_ENV=test nyc mocha --recursive --require @babel/register --require ./test/setup.js",
+    "test": "cross-env NODE_ENV=test nyc mocha --recursive --require @babel/register --require ./test/setup.js $(find test -name '*-spec.js')",
     "test:watch": "npm test -- --watch",
     "prepublish": "npm run build"
   },
