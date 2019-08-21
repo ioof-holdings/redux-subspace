@@ -28,9 +28,9 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer)
 
-const todoStore = subspace((state) => state.todo)
-const counter1Store = subspace((state) => state.counter1, 'counter1')
-const counter2Store = subspace((state) => state.counter2, 'counter2')
+const todoStore = subspace((state) => state.todo)(store)
+const counter1Store = subspace((state) => state.counter1, 'counter1')(store)
+const counter2Store = subspace((state) => state.counter2, 'counter2')(store)
 
 todoStore.dispatch(addTodo('Use redux-subspace!'))
 const todoState = todoStore.getState()
