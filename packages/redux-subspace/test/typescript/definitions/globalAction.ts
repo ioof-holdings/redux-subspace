@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Action } from 'redux'
 import { globalAction } from '../../../src'
 
 const action = globalAction({ type: 'TEST_ACTION' })

@@ -6,41 +6,45 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Children } from 'react'
-import PropTypes from 'prop-types'
-import { subspace }  from 'redux-subspace'
+import React, { useContext, useMemo } from "react"
+import PropTypes from "prop-types"
+import { ReactReduxContext } from "react-redux"
+import { useSubspaceAdvanced } from "../hooks/useSubspace"
+import useReplacedContext from "../hooks/useReplacedContext"
 
-class SubspaceProvider extends React.PureComponent {
+const SubspaceProvider = ({
+  mapState,
+  namespace,
+  subspaceDecorator,
+  context = ReactReduxContext,
+  children
+}) => {
+  const {
+    parent: ParentContext = context.Consumer ? context : ReactReduxContext,
+    child: ChildContext = context.Consumer ? context : ReactReduxContext
+  } = context
 
-    getChildContext() {
-        const makeSubspaceDecorator = (props) => props.subspaceDecorator || subspace(props.mapState, props.namespace)
+  const subspacedStore = useSubspaceAdvanced(
+    mapState,
+    namespace,
+    subspaceDecorator,
+    { context: ParentContext }
+  )
 
-        return { 
-            store: makeSubspaceDecorator(this.props)(this.context.store) 
-        }
-    }
+  const childContext = useReplacedContext(ChildContext, subspacedStore)
 
-    render() {
-        return Children.only(this.props.children)
-    }
+  return (
+    <ChildContext.Provider value={childContext}>
+      {children}
+    </ChildContext.Provider>
+  )
 }
 
 SubspaceProvider.propTypes = {
-    children: PropTypes.element.isRequired,
-    mapState: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.string,
-    ]),
-    namespace: PropTypes.string,
-    subspaceDecorator: PropTypes.func,
-}
-
-SubspaceProvider.contextTypes = {
-    store: PropTypes.object.isRequired
-}
-
-SubspaceProvider.childContextTypes = {
-    store: PropTypes.object
+  children: PropTypes.element.isRequired,
+  mapState: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  namespace: PropTypes.string,
+  subspaceDecorator: PropTypes.func
 }
 
 export default SubspaceProvider

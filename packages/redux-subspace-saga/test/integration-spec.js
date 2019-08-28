@@ -17,7 +17,6 @@ describe('integration tests', () => {
     const TEST_ACTION_TRIGGER = 'TEST_ACTION_TRIGGER'
     const TEST_THUNK_ACTION_TRIGGER = 'TEST_THUNK_ACTION_TRIGGER'
     const TEST_ACTION = 'TEST_ACTION'
-    const TEST_THUNK_ACTION = 'TEST_THUNK_ACTION'
 
     const childReducer = (state = 'initial value', action) => action.type === TEST_ACTION ? action.value : state
     const parentReducer = combineReducers({ child1: childReducer, child2: namespaced('childNamespace')(childReducer) })
