@@ -10,16 +10,6 @@ import { Cmd, loop, getCmd } from 'redux-loop'
 import { namespacedAction } from 'redux-subspace'
 import namespaced from '../src/namespaced'
 
-function suppressLoopWarnings() {
-    const consoleWarn = console.warn.bind(console)
-    before(() => {
-        global.console.warn = () => {}
-    })
-    after(() => {
-        global.console.warn = consoleWarn
-    })
-}
-
 describe('namespaced', () => {
 
     const TEST_ACTION_TRIGGER = 'TEST_ACTION_TRIGGER'
@@ -143,39 +133,5 @@ describe('namespaced', () => {
         expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
         expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
         expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
-    })
-
-    describe('redux-loop v3', () => {
-        suppressLoopWarnings()
-
-        it('should handle BATCH command type', () => {
-            const actionNamespacer = namespacedAction('test')
-            const namespacedReducer = namespaced('test')(commandsReducer)
-
-            const result = getCmd(namespacedReducer(undefined, {
-                type: 'BATCH'
-            }))
-
-            const [runEffect, actionEffect] = result.cmds
-
-            expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-            expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-            expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
-        })
-
-        it('should handle SEQUENCE command type', () => {
-            const actionNamespacer = namespacedAction('test')
-            const namespacedReducer = namespaced('test')(commandsReducer)
-
-            const result = getCmd(namespacedReducer(undefined, {
-                type: 'SEQUENCE'
-            }))
-
-            const [runEffect, actionEffect] = result.cmds
-
-            expect(runEffect.successActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-            expect(runEffect.failActionCreator()).to.deep.equal(actionNamespacer(createEffectAction()))
-            expect(actionEffect.actionToDispatch).to.deep.equal(actionNamespacer(COMMAND_ACTION))
-        })
     })
 })

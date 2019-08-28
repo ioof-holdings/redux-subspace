@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { createStore, Store, Middleware } from 'redux'
+import { Middleware } from 'redux'
 import { applyMiddleware, SubspaceMiddleware } from '../../../src'
 
 const reduxMiddleware: Middleware = (store) => (next) => (action) => next(action)

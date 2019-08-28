@@ -6,33 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { runSaga } from 'redux-saga'
+import { runSaga, stdChannel } from 'redux-saga'
 import { getContext, takeEvery } from 'redux-saga/effects'
 import { subspace } from 'redux-subspace'
 import provideStore from './provideStore'
-
-const emitter = () => {
-  const subscribers = []
-
-  function subscribe(sub) {
-    subscribers.push(sub)
-    return () => {
-      subscribers.splice(subscribers.indexOf(sub), 1)
-    }
-  }
-
-  function emit(item) {
-    const arr = subscribers.slice()
-    for (var i = 0, len = arr.length; i < len; i++) {
-      arr[i](item)
-    }
-  }
-
-  return {
-    subscribe,
-    emit
-  }
-}
 
 const subspaced = (mapState, namespace) => {
   const subspaceDecorator = subspace(mapState, namespace)
@@ -42,18 +19,18 @@ const subspaced = (mapState, namespace) => {
       const parentStore = yield getContext('store')
       const sagaMiddlewareOptions = yield getContext('sagaMiddlewareOptions')
 
-      const sagaEmitter = emitter()
+      const channel = stdChannel()
 
       const store = {
         ...sagaMiddlewareOptions,
         ...subspaceDecorator(parentStore),
-        subscribe: sagaEmitter.subscribe
+        channel
       }
 
       runSaga(store, provideStore(store, sagaMiddlewareOptions)(saga), ...args)
 
       yield takeEvery('*', function*(action) {
-        store.processAction(action, sagaEmitter.emit)
+        store.processAction(action, channel.put)
         yield
       })
     }

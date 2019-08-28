@@ -14,8 +14,6 @@ import { render } from 'enzyme'
 import SubspaceProvider from '../../src/components/SubspaceProvider'
 
 describe('SubspaceProvider Tests', () => {
-
-    const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
     
     it('should render child component with substate', () => {
         let state = {
@@ -26,6 +24,8 @@ describe('SubspaceProvider Tests', () => {
         }
 
         let mockStore = configureStore()(state)
+
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
 
         let testComponent = render(
             <Provider store={mockStore}>
@@ -48,6 +48,8 @@ describe('SubspaceProvider Tests', () => {
 
         let mockStore = configureStore()(state)
 
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
+
         let testComponent = render(
             <Provider store={mockStore}>
                 <SubspaceProvider mapState="subState">
@@ -68,6 +70,8 @@ describe('SubspaceProvider Tests', () => {
         }
 
         let mockStore = configureStore()(state)
+
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
 
         let testComponent = render(
             <Provider store={mockStore}>
@@ -93,6 +97,8 @@ describe('SubspaceProvider Tests', () => {
 
         let mockStore = configureStore()(state)
 
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
+
         let testComponent = render(
             <Provider store={mockStore}>
                 <SubspaceProvider mapState={state => state.subState}>
@@ -115,6 +121,8 @@ describe('SubspaceProvider Tests', () => {
         }
 
         let mockStore = configureStore()(state)
+
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
 
         let testComponent = render(
             <Provider store={mockStore}>
@@ -140,6 +148,8 @@ describe('SubspaceProvider Tests', () => {
 
         let mockStore = configureStore()(state)
 
+        const TestComponent = connect(state => { return { value: state.value } })(props => <p>{props.value}</p>)
+
         let testComponent = render(
             <Provider store={mockStore}>
                 <SubspaceProvider mapState={(state) => state.subState}>
@@ -151,5 +161,98 @@ describe('SubspaceProvider Tests', () => {
         )
 
         expect(testComponent.text()).to.equal("expected 1 - expected 2")
+    })
+    
+    it('should render child component with custom context', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            state => { 
+                return { value: state.value }
+            },
+            null,
+            null,
+            { context: CustomContext }
+        )(props => <p>{props.value}</p>)
+
+        let testComponent = render(
+            <Provider store={mockStore} context={CustomContext}>
+                <SubspaceProvider mapState={state => state.subState} context={CustomContext}>
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
+    })
+    
+    it('should render child component with custom parent context', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            state => { 
+                return { value: state.value }
+            }
+        )(props => <p>{props.value}</p>)
+
+        let testComponent = render(
+            <Provider store={mockStore} context={CustomContext}>
+                <SubspaceProvider mapState={state => state.subState} context={{ parent: CustomContext}}>
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
+    })
+    
+    it('should render child component with custom child context', () => {
+        let state = {
+            subState: {
+                value: "expected"
+            },
+            value: "wrong"
+        }
+
+        let mockStore = configureStore()(state)
+
+        const CustomContext = React.createContext(null)
+
+        const TestComponent = connect(
+            state => { 
+                return { value: state.value }
+            },
+            null,
+            null,
+            { context: CustomContext }
+        )(props => <p>{props.value}</p>)
+
+        let testComponent = render(
+            <Provider store={mockStore}>
+                <SubspaceProvider mapState={state => state.subState} context={{ child: CustomContext }}>
+                    <TestComponent />
+                </SubspaceProvider>
+            </Provider>
+        )
+
+        expect(testComponent.text()).to.equal("expected")
     })
 })

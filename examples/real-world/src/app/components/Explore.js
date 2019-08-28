@@ -10,9 +10,9 @@ export default class Explore extends Component {
     githubRepo: PropTypes.string.isRequired
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setInputValue(nextProps.value)
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setInputValue(this.props.value)
     }
   }
 

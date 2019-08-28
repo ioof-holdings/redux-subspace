@@ -6,33 +6,33 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Children } from 'react'
-import PropTypes from 'prop-types'
-import { parentSpace }  from 'redux-subspace'
+import React from "react"
+import PropTypes from "prop-types"
+import { ReactReduxContext } from "react-redux"
+import useParentSpace from "../hooks/useParentSpace"
+import useReplacedContext from "../hooks/useReplacedContext"
 
-class ParentSpaceProvider extends React.PureComponent {
+const ParentSpaceProvider = ({
+  context = ReactReduxContext,
+  children
+}) => {
+  const {
+    parent: ParentContext = context.Consumer ? context : ReactReduxContext,
+    child: ChildContext = context.Consumer ? context : ReactReduxContext
+  } = context
 
-    getChildContext() {
-        return { 
-            store: parentSpace(this.context.store) 
-        }
-    }
-
-    render() {
-        return Children.only(this.props.children)
-    }
+  const parentStore = useParentSpace({ context: ParentContext })
+  const childContext = useReplacedContext(ChildContext, parentStore)
+  
+  return (
+    <ChildContext.Provider value={childContext}>
+      {children}
+    </ChildContext.Provider>
+  )
 }
 
 ParentSpaceProvider.propTypes = {
-    children: PropTypes.element.isRequired,
-}
-
-ParentSpaceProvider.contextTypes = {
-    store: PropTypes.object.isRequired
-}
-
-ParentSpaceProvider.childContextTypes = {
-    store: PropTypes.object
+  children: PropTypes.element.isRequired
 }
 
 export default ParentSpaceProvider

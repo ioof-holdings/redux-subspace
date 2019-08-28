@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Action } from 'redux'
 import { namespacedAction } from '../../../src'
 
 const action = namespacedAction('test')({ type: 'TEST_ACTION' })

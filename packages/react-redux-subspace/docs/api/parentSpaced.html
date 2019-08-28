@@ -59,7 +59,7 @@
     <link rel="shortcut icon" href="../../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../../../redux-subspace-loop/" />
+    <link rel="next" href="useSubspace.html" />
     
     
     <link rel="prev" href="subspaced.html" />
@@ -682,6 +682,32 @@
             
         </li>
     
+        <li class="chapter " data-level="3.4.5" data-path="useSubspace.html">
+            
+                <a href="useSubspace.html">
+            
+                    
+                    useSubspace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.6" data-path="useParentSpace.html">
+            
+                <a href="useParentSpace.html">
+            
+                    
+                    useParentSpace
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1087,15 +1113,39 @@
 <p>A <a href="https://facebook.github.io/react/docs/higher-order-components.html" target="_blank">higher-order React component</a> that wraps a component in a <a href="ParentSpaceProvider.html"><code>ParentSpaceProvider</code></a>.</p>
 <h2 id="arguments">Arguments</h2>
 <ol>
-<li><code>component</code> (<em>ReactComponent</em>): A component which belongs to the parent space</li>
+<li><code>options</code> (<em>Object</em>): An optional object to supply the following options:<ul>
+<li><code>context</code> (<em>React.Context|Object</em>): Override the React Context used for accessing the store. An object can be passed with separate <code>parent</code> and <code>child</code> contexts if required.</li>
+</ul>
+</li>
 </ol>
 <h2 id="returns">Returns</h2>
-<p>(<em>Function</em>): <code>component</code> wrapped in a <code>ParentSpaceProvider</code>.</p>
+<p>(<em>Function</em>): A function that takes a React Component and returns it wrapped in a <code>ParentSpaceProvider</code>.</p>
 <h2 id="examples">Examples</h2>
-<pre class="language-"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> parentSpaced <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react-redux-subspace&apos;</span>
-<span class="token keyword">import</span> AComponent <span class="token keyword">from</span> <span class="token string">&apos;somewhere&apos;</span>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> parentSpaced <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-redux-subspace&quot;</span>
+<span class="token keyword">import</span> AComponent <span class="token keyword">from</span> <span class="token string">&quot;somewhere&quot;</span>
 
-<span class="token keyword">const</span> UnsubspacedComponent <span class="token operator">=</span>  <span class="token function">parentSpaced</span><span class="token punctuation">(</span>AComponent<span class="token punctuation">)</span>
+<span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">parentSpaced</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span>AComponent<span class="token punctuation">)</span>
+</code></pre>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> parentSpaced <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-redux-subspace&quot;</span>
+<span class="token keyword">import</span> AComponent <span class="token keyword">from</span> <span class="token string">&quot;somewhere&quot;</span>
+
+<span class="token keyword">const</span> CustomReduxContext <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">parentSpaced</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  context<span class="token punctuation">:</span> CustomReduxContext
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>AComponent<span class="token punctuation">)</span>
+</code></pre>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&apos;react&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> parentSpaced <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-redux-subspace&quot;</span>
+<span class="token keyword">import</span> AComponent <span class="token keyword">from</span> <span class="token string">&quot;somewhere&quot;</span>
+
+<span class="token keyword">const</span> CustomParentContext <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> CustomChildContext <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">parentSpaced</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  context<span class="token punctuation">:</span> <span class="token punctuation">{</span> parent<span class="token punctuation">:</span> CustomParentContext<span class="token punctuation">,</span> child<span class="token punctuation">:</span> CustomChildContext <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>AComponent<span class="token punctuation">)</span>
 </code></pre>
 
                                 
@@ -1129,7 +1179,7 @@
                 </a>
                 
                 
-                <a href="../../../redux-subspace-loop/" class="navigation navigation-next " aria-label="Next page: Read Me">
+                <a href="useSubspace.html" class="navigation navigation-next " aria-label="Next page: useSubspace">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1140,7 +1190,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"parentSpaced","level":"3.4.4","depth":2,"next":{"title":"Read Me","level":"4.1","depth":1,"path":"packages/redux-subspace-loop/README.md","ref":"packages/redux-subspace-loop/README.md","articles":[]},"previous":{"title":"subspaced","level":"3.4.3","depth":2,"path":"packages/react-redux-subspace/docs/api/subspaced.md","ref":"packages/react-redux-subspace/docs/api/subspaced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/react-redux-subspace/docs/api/parentSpaced.md","mtime":"2019-06-16T04:29:50.688Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-06-16T04:36:40.012Z"},"basePath":"../../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"parentSpaced","level":"3.4.4","depth":2,"next":{"title":"useSubspace","level":"3.4.5","depth":2,"path":"packages/react-redux-subspace/docs/api/useSubspace.md","ref":"packages/react-redux-subspace/docs/api/useSubspace.md","articles":[]},"previous":{"title":"subspaced","level":"3.4.3","depth":2,"path":"packages/react-redux-subspace/docs/api/subspaced.md","ref":"packages/react-redux-subspace/docs/api/subspaced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/react-redux-subspace/docs/api/parentSpaced.md","mtime":"2019-08-28T11:17:21.253Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-08-28T11:30:08.777Z"},"basePath":"../../../..","book":{"language":""}});
         });
     </script>
 </div>

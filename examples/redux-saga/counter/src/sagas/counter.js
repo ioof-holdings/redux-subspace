@@ -1,8 +1,7 @@
-import { put, call, takeEvery } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { put, takeEvery, delay } from 'redux-saga/effects'
 
 function* incrementAsync() {
-  yield call(delay, 1000)
+  yield delay(1000)
   yield put({type: 'INCREMENT'})
 }
 

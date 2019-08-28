@@ -682,6 +682,32 @@
             
         </li>
     
+        <li class="chapter " data-level="3.4.5" data-path="../../../packages/react-redux-subspace/docs/api/useSubspace.html">
+            
+                <a href="../../../packages/react-redux-subspace/docs/api/useSubspace.html">
+            
+                    
+                    useSubspace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.6" data-path="../../../packages/react-redux-subspace/docs/api/useParentSpace.html">
+            
+                <a href="../../../packages/react-redux-subspace/docs/api/useParentSpace.html">
+            
+                    
+                    useParentSpace
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1092,23 +1118,23 @@
 </code></pre>
 <p>The only difference is that you have to import the <code>namespaced</code> function from the <a href="https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop" target="_blank"><code>redux-subspace-loop</code> package</a> instead of using the default one from redux-subspace. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.</p>
 <pre class="language-"><code class="lang-diff">import { createStore, combineReducers } from &apos;redux&apos;
-<span class="token deleted">- import { subspace, namespaced } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+ import { subspace } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+ import { namespaced } from &apos;redux-subspace-loop&apos;</span>
-
+<span class="token deleted-sign deleted">- import { subspace, namespaced } from &apos;redux-subspace&apos;
+</span><span class="token inserted-sign inserted">+ import { subspace } from &apos;redux-subspace&apos;
++ import { namespaced } from &apos;redux-subspace-loop&apos;
+</span>
 const counter = (state = { value: 1 }, action) =&gt; {
-    switch (action.type) {
+<span class="token unchanged">    switch (action.type) {
         case &apos;INCREMENT&apos;:
             return { ...state, value: state.value + 1 }
         default:
             return state
     }
-}
+</span>}
 
 const reducer = combineReducers({
-    subApp1: namespaced(&apos;subApp1&apos;)(counter),
+<span class="token unchanged">    subApp1: namespaced(&apos;subApp1&apos;)(counter),
     subApp2: namespaced(&apos;subApp2&apos;)(counter)
-})
+</span>})
 
 const store = createStore(reducer)
 </code></pre>
@@ -1156,7 +1182,7 @@ const store = createStore(reducer)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"redux-loop","level":"1.4.5.1","depth":3,"next":{"title":"Examples","level":"1.5","depth":1,"path":"docs/Examples.md","ref":"docs/Examples.md","articles":[]},"previous":{"title":"Enhancers","level":"1.4.5","depth":2,"path":"docs/advanced/enhancers/README.md","ref":"docs/advanced/enhancers/README.md","articles":[{"title":"redux-loop","level":"1.4.5.1","depth":3,"path":"docs/advanced/enhancers/redux-loop.md","ref":"docs/advanced/enhancers/redux-loop.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"docs/advanced/enhancers/redux-loop.md","mtime":"2019-06-16T04:29:50.526Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-06-16T04:36:40.012Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"redux-loop","level":"1.4.5.1","depth":3,"next":{"title":"Examples","level":"1.5","depth":1,"path":"docs/Examples.md","ref":"docs/Examples.md","articles":[]},"previous":{"title":"Enhancers","level":"1.4.5","depth":2,"path":"docs/advanced/enhancers/README.md","ref":"docs/advanced/enhancers/README.md","articles":[{"title":"redux-loop","level":"1.4.5.1","depth":3,"path":"docs/advanced/enhancers/redux-loop.md","ref":"docs/advanced/enhancers/redux-loop.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"docs/advanced/enhancers/redux-loop.md","mtime":"2019-06-16T04:29:50.526Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-08-28T11:30:08.777Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

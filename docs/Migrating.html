@@ -682,6 +682,32 @@
             
         </li>
     
+        <li class="chapter " data-level="3.4.5" data-path="../packages/react-redux-subspace/docs/api/useSubspace.html">
+            
+                <a href="../packages/react-redux-subspace/docs/api/useSubspace.html">
+            
+                    
+                    useSubspace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.6" data-path="../packages/react-redux-subspace/docs/api/useParentSpace.html">
+            
+                <a href="../packages/react-redux-subspace/docs/api/useParentSpace.html">
+            
+                    
+                    useParentSpace
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1092,31 +1118,31 @@
 <pre class="language-"><code class="lang-sh"><span class="token function">npm</span> i -S react-redux-subspace
 </code></pre>
 <h3 id="subspaceprovider"><code>SubspaceProvider</code></h3>
-<pre class="language-"><code class="lang-diff"><span class="token deleted">-import { SubspaceProvider } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+import { SubspaceProvider } from &apos;react-redux-subspace&apos;</span>
-</code></pre>
+<pre class="language-"><code class="lang-diff"><span class="token deleted-sign deleted">-import { SubspaceProvider } from &apos;redux-subspace&apos;
+</span><span class="token inserted-sign inserted">+import { SubspaceProvider } from &apos;react-redux-subspace&apos;
+</span></code></pre>
 <h3 id="subspaced"><code>subspaced</code></h3>
-<pre class="language-"><code class="lang-diff"><span class="token deleted">-import { subspaced } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+import { subspaced } from &apos;react-redux-subspace&apos;</span>
-</code></pre>
+<pre class="language-"><code class="lang-diff"><span class="token deleted-sign deleted">-import { subspaced } from &apos;redux-subspace&apos;
+</span><span class="token inserted-sign inserted">+import { subspaced } from &apos;react-redux-subspace&apos;
+</span></code></pre>
 <h2 id="namespaced-reducers">Namespaced Reducers</h2>
 <p>The <code>namespaced</code> higher-order reducer has had it&apos;s signature changed to be more composable with other higher-order reducers:</p>
 <pre class="language-"><code class="lang-diff">import { combineReducers } from &apos;redux&apos;
 import { namespaced } from &apos;redux-subspace&apos;
 
 const reducer = combineReducers({
-<span class="token deleted">-  myReducer: namespaced(myReducer, &apos;myNamespace&apos;)</span>
-<span class="token inserted">+  myReducer: namespaced(&apos;myNamespace&apos;)(myReducer)</span>
-})
+<span class="token deleted-sign deleted">-  myReducer: namespaced(myReducer, &apos;myNamespace&apos;)
+</span><span class="token inserted-sign inserted">+  myReducer: namespaced(&apos;myNamespace&apos;)(myReducer)
+</span>})
 </code></pre>
 <h2 id="redux-thunk"><code>redux-thunk</code></h2>
 <p>In version 1, <code>redux-thunk</code> was implicilty supported as a hard-coded behaviour.  With the introduction of a middleware pipeline to redux-subspace, <code>redux-thunk</code> must now be applied as middleware to the store.</p>
 <p>Assuming you already had <code>redux-thunk</code> installed and applied to your root store, you only need change it to apply the middleware to subspaces as well.</p>
 <p>To apply the middleware to subspaces, an alternative <code>applyMiddleware</code> function is provided by <code>redux-subspace</code>:</p>
-<pre class="language-"><code class="lang-diff"><span class="token deleted">-import { createStore, applyMiddleware } from &apos;redux&apos;</span>
-<span class="token inserted">+import { createStore } from &apos;redux&apos;</span>
-<span class="token inserted">+import { applyMiddleware } from &apos;redux-subspace&apos;</span>
-import thunk from &apos;redux-thunk&apos;
+<pre class="language-"><code class="lang-diff"><span class="token deleted-sign deleted">-import { createStore, applyMiddleware } from &apos;redux&apos;
+</span><span class="token inserted-sign inserted">+import { createStore } from &apos;redux&apos;
++import { applyMiddleware } from &apos;redux-subspace&apos;
+</span>import thunk from &apos;redux-thunk&apos;
 
 const store = createStore(reducer, applyMiddleware(thunk))
 </code></pre>
@@ -1128,30 +1154,30 @@ const store = createStore(reducer, applyMiddleware(thunk))
 </code></pre>
 <p>Then we must apply the middleware to the subspaces using <code>applyMiddleware</code> provided be <code>redux-subspace</code>:</p>
 <pre class="language-"><code class="lang-diff">import { createStore } from &apos;redux&apos;
-<span class="token inserted">+import { applyMiddleware } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+import wormhole from &apos;redux-subspace-wormhole&apos;</span>
-
-<span class="token deleted">-const store = createStore(reducer)</span>
-<span class="token inserted">+const store = createStore(reducer, applyMiddleware(wormhole((state) =&gt; state, &apos;root&apos;)))</span>
-</code></pre>
+<span class="token inserted-sign inserted">+import { applyMiddleware } from &apos;redux-subspace&apos;
++import wormhole from &apos;redux-subspace-wormhole&apos;
+</span>
+<span class="token deleted-sign deleted">-const store = createStore(reducer)
+</span><span class="token inserted-sign inserted">+const store = createStore(reducer, applyMiddleware(wormhole((state) =&gt; state, &apos;root&apos;)))
+</span></code></pre>
 <h2 id="global-actions">Global Actions</h2>
 <p>The <code>GlobalActions.register</code> function has been replaced by a <code>globalActions</code> middleware:</p>
 <pre class="language-"><code class="lang-diff">import { createStore } from &apos;redux&apos;
-<span class="token deleted">-import { GlobalActions } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+import { applyMiddleware, globalActions } from &apos;redux-subspace&apos;</span>
-
-<span class="token deleted">-GlobalActions.register(&apos;GLOBAL_ACTION&apos;)</span>
-
-<span class="token deleted">-const store = createStore(reducer)</span>
-<span class="token inserted">+const store = createStore(reducer, applyMiddleware(globalActions(&apos;GLOBAL_ACTION&apos;)))</span>
-</code></pre>
+<span class="token deleted-sign deleted">-import { GlobalActions } from &apos;redux-subspace&apos;
+</span><span class="token inserted-sign inserted">+import { applyMiddleware, globalActions } from &apos;redux-subspace&apos;
+</span>
+<span class="token deleted-sign deleted">-GlobalActions.register(&apos;GLOBAL_ACTION&apos;)
+</span>
+<span class="token deleted-sign deleted">-const store = createStore(reducer)
+</span><span class="token inserted-sign inserted">+const store = createStore(reducer, applyMiddleware(globalActions(&apos;GLOBAL_ACTION&apos;)))
+</span></code></pre>
 <p>The <code>asGlobal</code> action wrapper has also been renamed to <code>globalAction</code> to be more consistent with the new action wrappers:</p>
-<pre class="language-"><code class="lang-diff"><span class="token deleted">-import { asGlobal } from &apos;redux-subspace&apos;</span>
-<span class="token inserted">+import { globalAction } from &apos;redux-subspace&apos;</span>
-
-<span class="token deleted">-store.dispatch(asGlobal({ type: &apos;GLOBAL_ACTION&apos; }))</span>
-<span class="token inserted">+store.dispatch(globalAction({ type: &apos;GLOBAL_ACTION&apos; }))</span>
-</code></pre>
+<pre class="language-"><code class="lang-diff"><span class="token deleted-sign deleted">-import { asGlobal } from &apos;redux-subspace&apos;
+</span><span class="token inserted-sign inserted">+import { globalAction } from &apos;redux-subspace&apos;
+</span>
+<span class="token deleted-sign deleted">-store.dispatch(asGlobal({ type: &apos;GLOBAL_ACTION&apos; }))
+</span><span class="token inserted-sign inserted">+store.dispatch(globalAction({ type: &apos;GLOBAL_ACTION&apos; }))
+</span></code></pre>
 
                                 
                                 </section>
@@ -1195,7 +1221,7 @@ const store = createStore(reducer, applyMiddleware(thunk))
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Migrating from v1 to v2","level":"1.6","depth":1,"next":{"title":"Read Me","level":"2.1","depth":1,"path":"packages/redux-subspace/README.md","ref":"packages/redux-subspace/README.md","articles":[]},"previous":{"title":"Examples","level":"1.5","depth":1,"path":"docs/Examples.md","ref":"docs/Examples.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"docs/Migrating.md","mtime":"2019-06-16T04:29:50.524Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-06-16T04:36:40.012Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Migrating from v1 to v2","level":"1.6","depth":1,"next":{"title":"Read Me","level":"2.1","depth":1,"path":"packages/redux-subspace/README.md","ref":"packages/redux-subspace/README.md","articles":[]},"previous":{"title":"Examples","level":"1.5","depth":1,"path":"docs/Examples.md","ref":"docs/Examples.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"docs/Migrating.md","mtime":"2019-06-16T04:29:50.524Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-08-28T11:30:08.777Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

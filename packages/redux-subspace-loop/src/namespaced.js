@@ -28,7 +28,7 @@ const namespacedCommand = (namespace) => {
             }
         }
 
-        if (cmd.type === "LIST" || cmd.type === "BATCH" || cmd.type === "SEQUENCE") {
+        if (cmd.type === "LIST") {
             return {
                 ...cmd,
                 cmds: cmd.cmds.map(namespaceCommand)
