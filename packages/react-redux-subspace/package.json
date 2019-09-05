@@ -69,6 +69,7 @@
     "react-test-renderer": "^16.8.6",
     "redux": "^4.0.4",
     "redux-mock-store": "^1.5.3",
+    "rimraf": "^2.6.3",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
     "sinon": "^7.3.2",

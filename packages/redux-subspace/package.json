@@ -51,6 +51,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
+    "rimraf": "^2.6.3",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
     "sinon": "^7.3.2",
