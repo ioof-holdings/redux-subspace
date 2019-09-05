@@ -8,9 +8,8 @@
 
 import React, { useContext, useMemo } from "react"
 import PropTypes from "prop-types"
-import { ReactReduxContext } from "react-redux"
+import { ReactReduxContext, Provider } from "react-redux"
 import { useSubspaceAdvanced } from "../hooks/useSubspace"
-import useReplacedContext from "../hooks/useReplacedContext"
 
 const SubspaceProvider = ({
   mapState,
@@ -31,12 +30,10 @@ const SubspaceProvider = ({
     { context: ParentContext }
   )
 
-  const childContext = useReplacedContext(ChildContext, subspacedStore)
-
   return (
-    <ChildContext.Provider value={childContext}>
+    <Provider store={subspacedStore} context={ChildContext}>
       {children}
-    </ChildContext.Provider>
+    </Provider>
   )
 }
 
