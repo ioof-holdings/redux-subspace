@@ -32,7 +32,11 @@ const ParentSpaceProvider = ({
 }
 
 ParentSpaceProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  context: PropTypes.oneOfType([
+    PropTypes.shape({ parent: PropTypes.object, child: PropTypes.object }),
+    PropTypes.object
+  ])
 }
 
 export default ParentSpaceProvider

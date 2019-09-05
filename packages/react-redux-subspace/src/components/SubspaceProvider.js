@@ -44,7 +44,11 @@ SubspaceProvider.propTypes = {
   children: PropTypes.element.isRequired,
   mapState: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   namespace: PropTypes.string,
-  subspaceDecorator: PropTypes.func
+  subspaceDecorator: PropTypes.func,
+  context: PropTypes.oneOfType([
+    PropTypes.shape({ parent: PropTypes.object, child: PropTypes.object }),
+    PropTypes.object
+  ])
 }
 
 export default SubspaceProvider
