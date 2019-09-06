@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-saga",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "redux-subspace wrappers for redux-saga",
   "author": "Michael Peyper",
   "contributors": [
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "redux-subspace": "^4.0.1"
+    "redux-subspace": "^5.0.0"
   },
   "peerDependencies": {
     "redux": "^3.0.0 || ^4.0.0",
