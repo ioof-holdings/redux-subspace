@@ -15,7 +15,7 @@
     "redux-observable": "1.1.0",
     "redux-subspace": "5.0.0",
     "redux-subspace-observable": "5.0.0",
-    "rxjs": "6.5.2"
+    "rxjs": "6.5.3"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
