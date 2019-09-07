@@ -3,14 +3,14 @@
   "version": "5.0.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^3.0.1"
+    "react-scripts": "3.0.1"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "redux": "^4.0.4",
-    "redux-subspace": "^5.0.0"
+    "prop-types": "15.7.2",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "redux": "4.0.4",
+    "redux-subspace": "5.0.0"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
