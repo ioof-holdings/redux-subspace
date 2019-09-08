@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "redux-subspace": "^5.0.0",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.3"
   },
   "peerDependencies": {
     "redux": "^3.0.0 || ^4.0.0",
