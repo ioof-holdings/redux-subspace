@@ -4,8 +4,7 @@ A [`react-redux`](https://github.com/reactjs/react-redux) compatible [React comp
 
 ## Props
 
-1. `options` (_Object_): An optional object to supply the following options:
-   - `context` (_React.Context|Object_): Override the React Context used for accessing the store. An object can be passed with separate `parent` and `child` contexts if required.
+1. `context` (_React.Context|Object_): Override the React Context used for accessing the store. An object can be passed with separate `parent` and `child` contexts if required.
 
 ## Examples
 
