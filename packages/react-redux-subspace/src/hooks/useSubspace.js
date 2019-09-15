@@ -6,37 +6,28 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useContext, useMemo, useRef } from "react"
+import { useRef, useMemo, useContext } from "react"
 import { ReactReduxContext } from "react-redux"
 import { subspace } from "redux-subspace"
 import isObject from "../utils/isObject"
+import isFunction from "../utils/isFunction"
 
-export const useSubspace = (
-  mapState,
-  namespace,
-  options
-) => {
+export const useSubspace = (mapState, namespace, options) => {
   if (options === undefined && isObject(namespace)) {
     return useSubspace(mapState, undefined, namespace)
   }
 
   const { context = ReactReduxContext } = options || {}
 
-  const mapStateRef = useRef(mapState)
-  mapStateRef.current = mapState
+  const mapStateFunc = useRef(mapState)
+  mapStateFunc.current = mapState
 
-  const isMapStateFunction = typeof mapStateRef.current === "function"
-
-  const subspacer = useMemo(() => {
-    const mapStateHandler = isMapStateFunction
-      ? (state, rootState) => mapStateRef.current(state, rootState)
-      : mapStateRef.current
-
-    return subspace(mapStateHandler, namespace)
-  }, [
-    isMapStateFunction ? mapStateRef : mapStateRef.current,
-    namespace
-  ])
+  const subspacer = isFunction(mapState)
+    ? useMemo(
+        () => subspace((...args) => mapStateFunc.current(...args), namespace),
+        [mapStateFunc, namespace]
+      )
+    : useMemo(() => subspace(mapState, namespace), [mapState, namespace])
 
   const { store } = useContext(context)
   return useMemo(() => subspacer(store), [subspacer, store])
