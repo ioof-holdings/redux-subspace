@@ -218,7 +218,17 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "travikk",
+      "name": "travikk",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/627275?v=4",
+      "profile": "https://github.com/travikk",
+      "contributions": [
+        "review"
+      ]
     }
   ],
-  "repoType": "github"
+  "repoType": "github",
+  "commitConvention": "none"
 }
