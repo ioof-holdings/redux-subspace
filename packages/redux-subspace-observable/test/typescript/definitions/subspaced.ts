@@ -29,7 +29,7 @@ const epic: Epic<any, any> = (action$: ActionsObservable<any>) => action$.pipe(
     map(action => ({ type: 'PONG' })))
 
 const subStateEpic = subspaced<ParentState, ChildState>((state) => state.child)(epic)
-const namespacedEpic = subspaced('test')(epic)
+const namespacedEpic = subspaced<ParentState>('child')(epic)
 const subspacedEpic = subspaced<ParentState, ChildState>((state) => state.child, 'test')(epic)
 const subStateEpicWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent)(epic)
 const subspacedEpicWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent, "test")(epic)

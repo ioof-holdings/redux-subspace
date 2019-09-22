@@ -22,12 +22,12 @@ class RootState {
 }
 
 const subStateSubspace = useSubspace((state: ParentState) => state.child)
-const namespacedSubspace = useSubspace("testNamespace")
+const namespacedSubspace = useSubspace<ParentState, ChildState>("child")
 const subspace = useSubspace((state: ParentState) => state.child, "testNamespace")
 
 const subStateSubspaceWithRoot = useSubspace((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))
 const subspaceWithRoot = useSubspace((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")
 
 const subStateSubspaceWithContextOverride = useSubspace((state: ParentState) => state.child, { context: React.createContext(null) })
-const namespacedSubspaceWithContextOverride = useSubspace("testNamespace", { context: React.createContext(null) })
+const namespacedSubspaceWithContextOverride = useSubspace<ParentState, ChildState>("child", { context: React.createContext(null) })
 const subspaceWithContextOverride = useSubspace((state: ParentState) => state.child, "testNamespace", { context: React.createContext(null) })
