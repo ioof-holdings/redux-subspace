@@ -18,15 +18,15 @@ const subspaced = (mapState, namespace, subspaceOptions) => {
   }
 
   return WrappedComponent => {
-    const SubspacedComponent = props => (
+    const SubspacedComponent = React.forwardRef((props, ref) => (
       <SubspaceProvider
         {...subspaceOptions}
         mapState={mapState}
         namespace={namespace}
       >
-        <WrappedComponent {...props} />
+        <WrappedComponent {...props} ref={ref} />
       </SubspaceProvider>
-    )
+    ))
 
     hoistNonReactStatics(SubspacedComponent, WrappedComponent)
 

@@ -11,12 +11,12 @@ import hoistNonReactStatics from "hoist-non-react-statics"
 import wrapDisplayName from "recompose/wrapDisplayName"
 import ParentSpaceProvider from "./ParentSpaceProvider"
 
-const parentSpaced = (parentSpaceOptions) => WrappedComponent => {
-  const ParentSpacedComponent = props => (
+const parentSpaced = parentSpaceOptions => WrappedComponent => {
+  const ParentSpacedComponent = React.forwardRef((props, ref) => (
     <ParentSpaceProvider {...parentSpaceOptions}>
-      <WrappedComponent {...props} />
+      <WrappedComponent {...props} ref={ref} />
     </ParentSpaceProvider>
-  )
+  ))
 
   hoistNonReactStatics(ParentSpacedComponent, WrappedComponent)
 
