@@ -61,7 +61,7 @@
     "rimraf": "3.0.0",
     "rollup": "1.21.4",
     "rollup-plugin-babel": "4.3.3",
-    "sinon": "7.4.2",
+    "sinon": "7.5.0",
     "sinon-chai": "3.3.0",
     "typescript": "3.6.3",
     "typescript-definition-tester": "0.0.6"
