@@ -11,7 +11,7 @@ import processAction from '../actions/processAction'
 export default (namespace) => {
     const actionProcessor = processAction(namespace)
     return (reducer) => (state, action) => {
-        if (typeof state === 'undefined') {
+        if (state === undefined) {
             return reducer(state, action)
         }
 

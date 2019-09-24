@@ -49,7 +49,7 @@ const resolveEnhancer = ({ enhancer = DEFAULT_OPTIONS.enhancer } = DEFAULT_OPTIO
 
 const createSubspace = (store, enhancer) => {
 
-    if (typeof enhancer !== 'undefined') {
+    if (enhancer !== undefined) {
         return enhancer(createSubspace)(store)
     }
 
