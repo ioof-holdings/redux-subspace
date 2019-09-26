@@ -6,30 +6,33 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import isPlainObject from 'lodash.isplainobject'
+import isPlainObject from "lodash.isplainobject"
+import memoizeOne from "memoize-one"
 
 const wormhole = (mapState, key) => {
+  if (typeof mapState === "string") {
+    const mapStateKey = mapState
+    mapState = state => state[mapStateKey]
 
-    if (typeof mapState === 'string') {
-        const mapStateKey = mapState
-        mapState = (state) => state[mapStateKey]
-
-        if (typeof key === 'undefined') {
-            key = mapStateKey
-        }
+    if (key === undefined) {
+      key = mapStateKey
     }
+  }
 
-    return (store) => ({
-        getState: (next) => () => {
-            const state = next()
+  return store => {
+    const createWormhole = memoizeOne((state, key, value) => ({ [key]: value, ...state }))
 
-            if (isPlainObject(state)) {
-                return { [key]: mapState(store.rootStore.getState()), ...state }
-            } else {
-                return state
-            }
+    return {
+      getState: next => () => {
+        const state = next()
+        if (isPlainObject(state)) {
+          return createWormhole(state, key, mapState(store.rootStore.getState()))
+        } else {
+          return state
         }
-    })
+      }
+    }
+  }
 }
 
 export default wormhole
