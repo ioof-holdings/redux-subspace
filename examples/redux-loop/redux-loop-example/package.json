@@ -1,6 +1,6 @@
 {
   "name": "redux-loop-example",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "3.1.2",
@@ -11,11 +11,11 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "7.1.1",
-    "react-redux-subspace": "^6.0.0",
+    "react-redux-subspace": "^6.1.0",
     "redux": "4.0.4",
     "redux-act": "1.7.7",
     "redux-loop": "5.0.1",
-    "redux-subspace-loop": "^6.0.0"
+    "redux-subspace-loop": "^6.1.0"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"

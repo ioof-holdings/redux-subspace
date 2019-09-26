@@ -1,6 +1,6 @@
 {
   "name": "redux-observable-cancellable-counter",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "3.1.2"
@@ -10,11 +10,11 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "7.1.1",
-    "react-redux-subspace": "^6.0.0",
+    "react-redux-subspace": "^6.1.0",
     "redux": "4.0.4",
     "redux-observable": "1.2.0",
-    "redux-subspace": "^6.0.0",
-    "redux-subspace-observable": "^6.0.0",
+    "redux-subspace": "^6.1.0",
+    "redux-subspace-observable": "^6.1.0",
     "rxjs": "6.5.3"
   },
   "scripts": {
