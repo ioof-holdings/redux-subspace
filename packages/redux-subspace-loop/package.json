@@ -51,7 +51,7 @@
     "cross-env": "6.0.0",
     "eslint": "6.5.0",
     "eslint-plugin-react": "7.14.3",
-    "mocha": "6.2.0",
+    "mocha": "6.2.1",
     "nyc": "14.1.1",
     "redux": "4.0.4",
     "redux-loop": "5.0.1",
