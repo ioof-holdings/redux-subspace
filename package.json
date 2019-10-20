@@ -29,7 +29,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "devDependencies": {
-    "all-contributors-cli": "6.9.2",
+    "all-contributors-cli": "6.9.3",
     "gh-pages": "2.1.1",
     "gitbook-cli": "2.3.2",
     "gitbook-plugin-anchorjs": "2.1.0",
