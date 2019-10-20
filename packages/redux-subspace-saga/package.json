@@ -59,7 +59,7 @@
     "redux-saga": "1.1.1",
     "redux-thunk": "2.3.0",
     "rimraf": "3.0.0",
-    "rollup": "1.25.0",
+    "rollup": "1.25.1",
     "rollup-plugin-babel": "4.3.3",
     "sinon": "7.5.0",
     "sinon-chai": "3.3.0",
