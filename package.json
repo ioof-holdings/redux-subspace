@@ -37,7 +37,7 @@
     "gitbook-plugin-github": "2.0.0",
     "gitbook-plugin-prism": "2.4.0",
     "istanbul": "0.4.5",
-    "lerna": "3.18.2",
+    "lerna": "3.18.3",
     "rimraf": "3.0.0"
   }
 }
