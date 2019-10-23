@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "prop-types": "15.7.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
     "redux": "4.0.4",
     "redux-subspace": "^6.1.0"
   },
