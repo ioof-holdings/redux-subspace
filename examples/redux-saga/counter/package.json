@@ -10,7 +10,7 @@
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "redux": "4.0.4",
-    "redux-saga": "1.1.1",
+    "redux-saga": "1.1.2",
     "redux-subspace": "^6.1.0",
     "redux-subspace-saga": "^6.1.0"
   },
