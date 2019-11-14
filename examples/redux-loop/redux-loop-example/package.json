@@ -14,7 +14,7 @@
     "react-redux-subspace": "^6.1.0",
     "redux": "4.0.4",
     "redux-act": "1.7.7",
-    "redux-loop": "5.0.1",
+    "redux-loop": "5.1.0",
     "redux-subspace-loop": "^6.1.0"
   },
   "scripts": {
