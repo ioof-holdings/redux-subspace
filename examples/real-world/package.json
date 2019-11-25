@@ -10,7 +10,7 @@
     "redux-logger": "3.0.6"
   },
   "dependencies": {
-    "connected-react-router": "6.6.0",
+    "connected-react-router": "6.6.1",
     "history": "4.10.1",
     "humps": "2.0.1",
     "lodash": "4.17.15",
