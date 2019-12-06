@@ -16,5 +16,5 @@ A higher-order reducer that filters out actions that do not match the provided n
 import { namespaced } from 'redux-subspace'
 import reducer from 'somewhere'
 
-const namespacedReducer = namespace('subApp')(reducer)
+const namespacedReducer = namespaced('subApp')(reducer)
 ```
