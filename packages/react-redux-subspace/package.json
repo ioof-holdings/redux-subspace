@@ -47,7 +47,7 @@
     "@babel/core": "7.7.5",
     "@babel/plugin-proposal-object-rest-spread": "7.7.4",
     "@babel/plugin-transform-modules-commonjs": "7.7.5",
-    "@babel/preset-env": "7.7.5",
+    "@babel/preset-env": "7.7.6",
     "@babel/preset-react": "7.7.4",
     "@babel/register": "7.7.4",
     "@testing-library/react-hooks": "3.2.1",
