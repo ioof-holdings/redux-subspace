@@ -50,7 +50,7 @@
     "mocha": "6.2.2",
     "nyc": "14.1.1",
     "redux": "4.0.4",
-    "redux-mock-store": "1.5.3",
+    "redux-mock-store": "1.5.4",
     "rimraf": "3.0.0",
     "rollup": "1.27.9",
     "rollup-plugin-babel": "4.3.3",
