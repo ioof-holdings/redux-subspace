@@ -39,11 +39,11 @@
     "redux-observable": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.7.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.7.4",
+    "@babel/core": "7.7.7",
+    "@babel/plugin-proposal-object-rest-spread": "7.7.7",
     "@babel/plugin-transform-modules-commonjs": "7.7.5",
-    "@babel/preset-env": "7.7.6",
-    "@babel/register": "7.7.4",
+    "@babel/preset-env": "7.7.7",
+    "@babel/register": "7.7.7",
     "babel-eslint": "10.0.3",
     "babel-plugin-annotate-pure-calls": "0.4.0",
     "chai": "4.2.0",
