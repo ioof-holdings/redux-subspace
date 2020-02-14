@@ -52,7 +52,7 @@
     "redux": "4.0.5",
     "redux-mock-store": "1.5.4",
     "rimraf": "3.0.2",
-    "rollup": "1.31.0",
+    "rollup": "1.31.1",
     "rollup-plugin-babel": "4.3.3",
     "sinon": "8.1.1",
     "sinon-chai": "3.4.0",
