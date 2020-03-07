@@ -46,7 +46,7 @@
     "chai": "4.2.0",
     "cross-env": "7.0.2",
     "eslint": "6.8.0",
-    "eslint-plugin-react": "7.18.3",
+    "eslint-plugin-react": "7.19.0",
     "mocha": "7.1.0",
     "nyc": "15.0.0",
     "redux": "4.0.5",
