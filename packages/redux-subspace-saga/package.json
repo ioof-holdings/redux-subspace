@@ -60,7 +60,7 @@
     "redux-thunk": "2.3.0",
     "rimraf": "3.0.2",
     "rollup": "1.32.1",
-    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-babel": "4.4.0",
     "sinon": "9.0.0",
     "sinon-chai": "3.5.0",
     "typescript": "3.8.3",
