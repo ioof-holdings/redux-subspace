@@ -13,7 +13,7 @@
     "react-redux": "7.2.0",
     "react-redux-subspace": "^6.1.0",
     "redux": "4.0.5",
-    "redux-act": "1.7.7",
+    "redux-act": "1.7.8",
     "redux-loop": "5.1.1",
     "redux-subspace-loop": "^6.1.0"
   },
