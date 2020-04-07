@@ -45,9 +45,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.5",
     "@babel/plugin-transform-modules-commonjs": "7.9.0",
-    "@babel/preset-env": "7.9.0",
+    "@babel/preset-env": "7.9.5",
     "@babel/preset-react": "7.9.4",
     "@babel/register": "7.9.0",
     "@testing-library/react-hooks": "3.2.1",
