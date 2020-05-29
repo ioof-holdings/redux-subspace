@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "6.15.0",
-    "gh-pages": "2.2.0",
+    "gh-pages": "3.0.0",
     "gitbook-cli": "2.3.2",
     "gitbook-plugin-anchorjs": "2.1.0",
     "gitbook-plugin-edit-link": "2.0.2",
