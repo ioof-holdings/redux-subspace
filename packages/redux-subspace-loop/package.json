@@ -39,12 +39,12 @@
     "redux-loop": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.1",
+    "@babel/core": "7.10.3",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.3",
     "@babel/plugin-transform-modules-commonjs": "7.10.1",
     "@babel/polyfill": "7.10.1",
-    "@babel/preset-env": "7.10.2",
-    "@babel/register": "7.10.1",
+    "@babel/preset-env": "7.10.3",
+    "@babel/register": "7.10.3",
     "babel-eslint": "10.1.0",
     "babel-plugin-annotate-pure-calls": "0.4.0",
     "chai": "4.2.0",
