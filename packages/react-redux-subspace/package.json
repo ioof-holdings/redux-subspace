@@ -50,7 +50,7 @@
     "@babel/preset-env": "7.10.2",
     "@babel/preset-react": "7.10.1",
     "@babel/register": "7.10.1",
-    "@testing-library/react-hooks": "3.2.1",
+    "@testing-library/react-hooks": "3.3.0",
     "babel-eslint": "10.1.0",
     "babel-plugin-annotate-pure-calls": "0.4.0",
     "chai": "4.2.0",
