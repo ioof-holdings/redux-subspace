@@ -59,7 +59,7 @@
     "enzyme-adapter-react-16": "1.15.2",
     "eslint": "7.4.0",
     "eslint-plugin-react": "7.20.3",
-    "jsdom": "16.2.2",
+    "jsdom": "16.3.0",
     "jsdom-global": "3.0.2",
     "mocha": "8.0.1",
     "nyc": "15.1.0",
