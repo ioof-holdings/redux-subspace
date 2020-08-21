@@ -36,7 +36,7 @@
     "redux-subspace": "^6.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.11.1",
+    "@babel/core": "7.11.4",
     "@babel/plugin-proposal-object-rest-spread": "7.11.0",
     "@babel/plugin-transform-modules-commonjs": "7.10.4",
     "@babel/preset-env": "7.11.0",
