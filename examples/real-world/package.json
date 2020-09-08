@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "react-scripts": "3.4.3",
-    "redux-devtools": "3.6.1",
+    "redux-devtools": "3.7.0",
     "redux-devtools-dock-monitor": "1.1.4",
     "redux-devtools-log-monitor": "2.0.1",
     "redux-logger": "3.0.6"
