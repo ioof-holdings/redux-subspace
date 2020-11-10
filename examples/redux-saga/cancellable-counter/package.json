@@ -9,7 +9,7 @@
     "prop-types": "15.7.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-redux": "7.2.1",
+    "react-redux": "7.2.2",
     "react-redux-subspace": "^6.1.0",
     "redux": "4.0.5",
     "redux-saga": "1.1.3",
