@@ -10,7 +10,7 @@ import React from "react";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import SubspaceProvider from "./SubspaceProvider";
 import isObject from "../utils/isObject";
-import createDisplayname from "../utils/createDisplayname";
+import createDisplayName from "../utils/createDisplayName";
 
 const subspaced = (mapState, namespace, subspaceOptions) => {
   if (subspaceOptions === undefined && isObject(namespace)) {
@@ -30,7 +30,7 @@ const subspaced = (mapState, namespace, subspaceOptions) => {
 
     hoistNonReactStatics(SubspacedComponent, WrappedComponent);
 
-    SubspacedComponent.displayName = createDisplayname(
+    SubspacedComponent.displayName = createDisplayName(
       WrappedComponent,
       "Subspaced"
     );

@@ -1,4 +1,4 @@
-const createDisplaynameForWrappedComponent = (
+const createDisplayNameForWrappedComponent = (
   WrappedComponent,
   wrapperName
 ) => {
@@ -7,8 +7,8 @@ const createDisplaynameForWrappedComponent = (
   }
   let componentName = "Component";
 
-  if (WrappedComponent.displayname) {
-    componentName = WrappedComponent.displayname;
+  if (WrappedComponent.displayName) {
+    componentName = WrappedComponent.displayName;
   } else if (WrappedComponent.name) {
     componentName = WrappedComponent.name;
   } else if (typeof WrappedComponent === "string") {
@@ -17,4 +17,4 @@ const createDisplaynameForWrappedComponent = (
   return `${wrapperName}(${componentName})`;
 };
 
-export default createDisplaynameForWrappedComponent;
+export default createDisplayNameForWrappedComponent;

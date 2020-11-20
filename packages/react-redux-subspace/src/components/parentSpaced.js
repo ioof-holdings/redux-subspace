@@ -9,7 +9,7 @@
 import React from "react";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import ParentSpaceProvider from "./ParentSpaceProvider";
-import createDisplayname from "../utils/createDisplayname";
+import createDisplayName from "../utils/createDisplayName";
 
 const parentSpaced = (parentSpaceOptions) => (WrappedComponent) => {
   const ParentSpacedComponent = React.forwardRef((props, ref) => (
@@ -20,7 +20,7 @@ const parentSpaced = (parentSpaceOptions) => (WrappedComponent) => {
 
   hoistNonReactStatics(ParentSpacedComponent, WrappedComponent);
 
-  ParentSpacedComponent.displayName = createDisplayname(
+  ParentSpacedComponent.displayName = createDisplayName(
     WrappedComponent,
     "ParentSpaced"
   );
