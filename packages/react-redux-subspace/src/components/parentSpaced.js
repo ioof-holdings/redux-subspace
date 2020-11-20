@@ -6,26 +6,26 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from "react"
-import hoistNonReactStatics from "hoist-non-react-statics"
-import wrapDisplayName from "recompose/wrapDisplayName"
-import ParentSpaceProvider from "./ParentSpaceProvider"
+import React from "react";
+import hoistNonReactStatics from "hoist-non-react-statics";
+import ParentSpaceProvider from "./ParentSpaceProvider";
+import createDisplayname from "../utils/createDisplayname";
 
-const parentSpaced = parentSpaceOptions => WrappedComponent => {
+const parentSpaced = (parentSpaceOptions) => (WrappedComponent) => {
   const ParentSpacedComponent = React.forwardRef((props, ref) => (
     <ParentSpaceProvider {...parentSpaceOptions}>
       <WrappedComponent {...props} ref={ref} />
     </ParentSpaceProvider>
-  ))
+  ));
 
-  hoistNonReactStatics(ParentSpacedComponent, WrappedComponent)
+  hoistNonReactStatics(ParentSpacedComponent, WrappedComponent);
 
-  ParentSpacedComponent.displayName = wrapDisplayName(
+  ParentSpacedComponent.displayName = createDisplayname(
     WrappedComponent,
     "ParentSpaced"
-  )
+  );
 
-  return ParentSpacedComponent
-}
+  return ParentSpacedComponent;
+};
 
-export default parentSpaced
+export default parentSpaced;
