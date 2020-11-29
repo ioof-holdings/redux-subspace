@@ -35,7 +35,6 @@
     "@types/react-redux": "^7.1.1",
     "hoist-non-react-statics": "^3.3.0",
     "prop-types": "^15.7.2",
-    "recompose": "^0.30.0",
     "redux-subspace": "^6.1.0"
   },
   "peerDependencies": {
