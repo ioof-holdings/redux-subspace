@@ -39,7 +39,7 @@
     "redux-saga": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.12.7",
+    "@babel/core": "7.12.9",
     "@babel/plugin-external-helpers": "7.12.1",
     "@babel/plugin-proposal-object-rest-spread": "7.12.1",
     "@babel/plugin-transform-modules-commonjs": "7.12.1",
