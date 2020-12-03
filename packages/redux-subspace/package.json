@@ -42,7 +42,7 @@
     "babel-eslint": "10.1.0",
     "babel-plugin-annotate-pure-calls": "0.4.0",
     "chai": "4.2.0",
-    "cross-env": "7.0.2",
+    "cross-env": "7.0.3",
     "eslint": "7.14.0",
     "eslint-plugin-react": "7.21.5",
     "mocha": "8.2.1",
