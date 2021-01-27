@@ -1,6 +1,6 @@
 {
   "name": "redux-subspace-loop",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "redux-subspace wrappers for redux-loop",
   "author": "Riku Rouvila",
   "contributors": [
@@ -32,7 +32,7 @@
     "url": "https://github.com/ioof-holdings/redux-subspace.git"
   },
   "dependencies": {
-    "redux-subspace": "^6.2.0"
+    "redux-subspace": "^6.2.1"
   },
   "peerDependencies": {
     "redux": "^3.0.0 || ^4.0.0",
