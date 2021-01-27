@@ -1,21 +1,17 @@
-<!--
-Thanks for contributing to redux-subspace!
+## Deprecated
 
-Before making a PR please make sure to read our contributing guidelines
-https://github.com/ioof-holdings/redux-subspace/blob/master/CONTRIBUTING.md
+**This library is no longer being actively maintained.**
 
-For issue references: Add a comma-separated list of a [closing word](https://help.github.com/articles/closing-issues-via-commit-messages/) followed by the ticket number fixed by the PR. It should be underlined in the preview if done correctly.
--->
+IOOF has been slowly moving away from the ubiquitous use of Redux as a core piece of our micro-frontend architecture and have been actively replacing
+the usage of this library with more standard React and JavaScript patterns.  Due to some technical constraints, we've also been unable to upgrade to
+the latest version of the library ourselves for quite some time now, further fuelling our desire to move away from this solution.
 
-| Q                       | A 
-| ----------------------- | ---
-| Fixed Issues?           | Fixes `#1`, Fixes `#2` <!-- remove the (`) quotes to link the issues -->
-| Documentation only PR   | <!--(Can use an emoji 👍) -->
-| Patch: Bug Fix?         | <!--(Can use an emoji 👍) -->
-| Minor: New Feature?     | <!--(Can use an emoji 👍) -->
-| Major: Breaking Change? | <!--(Can use an emoji 👍) -->
-| Tests Added + Pass?     | Yes
+At this time, we will be ceasing all maintenance tasks and we recommend that you consider using an alternative library:
 
-<!-- Describe your changes below in as much detail as possible -->
+* [`redux-doghouse`](https://www.npmjs.com/package/redux-doghouse)
+* [`redux-fractal`](https://www.npmjs.com/package/redux-fractal)
+* [`lean-redux`](https://www.npmjs.com/package/lean-redux)
+* [`redux-react-local`](https://www.npmjs.com/package/redux-react-local)
+* [`multireducer`](https://www.npmjs.com/package/multireducer)
 
-<!-- Don't forget to [add yourself as a contributor](https://github.com/ioof-holdings/redux-subspace/blob/master/CONTRIBUTING.md#add-yourself-as-a-contributor) if you're not already -->
+If you want to continue using this library, we encourage you to fork this repo and take over maintenance yourself.
