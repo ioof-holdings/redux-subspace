@@ -55,8 +55,8 @@ export interface SubspaceCreator {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState, Subspace<TSubState, any, TParentState>>;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): StoreDecorator<TParentState, TSubState, Subspace<TSubState, TRootState, TParentState>>;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): StoreDecorator<TParentState, TSubState, Subspace<TSubState, TRootState, TParentState>>;
-    (namespace: string): StoreDecorator<any, any, any>;
-    (mapState: string, namespace: string): StoreDecorator<any, any, any>;
+    <TParentState, TSubStateKey extends keyof TParentState>(namespace: keyof TParentState): StoreDecorator<TParentState, TParentState[TSubStateKey], Subspace<TParentState[TSubStateKey], any, TParentState>>;
+    <TParentState, TSubStateKey extends keyof TParentState>(mapState: keyof TParentState, namespace: string): StoreDecorator<TParentState, TParentState[TSubStateKey], Subspace<TParentState[TSubStateKey], any, TParentState>>;
 }
 
 export const subspace: SubspaceCreator;
@@ -74,7 +74,7 @@ export interface Namespaced {
     (namespace: string): ReducerDecorator;
 }
 
-export function namespaced(namespace: string): ReducerDecorator;
+export const namespaced: Namespaced;
 
 /**
  * Middleware

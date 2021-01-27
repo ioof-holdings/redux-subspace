@@ -1112,23 +1112,23 @@
                                 <h1 id="usage">Usage</h1>
 <p>Using Redux Subspace with <a href="https://github.com/redux-loop/redux-loop" target="_blank"><code>redux-loop</code></a> is pretty straightforward and should require no additional enhancer or middleware configuration. The only difference is that you have to import the <code>namespaced</code> function from <code>redux-subspace-loop</code> instead of using the default one from redux-subspace package. This extends the functionality provided by redux-subspace to also namespace the commands returned by your reducer.</p>
 <pre class="language-"><code class="lang-diff">import { createStore, combineReducers } from &apos;redux&apos;
-<span class="token deleted-sign deleted">- import { subspace, namespaced } from &apos;redux-subspace&apos;
-</span><span class="token inserted-sign inserted">+ import { subspace } from &apos;redux-subspace&apos;
-+ import { namespaced } from &apos;redux-subspace-loop&apos;
-</span>
+<span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line"> import { subspace, namespaced } from &apos;redux-subspace&apos;
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> import { subspace } from &apos;redux-subspace&apos;
+</span><span class="token prefix inserted">+</span><span class="token line"> import { namespaced } from &apos;redux-subspace-loop&apos;
+</span></span>
 const counter = (state = { value: 1 }, action) =&gt; {
-<span class="token unchanged">    switch (action.type) {
-        case &apos;INCREMENT&apos;:
-            return { ...state, value: state.value + 1 }
-        default:
-            return state
-    }
-</span>}
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   switch (action.type) {
+</span><span class="token prefix unchanged"> </span><span class="token line">       case &apos;INCREMENT&apos;:
+</span><span class="token prefix unchanged"> </span><span class="token line">           return { ...state, value: state.value + 1 }
+</span><span class="token prefix unchanged"> </span><span class="token line">       default:
+</span><span class="token prefix unchanged"> </span><span class="token line">           return state
+</span><span class="token prefix unchanged"> </span><span class="token line">   }
+</span></span>}
 
 const reducer = combineReducers({
-<span class="token unchanged">    subApp1: namespaced(&apos;subApp1&apos;)(counter),
-    subApp2: namespaced(&apos;subApp2&apos;)(counter)
-</span>})
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   subApp1: namespaced(&apos;subApp1&apos;)(counter),
+</span><span class="token prefix unchanged"> </span><span class="token line">   subApp2: namespaced(&apos;subApp2&apos;)(counter)
+</span></span>})
 
 const store = createStore(reducer)
 </code></pre>
@@ -1175,7 +1175,7 @@ const store = createStore(reducer)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Usage","level":"4.2","depth":1,"next":{"title":"Examples","level":"4.3","depth":1,"anchor":"#redux-subspace-loop","path":"docs/Examples.md","ref":"docs/Examples.md#redux-subspace-loop","articles":[]},"previous":{"title":"Read Me","level":"4.1","depth":1,"path":"packages/redux-subspace-loop/README.md","ref":"packages/redux-subspace-loop/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/redux-subspace-loop/docs/Usage.md","mtime":"2019-06-16T04:29:50.726Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-08-28T11:30:08.777Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Usage","level":"4.2","depth":1,"next":{"title":"Examples","level":"4.3","depth":1,"anchor":"#redux-subspace-loop","path":"docs/Examples.md","ref":"docs/Examples.md#redux-subspace-loop","articles":[]},"previous":{"title":"Read Me","level":"4.1","depth":1,"path":"packages/redux-subspace-loop/README.md","ref":"packages/redux-subspace-loop/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/redux-subspace-loop/docs/Usage.md","mtime":"2019-06-16T04:29:50.726Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2021-01-27T03:15:15.782Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

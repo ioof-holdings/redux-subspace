@@ -1,52 +1,17 @@
-<!---
-Thanks for contributing to this redux-subspace! Before you submit, please read the following:
+# Deprecated
 
-Search open/closed issues before submitting since someone might have asked the same thing before!
--->
+**This library is no longer being actively maintained.**
 
-### Is it a bug, feature request or question?
+IOOF has been slowly moving away from the ubiquitous use of Redux as a core piece of our micro-frontend architecture and have been actively replacing
+the usage of this library with more standard React and JavaScript patterns.  Due to some technical constraints, we've also been unable to upgrade to
+the latest version of the library ourselves for quite some time now, further fuelling our desire to move away from this solution.
 
-<!--- Provide a general summary of the issue in the title above -->
+At this time, we will be ceasing all maintenance tasks and we recommend that you consider using an alternative library:
 
-### Which package(s) does this involve?
+* [`redux-doghouse`](https://www.npmjs.com/package/redux-doghouse)
+* [`redux-fractal`](https://www.npmjs.com/package/redux-fractal)
+* [`lean-redux`](https://www.npmjs.com/package/lean-redux)
+* [`redux-react-local`](https://www.npmjs.com/package/redux-react-local)
+* [`multireducer`](https://www.npmjs.com/package/multireducer)
 
-<!--- Please postfix the title above with packages like so: "{TITLE} [package-1, package-2]" -->
-
-### Input Code
-
-<!--- If you're describing a bug, please let us know which sample code reproduces your problem -->
-<!--- Links to standalone repos or code sandboxes (https://codesandbox.io/ is great for this) are  also welcome -->
-
-```js
-// your code here
-```
-
-### Expected Behavior
-
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
-
-### Current Behavior
-
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
-
-### Possible Solution
-
-<!--- Not obligatory, but suggest a fix/reason for the bug, or ideas how to implement the addition or change -->
-
-### Context
-
-<!--- How has this issue affected you? What are you trying to accomplish? -->
-<!--- Providing context helps us come up with a solution that is most useful in the real world -->
-
-### Your Setup
-
-<!--- Include as many relevant details about the setup you're using -->
-<!--- How you setup the store, what middleware/enhancers you're using, which versions of packages are involved -->
-
-| package        | version(s)
-| ---------------| -------
-| redux          |  
-| redux-subspace |
-| etc.           | 
+If you want to continue using this library, we encourage you to fork this repo and take over maintenance yourself.

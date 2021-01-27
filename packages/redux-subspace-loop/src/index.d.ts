@@ -16,4 +16,4 @@ export interface Namespaced {
   (namespace: string): ReducerDecorator;
 }
 
-export function namespaced(namespace: string): ReducerDecorator;
+export const namespaced: Namespaced;

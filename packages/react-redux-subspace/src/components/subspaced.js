@@ -6,39 +6,37 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from "react"
-import hoistNonReactStatics from "hoist-non-react-statics"
-import wrapDisplayName from "recompose/wrapDisplayName"
-import { subspace } from "redux-subspace"
-import SubspaceProvider from "./SubspaceProvider"
-import isObject from '../utils/isObject'
+import React from "react";
+import hoistNonReactStatics from "hoist-non-react-statics";
+import SubspaceProvider from "./SubspaceProvider";
+import isObject from "../utils/isObject";
+import createDisplayName from "../utils/createDisplayName";
 
 const subspaced = (mapState, namespace, subspaceOptions) => {
   if (subspaceOptions === undefined && isObject(namespace)) {
-    return subspaced(mapState, undefined, namespace)
+    return subspaced(mapState, undefined, namespace);
   }
 
-  const subspaceDecorator = subspace(mapState, namespace)
-
-  return WrappedComponent => {
-    const SubspacedComponent = props => (
+  return (WrappedComponent) => {
+    const SubspacedComponent = React.forwardRef((props, ref) => (
       <SubspaceProvider
         {...subspaceOptions}
-        subspaceDecorator={subspaceDecorator}
+        mapState={mapState}
+        namespace={namespace}
       >
-        <WrappedComponent {...props} />
+        <WrappedComponent {...props} ref={ref} />
       </SubspaceProvider>
-    )
+    ));
 
-    hoistNonReactStatics(SubspacedComponent, WrappedComponent)
+    hoistNonReactStatics(SubspacedComponent, WrappedComponent);
 
-    SubspacedComponent.displayName = wrapDisplayName(
+    SubspacedComponent.displayName = createDisplayName(
       WrappedComponent,
       "Subspaced"
-    )
+    );
 
-    return SubspacedComponent
-  }
-}
+    return SubspacedComponent;
+  };
+};
 
-export default subspaced
+export default subspaced;

@@ -14,5 +14,5 @@ interface TState {
 }
 
 applyMiddleware(wormhole((state: TState) => state.value, 'test'))
-applyMiddleware(wormhole('test', 'test'))
-applyMiddleware(wormhole('test'))
+applyMiddleware(wormhole<TState>('value', 'test'))
+applyMiddleware(wormhole<TState>('value'))

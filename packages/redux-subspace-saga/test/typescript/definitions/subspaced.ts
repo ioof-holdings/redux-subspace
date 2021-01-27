@@ -38,7 +38,7 @@ function* saga() {
 }
 
 const subStateSaga = subspaced<ParentState, ChildState>((state) => state.child)(saga)
-const namespacedSaga = subspaced('test')(saga)
+const namespacedSaga = subspaced<ParentState>('child')(saga)
 const subspacedSaga = subspaced<ParentState, ChildState>((state) => state.child, 'test')(saga)
 const subStateSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent)(saga)
 const subspacedSagaWithRoot = subspaced<ParentState, RootState, ParentState>((state, rootState) => rootState.parent, "test")(saga)

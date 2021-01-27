@@ -14,8 +14,8 @@ interface MapState<TState, TWormholeState>{
 
 interface Wormhole {
     <TState, TWormholeState>(mapState: MapState<TState, TWormholeState>, key: string): SubspaceMiddleware
-    <TState, TWormholeState>(mapState: string, key: string): SubspaceMiddleware
-    <TState, TWormholeState>(key: string): SubspaceMiddleware
+    <TState>(mapState: keyof TState, key: string): SubspaceMiddleware
+    <TState>(key: keyof TState): SubspaceMiddleware
 }
 
 declare let wormhole : Wormhole

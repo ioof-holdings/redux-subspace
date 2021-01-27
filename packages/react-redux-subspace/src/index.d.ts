@@ -28,8 +28,8 @@ export interface UseSubspace {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string, options?: UseSubspaceOptions): Subspace<TSubState, any, TParentState>
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, options?: UseSubspaceOptions): Subspace<TSubState, TRootState, TParentState>
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string, options?: UseSubspaceOptions): Subspace<TSubState, TRootState, TParentState>
-    (namespace: string, options?: UseSubspaceOptions): Subspace<any, any, any>;
-    (mapState: string, namespace: string, options?: UseSubspaceOptions): Subspace<any, any, any>;
+    <TParentState, TSubState>(namespace: keyof TParentState, options?: UseSubspaceOptions): Subspace<TSubState, any, TParentState>;
+    <TParentState, TSubState>(mapState: keyof TParentState, namespace: string, options?: UseSubspaceOptions): Subspace<TSubState, any, TParentState>;
 }
 
 export const useSubspace: UseSubspace;
@@ -43,14 +43,14 @@ export interface Subspaced {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string, options?: SubspaceOptions): ComponentDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, options?: SubspaceOptions): ComponentDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string, options?: SubspaceOptions): ComponentDecorator;
-    (namespace: string, options?: SubspaceOptions): ComponentDecorator;
-    (mapState: string, namespace: string, options?: SubspaceOptions): ComponentDecorator;
+    <TParentState>(namespace: keyof TParentState, options?: SubspaceOptions): ComponentDecorator;
+    <TParentState>(mapState: keyof TParentState, namespace: string, options?: SubspaceOptions): ComponentDecorator;
 }
 
 export const subspaced: Subspaced;
 
 export interface SubspaceProviderProps<TParentState, TRootState, TSubState> {
-    mapState?: MapState<TParentState, TRootState, TSubState> | string;
+    mapState?: MapState<TParentState, TRootState, TSubState> | keyof TParentState;
     namespace?: string;
     context?: ContextOverride;
     children: React.ReactNode;

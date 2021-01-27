@@ -8,9 +8,8 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { ReactReduxContext } from "react-redux"
+import { ReactReduxContext, Provider } from "react-redux"
 import useParentSpace from "../hooks/useParentSpace"
-import useReplacedContext from "../hooks/useReplacedContext"
 
 const ParentSpaceProvider = ({
   context = ReactReduxContext,
@@ -22,17 +21,20 @@ const ParentSpaceProvider = ({
   } = context
 
   const parentStore = useParentSpace({ context: ParentContext })
-  const childContext = useReplacedContext(ChildContext, parentStore)
   
   return (
-    <ChildContext.Provider value={childContext}>
+    <Provider store={parentStore} context={ChildContext}>
       {children}
-    </ChildContext.Provider>
+    </Provider>
   )
 }
 
 ParentSpaceProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  context: PropTypes.oneOfType([
+    PropTypes.shape({ parent: PropTypes.object, child: PropTypes.object }),
+    PropTypes.object
+  ])
 }
 
 export default ParentSpaceProvider

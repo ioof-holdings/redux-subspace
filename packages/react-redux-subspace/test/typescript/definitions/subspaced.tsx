@@ -34,10 +34,10 @@ class StandardComponent extends React.Component<TestProps> {
 const StatelessComponent: React.StatelessComponent<TestProps> = (props) => <p>props.value</p>
 
 const SubStateStandardComponent = subspaced((state: ParentState) => state.child)(StandardComponent)
-const NamespacedStandardComponent = subspaced("testNamespace")(StandardComponent)
+const NamespacedStandardComponent = subspaced<ParentState>("child")(StandardComponent)
 const SubspacedStandardComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StandardComponent)
 const SubStateStatelessComponent = subspaced((state: ParentState) => state.child)(StatelessComponent)
-const NamespacedStatelessComponent = subspaced("testNamespace")(StatelessComponent)
+const NamespacedStatelessComponent = subspaced<ParentState>("child")(StatelessComponent)
 const SubspacedStatelessComponent = subspaced((state: ParentState) => state.child, "testNamespace")(StatelessComponent)
 
 const SubStateStandardComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }))(StandardComponent)
@@ -46,24 +46,24 @@ const SubStateStatelessComponentWithRoot = subspaced((state: ParentState, rootSt
 const SubspacedStatelessComponentWithRoot = subspaced((state: ParentState, rootState: RootState) => ({ ...state.child, ...rootState.parent }), "testNamespace")(StatelessComponent)
 
 const SubStateStandardComponentWithContextOverride = subspaced((state: ParentState) => state.child, { context: React.createContext(null) })(StandardComponent)
-const NamespacedStandardComponentWithContextOverride = subspaced("testNamespace", { context: React.createContext(null) })(StandardComponent)
+const NamespacedStandardComponentWithContextOverride = subspaced<ParentState>("child", { context: React.createContext(null) })(StandardComponent)
 const SubspacedStandardComponentWithContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: React.createContext(null) })(StandardComponent)
 const SubStateStatelessComponentWithContextOverride = subspaced((state: ParentState) => state.child, { context: React.createContext(null) })(StatelessComponent)
-const NamespacedStatelessComponentWithContextOverride = subspaced("testNamespace", { context: React.createContext(null) })(StatelessComponent)
+const NamespacedStatelessComponentWithContextOverride = subspaced<ParentState>("child", { context: React.createContext(null) })(StatelessComponent)
 const SubspacedStatelessComponentWithContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: React.createContext(null) })(StatelessComponent)
 
 const SubStateStandardComponentWithParentContextOverride = subspaced((state: ParentState) => state.child, { context: { parent: React.createContext(null) } })(StandardComponent)
-const NamespacedStandardComponentWithParentContextOverride = subspaced("testNamespace", { context: { parent: React.createContext(null) } })(StandardComponent)
+const NamespacedStandardComponentWithParentContextOverride = subspaced<ParentState>("child", { context: { parent: React.createContext(null) } })(StandardComponent)
 const SubspacedStandardComponentWithParentContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: { parent: React.createContext(null) } })(StandardComponent)
 const SubStateStatelessComponentWithParentContextOverride = subspaced((state: ParentState) => state.child, { context: { parent: React.createContext(null) } })(StatelessComponent)
-const NamespacedStatelessComponentWithParentContextOverride = subspaced("testNamespace", { context: { parent: React.createContext(null) } })(StatelessComponent)
+const NamespacedStatelessComponentWithParentContextOverride = subspaced<ParentState>("child", { context: { parent: React.createContext(null) } })(StatelessComponent)
 const SubspacedStatelessComponentWithParentContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: { parent: React.createContext(null) } })(StatelessComponent)
 
 const SubStateStandardComponentWithChildContextOverride = subspaced((state: ParentState) => state.child, { context: { child: React.createContext(null) } })(StandardComponent)
-const NamespacedStandardComponentWithChildContextOverride = subspaced("testNamespace", { context: { child: React.createContext(null) } })(StandardComponent)
+const NamespacedStandardComponentWithChildContextOverride = subspaced<ParentState>("child", { context: { child: React.createContext(null) } })(StandardComponent)
 const SubspacedStandardComponentWithChildContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: { child: React.createContext(null) } })(StandardComponent)
 const SubStateStatelessComponentWithChildContextOverride = subspaced((state: ParentState) => state.child, { context: { child: React.createContext(null) } })(StatelessComponent)
-const NamespacedStatelessComponentWithChildContextOverride = subspaced("testNamespace", { context: { child: React.createContext(null) } })(StatelessComponent)
+const NamespacedStatelessComponentWithChildContextOverride = subspaced<ParentState>("child", { context: { child: React.createContext(null) } })(StatelessComponent)
 const SubspacedStatelessComponentWithChildContextOverride = subspaced((state: ParentState) => state.child, "testNamespace", { context: { child: React.createContext(null) } })(StatelessComponent)
 
 const Rendered: React.StatelessComponent<void> = () => {

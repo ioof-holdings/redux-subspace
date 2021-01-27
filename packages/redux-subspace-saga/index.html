@@ -1110,6 +1110,21 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="redux-subspace-saga">redux-subspace-saga</h1>
+<h2 id="deprecated">Deprecated</h2>
+<p><strong>This library is no longer being actively maintained.</strong></p>
+<p>IOOF has been slowly moving away from the ubiquitous use of Redux as a core piece of our micro-frontend architecture and have been actively replacing
+the usage of this library with more standard React and JavaScript patterns.  Due to some technical constraints, we&apos;ve also been unable to upgrade to
+the latest version of the library ourselves for quite some time now, further fuelling our desire to move away from this solution.</p>
+<p>At this time, we will be ceasing all maintenance tasks and we recommend that you consider using an alternative library:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/redux-doghouse" target="_blank"><code>redux-doghouse</code></a></li>
+<li><a href="https://www.npmjs.com/package/redux-fractal" target="_blank"><code>redux-fractal</code></a></li>
+<li><a href="https://www.npmjs.com/package/lean-redux" target="_blank"><code>lean-redux</code></a></li>
+<li><a href="https://www.npmjs.com/package/redux-react-local" target="_blank"><code>redux-react-local</code></a></li>
+<li><a href="https://www.npmjs.com/package/multireducer" target="_blank"><code>multireducer</code></a></li>
+</ul>
+<p>If you want to continue using this library, we encourage you to fork this repo and take over maintenance yourself.</p>
+<hr>
 <p><a href="https://www.npmjs.com/package/redux-subspace-saga" target="_blank"><img src="https://img.shields.io/npm/v/redux-subspace-saga.svg?style=flat-square" alt="npm version"></a>
 <a href="https://www.npmjs.com/package/redux-subspace-saga" target="_blank"><img src="https://img.shields.io/npm/dm/redux-subspace-saga.svg?style=flat-square" alt="npm downloads"></a>
 <a href="../../LICENSE.md"><img src="https://img.shields.io/npm/l/redux-subspace-saga.svg?style=flat-square" alt="License: BSD-3-Clause"></a></p>
@@ -1126,9 +1141,9 @@
 <span class="token keyword">import</span> <span class="token punctuation">{</span> counterReducer<span class="token punctuation">,</span> counterSaga <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./counterApp&apos;</span>
 
 <span class="token keyword">const</span> rootReducer <span class="token operator">=</span> <span class="token function">combineReducers</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  todo<span class="token punctuation">:</span> todoReducer
-  counter1<span class="token punctuation">:</span> <span class="token function">namespaced</span><span class="token punctuation">(</span><span class="token string">&apos;counter1&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>counterReducer<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  counter2<span class="token punctuation">:</span> <span class="token function">namespaced</span><span class="token punctuation">(</span><span class="token string">&apos;counter2&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>counterReducer<span class="token punctuation">)</span>
+  todo<span class="token operator">:</span> todoReducer
+  counter1<span class="token operator">:</span> <span class="token function">namespaced</span><span class="token punctuation">(</span><span class="token string">&apos;counter1&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>counterReducer<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  counter2<span class="token operator">:</span> <span class="token function">namespaced</span><span class="token punctuation">(</span><span class="token string">&apos;counter2&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>counterReducer<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
 <span class="token keyword">const</span> sagaMiddleware <span class="token operator">=</span> <span class="token function">createSagaMiddleware</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1198,7 +1213,7 @@ sagaMiddleware<span class="token punctuation">.</span><span class="token functio
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Read Me","level":"6.1","depth":1,"next":{"title":"Usage","level":"6.2","depth":1,"path":"packages/redux-subspace-saga/docs/Usage.md","ref":"packages/redux-subspace-saga/docs/Usage.md","articles":[]},"previous":{"title":"subspaced","level":"5.4.2","depth":2,"path":"packages/redux-subspace-observable/docs/api/subspaced.md","ref":"packages/redux-subspace-observable/docs/api/subspaced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/redux-subspace-saga/README.md","mtime":"2019-06-16T04:29:50.745Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-08-28T11:30:08.777Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Read Me","level":"6.1","depth":1,"next":{"title":"Usage","level":"6.2","depth":1,"path":"packages/redux-subspace-saga/docs/Usage.md","ref":"packages/redux-subspace-saga/docs/Usage.md","articles":[]},"previous":{"title":"subspaced","level":"5.4.2","depth":2,"path":"packages/redux-subspace-observable/docs/api/subspaced.md","ref":"packages/redux-subspace-observable/docs/api/subspaced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/ioof-holdings/redux-subspace/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ioof-holdings/redux-subspace/tree/master"},"theme-default":{"styles":{"website":"docs/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Subspace","gitbook":"3.2.2"},"file":{"path":"packages/redux-subspace-saga/README.md","mtime":"2021-01-27T00:50:51.821Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2021-01-27T03:15:15.782Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -19,7 +19,8 @@ export interface Subspaced {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): EpicDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): EpicDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): EpicDecorator;
-    (namespace: string): EpicDecorator;
+    <TParentState>(namespace: keyof TParentState): EpicDecorator;
+    <TParentState>(mapState: keyof TParentState, namespace: string): EpicDecorator;
 }
 
 export const subspaced: Subspaced;

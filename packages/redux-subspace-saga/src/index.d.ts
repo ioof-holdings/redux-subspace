@@ -21,7 +21,8 @@ export interface Subspaced {
     <TParentState, TSubState>(mapState: MapState<TParentState, any, TSubState>, namespace: string): SagaDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>): SagaDecorator;
     <TParentState, TRootState, TSubState>(mapState: MapState<TParentState, TRootState, TSubState>, namespace: string): SagaDecorator;
-    (namespace: string): SagaDecorator;
+    <TParentState>(namespace: keyof TParentState): SagaDecorator;
+    <TParentState>(mapState: keyof TParentState, namespace: string): SagaDecorator;
 }
 
 export const subspaced: Subspaced;

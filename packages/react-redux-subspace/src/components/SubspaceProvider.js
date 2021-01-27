@@ -6,16 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useContext, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
-import { ReactReduxContext } from "react-redux"
-import { useSubspaceAdvanced } from "../hooks/useSubspace"
-import useReplacedContext from "../hooks/useReplacedContext"
+import { ReactReduxContext, Provider } from "react-redux"
+import useSubspace from "../hooks/useSubspace"
 
 const SubspaceProvider = ({
   mapState,
   namespace,
-  subspaceDecorator,
   context = ReactReduxContext,
   children
 }) => {
@@ -24,19 +22,14 @@ const SubspaceProvider = ({
     child: ChildContext = context.Consumer ? context : ReactReduxContext
   } = context
 
-  const subspacedStore = useSubspaceAdvanced(
-    mapState,
-    namespace,
-    subspaceDecorator,
-    { context: ParentContext }
-  )
-
-  const childContext = useReplacedContext(ChildContext, subspacedStore)
+  const subspacedStore = useSubspace(mapState, namespace, {
+    context: ParentContext
+  })
 
   return (
-    <ChildContext.Provider value={childContext}>
+    <Provider store={subspacedStore} context={ChildContext}>
       {children}
-    </ChildContext.Provider>
+    </Provider>
   )
 }
 
@@ -44,7 +37,10 @@ SubspaceProvider.propTypes = {
   children: PropTypes.element.isRequired,
   mapState: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   namespace: PropTypes.string,
-  subspaceDecorator: PropTypes.func
+  context: PropTypes.oneOfType([
+    PropTypes.shape({ parent: PropTypes.object, child: PropTypes.object }),
+    PropTypes.object
+  ])
 }
 
 export default SubspaceProvider

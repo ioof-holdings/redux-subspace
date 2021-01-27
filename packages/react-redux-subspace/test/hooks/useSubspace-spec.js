@@ -85,7 +85,7 @@ describe("useSubspace Tests", () => {
     ])
   })
 
-  it("should recreate subspace if mapState changes", () => {
+  it("should map to new state if mapState changes without recreating subspace", () => {
     let state1 = {
       subState1: {
         value: "wrong"
@@ -111,9 +111,46 @@ describe("useSubspace Tests", () => {
       }
     )
 
+    const originalSubspace = result.current
+
     rerender({ mapState: state => state.subState2 })
 
     expect(result.current.getState()).to.deep.equal({ value: "expected" })
+    expect(result.current).to.equal(originalSubspace)
+  })
+
+  it("should recreate subspace if mapState changes in string form", () => {
+    let state1 = {
+      subState1: {
+        value: "wrong"
+      },
+      subState2: {
+        value: "expected"
+      },
+      value: "wrong"
+    }
+
+    let mockStore = configureStore()(state1)
+
+    let wrapper = ({ children }) => (
+      <Provider store={mockStore}>{children}</Provider>
+    )
+    let { result, rerender } = renderHook(
+      ({ mapState }) => useSubspace(mapState),
+      {
+        wrapper,
+        initialProps: {
+          mapState: 'subState1'
+        }
+      }
+    )
+
+    const originalSubspace = result.current
+
+    rerender({ mapState: 'subState2' })
+
+    expect(result.current.getState()).to.deep.equal({ value: "expected" })
+    expect(result.current).to.not.equal(originalSubspace)
   })
 
   it("should recreate subspace if namespace changes", () => {

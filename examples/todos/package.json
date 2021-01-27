@@ -1,32 +1,26 @@
 {
   "name": "todos",
-  "version": "4.0.0",
+  "version": "6.2.1",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^3.0.1"
+    "react-scripts": "4.0.1"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-redux-subspace": "^4.0.0",
-    "redux": "^4.0.4",
-    "redux-subspace": "^4.0.0"
+    "prop-types": "15.7.2",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-redux": "7.2.2",
+    "react-redux-subspace": "^6.2.1",
+    "redux": "4.0.5",
+    "redux-subspace": "^6.2.1"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
